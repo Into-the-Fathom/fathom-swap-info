@@ -168,11 +168,11 @@ function SideNav({ history }) {
                 Uniswap.org
               </Link>
             </HeaderText>
-            <HeaderText>
+            {/* <HeaderText>
               <Link href="https://v1.uniswap.info" target="_blank">
                 V1 Analytics
               </Link>
-            </HeaderText>
+            </HeaderText> */}
             <HeaderText>
               <Link href="https://uniswap.org/docs/v2" target="_blank">
                 Docs
