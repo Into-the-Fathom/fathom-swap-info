@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css, keyframes } from 'styled-components'
-import { useDarkModeManager } from '../../contexts/LocalStorage'
+// import { useDarkModeManager } from '../../contexts/LocalStorage'
 
 const pulse = keyframes`
   0% { transform: scale(1); }
@@ -29,17 +29,17 @@ const Wrapper = styled.div`
 const AnimatedImg = styled.div`
   animation: ${pulse} 800ms linear infinite;
   & > * {
-    width: 72px;
+    width: 160px;
   }
 `
 
 const LocalLoader = ({ fill }) => {
-  const [darkMode] = useDarkModeManager()
+  // const [darkMode] = useDarkModeManager()
 
   return (
     <Wrapper fill={fill}>
       <AnimatedImg>
-        <img src={require(darkMode ? '../../assets/logo_white.svg' : '../../assets/logo.svg')} alt="loading-icon" />
+        <img src={require('assets/Fathom-app-logo.svg')} alt="loading-icon" />
       </AnimatedImg>
     </Wrapper>
   )

@@ -1,17 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
-import { AutoColumn } from '../Column'
-import Title from '../Title'
-import { BasicLink } from '../Link'
+import { AutoColumn } from 'components/Column'
+import Title from 'components/Title'
+import { BasicLink } from 'components/Link'
 import { useMedia } from 'react-use'
 import { transparentize } from 'polished'
-import { TYPE } from '../../Theme'
+import { TYPE } from 'Theme'
 import { withRouter } from 'react-router-dom'
 import { TrendingUp, List, PieChart, Disc } from 'react-feather'
-import Link from '../Link'
-import { useSessionStart } from '../../contexts/Application'
-import { useDarkModeManager } from '../../contexts/LocalStorage'
-import Toggle from '../Toggle'
+import Link from 'components/Link'
+import { useSessionStart } from 'contexts/Application'
+// import { useDarkModeManager } from 'contexts/LocalStorage'
+// import Toggle from 'components/Toggle'
 
 const Wrapper = styled.div`
   height: ${({ isMobile }) => (isMobile ? 'initial' : '100vh')};
@@ -64,8 +64,7 @@ const HeaderText = styled.div`
   margin-right: 0.75rem;
   font-size: 0.825rem;
   font-weight: 500;
-  display: inline-box;
-  display: -webkit-inline-box;
+  display: inline-block;
   opacity: 0.8;
   :hover {
     opacity: 1;
@@ -106,7 +105,7 @@ function SideNav({ history }) {
 
   const seconds = useSessionStart()
 
-  const [isDark, toggleDarkMode] = useDarkModeManager()
+  // const [isDark, toggleDarkMode] = useDarkModeManager()
 
   return (
     <Wrapper isMobile={below1080}>
@@ -164,8 +163,8 @@ function SideNav({ history }) {
           </AutoColumn>
           <AutoColumn gap="0.5rem" style={{ marginLeft: '.75rem', marginBottom: '4rem' }}>
             <HeaderText>
-              <Link href="https://uniswap.org" target="_blank">
-                Uniswap.org
+              <Link href="https://fathom.fi/" target="_blank">
+                Fathom.fi
               </Link>
             </HeaderText>
             {/* <HeaderText>
@@ -174,21 +173,21 @@ function SideNav({ history }) {
               </Link>
             </HeaderText> */}
             <HeaderText>
-              <Link href="https://uniswap.org/docs/v2" target="_blank">
+              <Link href="https://hackmd.io/@fathomlite/BkIabl5fs" target="_blank">
                 Docs
               </Link>
             </HeaderText>
             <HeaderText>
-              <Link href="https://discord.com/invite/FCfyBSbCU5" target="_blank">
-                Discord
+              <Link href="https://t.me/fathom_fi" target="_blank">
+                Telegram
               </Link>
             </HeaderText>
             <HeaderText>
-              <Link href="https://twitter.com/UniswapProtocol" target="_blank">
+              <Link href="https://twitter.com/Fathom_fi" target="_blank">
                 Twitter
               </Link>
             </HeaderText>
-            <Toggle isActive={isDark} toggle={toggleDarkMode} />
+            {/*<Toggle isActive={isDark} toggle={toggleDarkMode} />*/}
           </AutoColumn>
           {!below1180 && (
             <Polling style={{ marginLeft: '.5rem' }}>
