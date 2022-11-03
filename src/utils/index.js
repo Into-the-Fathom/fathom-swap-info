@@ -40,16 +40,15 @@ export function getTimeframe(timeWindow) {
 export function getPoolLink(token0Address, token1Address = null, remove = false) {
   if (!token1Address) {
     return (
-      `https://app.uniswap.org/#/` +
+      `https://fathom.mypinata.cloud/ipfs/QmPz44rPFG635CAGFnUGjQRNGmYHfYsAvyn9NjK71honXm/#/` +
       (remove ? `remove` : `add`) +
-      `/v2/${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token0Address}/${'ETH'}`
+      `/${token0Address === '0xcec1609efd3f12d0da63250ef6761a7482dda3bf' ? 'XDC' : token0Address}/${'XDC'}`
     )
   } else {
     return (
-      `https://app.uniswap.org/#/` +
+      `https://fathom.mypinata.cloud/ipfs/QmPz44rPFG635CAGFnUGjQRNGmYHfYsAvyn9NjK71honXm/#/` +
       (remove ? `remove` : `add`) +
-      `/v2/${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token0Address}/${
-        token1Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token1Address
+      `/${token0Address === '0xcec1609efd3f12d0da63250ef6761a7482dda3bf' ? 'XDC' : token0Address}/${token1Address === '0xcec1609efd3f12d0da63250ef6761a7482dda3bf' ? 'XDC' : token1Address
       }`
     )
   }
@@ -57,11 +56,10 @@ export function getPoolLink(token0Address, token1Address = null, remove = false)
 
 export function getSwapLink(token0Address, token1Address = null) {
   if (!token1Address) {
-    return `https://app.uniswap.org/#/swap?inputCurrency=${token0Address}`
+    return `https://fathom.mypinata.cloud/ipfs/QmPz44rPFG635CAGFnUGjQRNGmYHfYsAvyn9NjK71honXm/#/swap?inputCurrency=${token0Address}`
   } else {
-    return `https://app.uniswap.org/#/swap?inputCurrency=${
-      token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token0Address
-    }&outputCurrency=${token1Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token1Address}`
+    return `https://fathom.mypinata.cloud/ipfs/QmPz44rPFG635CAGFnUGjQRNGmYHfYsAvyn9NjK71honXm/#/swap?inputCurrency=${token0Address === '0xcec1609efd3f12d0da63250ef6761a7482dda3bf' ? 'XDC' : token0Address
+      }&outputCurrency=${token1Address === '0xcec1609efd3f12d0da63250ef6761a7482dda3bf' ? 'XDC' : token1Address}`
   }
 }
 
@@ -303,10 +301,10 @@ export const setThemeColor = (theme) => document.documentElement.style.setProper
 export const Big = (number) => new BigNumber(number)
 
 export const urls = {
-  showTransaction: (tx) => `https://etherscan.io/tx/${tx}/`,
-  showAddress: (address) => `https://www.etherscan.io/address/${address}/`,
-  showToken: (address) => `https://www.etherscan.io/token/${address}/`,
-  showBlock: (block) => `https://etherscan.io/block/${block}/`,
+  showTransaction: (tx) => `https://apothem.blocksscan.io/txs/${tx}/`,
+  showAddress: (address) => `https://apothem.blocksscan.io/address/${address.replace(/^.{2}/g, 'xdc')}/`,
+  showToken: (address) => `https://apothem.blocksscan.io/tokens/${address.replace(/^.{2}/g, 'xdc')}/`,
+  showBlock: (block) => `https://apothem.blocksscan.io/blocks/${block}/`,
 }
 
 export const formatTime = (unix) => {

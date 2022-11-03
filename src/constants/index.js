@@ -1,4 +1,4 @@
-export const FACTORY_ADDRESS = '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f'
+export const FACTORY_ADDRESS = '0x69310bcBcC35b3d5C2b62C72E75dA68d58FDafC9'
 
 export const BUNDLE_ID = '1'
 
@@ -13,18 +13,22 @@ export const timeframeOptions = {
 
 // token list urls to fetch tokens from - use for warnings on tokens and pairs
 export const SUPPORTED_LIST_URLS__NO_ENS = [
-  'https://gateway.ipfs.io/ipns/tokens.uniswap.org',
-  'https://www.coingecko.com/tokens_list/uniswap/defi_100/v_0_0_0.json',
+  'https://ipfs.io/ipfs/QmaHUk2XSp342MXHFuC67edUwHx8VapRXioXotLeHsarmd',
 ]
 
 // hide from overview list
 export const TOKEN_BLACKLIST = [
-  '0x495c7f3a713870f68f8b418b355c085dfdc412c3',
-  '0xc3761eb917cd790b30dad99f6cc5b4ff93c4f9ea',
-  '0xe31debd7abff90b06bca21010dd860d8701fd901',
-  '0xfc989fbb6b3024de5ca0144dc23c18a063942ac1',
-  '0xf4eda77f0b455a12f3eb44f8653835f377e36b76',
-  '0x93b2fff814fcaeffb01406e80b4ecd89ca6a021b',
+  '0x7f423a0b9d189081a09cede3ec27fab247f458a8',
+  '0x9e50e77b499b3ded6ff9155dbdfd3ae0b4c93f62',
+  '0x95bfc555ef6c66cf2ecb142afbef15da9cf016b1',
+  '0x5789da6760aa46e9b8d63876b14ddbec55c0d40c',
+  '0x6e7acf1d6a89130fe8894e818ff57858d9c1a405',
+  '0x8789fe3afe51865494a727cb8bc73439492a04b2',
+  '0xd9f047aed43c77fbcc618bcaa9f166d4f9307066',
+  '0xc039850f937c623024da66d6df370022e6f16e30',
+  '0xfc2cf100a301f1b8fdc0fa00272537e88900a9e2',
+  '0x8789fe3afe51865494a727cb8bc73439492a04b2',
+  '0xaf23e77566298ee5442cdf10a66f32efc00fb44b',
 
   // rebass tokens
   '0x9ea3b5b4ec044b70375236a281986106457b20ef',
@@ -36,10 +40,21 @@ export const TOKEN_BLACKLIST = [
 
 // pair blacklist
 export const PAIR_BLACKLIST = [
-  '0xb6a741f37d6e455ebcc9f17e2c16d0586c3f57a5',
-  '0x97cb8cbe91227ba87fc21aaf52c4212d245da3f8',
-  '0x1acba73121d5f63d8ea40bdc64edb594bd88ed09',
-  '0x7d7e813082ef6c143277c71786e5be626ec77b20',
+  '0xf85484f334929a258baeb6121f073b1470c430bd',
+  '0xd741f14eb076feab2124b81ce56655b5d6c93ad9',
+  '0xea66333ede83daf4f90ed0863817fea7d60db796',
+  '0xd1d426a420eaf98ae4a4f98906d7faf559631b20',
+  '0xc1ed773864931ab2f19e41ad45b39756d3c3c4cb',
+  '0xbdc865ae3dc930c1c8220291887aead6931addfd',
+  '0xa7857bb47d46db4b7ad449e0b3fe4fa40d93d884',
+  '0x9ab0343cba68440518e408aef71c58de8a60a895',
+  '0x8e0ba61db9eeaf57fcf50475444eec93249d1533',
+  '0x884955287bebdaf41d0264e39b40cfdb064a18d2',
+  '0x71b0a7bd532f2615bf4733ac3ccd133861d8da4d',
+  '0xaf23e77566298ee5442cdf10a66f32efc00fb44b',
+  '0x67d0975398624bca4a0ec8e3e9d895bccf92fb4b',
+  '0x537fe68212e7a8b2b73ac4cb784ac25838774bec',
+  '0x05388431d51fea5b9eea9cf34fc64895610f5445',
 ]
 
 // warnings to display if page contains info about blocked token
