@@ -1,21 +1,20 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react'
 import styled from 'styled-components'
 
-import Row, { RowFixed } from '../Row'
-import TokenLogo from '../TokenLogo'
+import Row, { RowFixed } from 'components/Row'
+import TokenLogo from 'components/TokenLogo'
 import { Search as SearchIcon, X } from 'react-feather'
 import { BasicLink } from '../Link'
 
-import { useAllTokenData, useTokenData } from '../../contexts/TokenData'
-import { useAllPairData, usePairData } from '../../contexts/PairData'
-import DoubleTokenLogo from '../DoubleLogo'
+import { useAllTokenData, useTokenData } from 'contexts/TokenData'
+import { useAllPairData, usePairData } from 'contexts/PairData'
+import DoubleTokenLogo from 'components/DoubleLogo'
 import { useMedia } from 'react-use'
-import { useAllPairsInUniswap, useAllTokensInUniswap } from '../../contexts/GlobalData'
+import { useAllPairsInUniswap, useAllTokensInUniswap } from 'contexts/GlobalData'
 import { TOKEN_BLACKLIST, PAIR_BLACKLIST } from '../../constants'
 
-import { transparentize } from 'polished'
-import { client } from '../../apollo/client'
-import { PAIR_SEARCH, TOKEN_SEARCH } from '../../apollo/queries'
+import { client } from 'apollo/client'
+import { PAIR_SEARCH, TOKEN_SEARCH } from 'apollo/queries'
 import FormattedName from '../FormattedName'
 import { TYPE } from '../../Theme'
 import { updateNameData } from '../../utils/data'
@@ -38,7 +37,7 @@ const Wrapper = styled.div`
   justify-content: flex-end;
   padding: 12px 16px;
   border-radius: 12px;
-  background: ${({ theme, small, open }) => (small ? (open ? theme.bg6 : 'none') : transparentize(0.4, theme.bg6))};
+  background: transparent;
   border-bottom-right-radius: ${({ open }) => (open ? '0px' : '12px')};
   border-bottom-left-radius: ${({ open }) => (open ? '0px' : '12px')};
   z-index: 9999;
@@ -66,11 +65,14 @@ const Input = styled.input`
   border: none;
   outline: none;
   width: 100%;
-  color: ${({ theme }) => theme.text1};
+  color: ${({ theme }) => theme.white};
+  border: 1px solid #2c3f59;
   font-size: ${({ large }) => (large ? '20px' : '14px')};
+  border-radius: 8px;
+  padding: 8px 14px;
 
   ::placeholder {
-    color: ${({ theme }) => theme.text3};
+    color: ${({ theme }) => theme.white};
     font-size: 16px;
   }
 
@@ -88,7 +90,7 @@ const SearchIconLarge = styled(SearchIcon)`
   position: absolute;
   right: 10px;
   pointer-events: none;
-  color: ${({ theme }) => theme.text3};
+  color: ${({ theme }) => theme.borderBG};
 `
 
 const CloseIcon = styled(X)`
@@ -97,7 +99,7 @@ const CloseIcon = styled(X)`
   margin-right: 0.5rem;
   position: absolute;
   right: 10px;
-  color: ${({ theme }) => theme.text3};
+  color: ${({ theme }) => theme.borderBG};
   :hover {
     cursor: pointer;
   }
@@ -113,7 +115,7 @@ const Menu = styled.div`
   overflow: auto;
   left: 0;
   padding-bottom: 20px;
-  background: ${({ theme }) => theme.bg6};
+  background: linear-gradient(180deg, #000817 7.88%, #0d1725 113.25%);
   border-bottom-right-radius: 12px;
   border-bottom-left-radius: 12px;
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
@@ -143,7 +145,7 @@ const Gray = styled.span`
 `
 
 const Blue = styled.span`
-  color: #2172e5;
+  color: #43fff6;
   :hover {
     cursor: pointer;
   }
@@ -152,6 +154,9 @@ const Blue = styled.span`
 export const Search = ({ small = false }) => {
   let allTokens = useAllTokensInUniswap()
   const allTokenData = useAllTokenData()
+
+  console.log(allTokens)
+  console.log(allTokenData)
 
   let allPairs = useAllPairsInUniswap()
   const allPairData = useAllPairData()
@@ -430,10 +435,10 @@ export const Search = ({ small = false }) => {
               : below410
               ? 'Search...'
               : below470
-              ? 'Search Uniswap...'
+              ? 'Search Fathomswap...'
               : below700
               ? 'Search pairs and tokens...'
-              : 'Search Uniswap pairs and tokens...'
+              : 'Search Fathomswap pairs and tokens...'
           }
           value={value}
           onChange={(e) => {

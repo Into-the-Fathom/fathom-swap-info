@@ -4,26 +4,22 @@ import { AutoColumn } from 'components/Column'
 import Title from 'components/Title'
 import { BasicLink } from 'components/Link'
 import { useMedia } from 'react-use'
-import { transparentize } from 'polished'
 import { TYPE } from 'Theme'
 import { withRouter } from 'react-router-dom'
 import { TrendingUp, List, PieChart, Disc } from 'react-feather'
 import Link from 'components/Link'
 import { useSessionStart } from 'contexts/Application'
-// import { useDarkModeManager } from 'contexts/LocalStorage'
-// import Toggle from 'components/Toggle'
 
 const Wrapper = styled.div`
   height: ${({ isMobile }) => (isMobile ? 'initial' : '100vh')};
-  background-color: ${({ theme }) => transparentize(0.4, theme.bg1)};
+  background-color: ${({ theme }) => theme.bg1};
   color: ${({ theme }) => theme.text1};
   padding: 0.5rem 0.5rem 0.5rem 0.75rem;
   position: sticky;
   top: 0px;
   z-index: 9999;
   box-sizing: border-box;
-  /* background-color: #1b1c22; */
-  background: linear-gradient(193.68deg, #1b1c22 0.68%, #000000 100.48%);
+  border-right: 1px solid #2c3f59;
   color: ${({ theme }) => theme.bg2};
 
   @media screen and (max-width: 800px) {
@@ -36,16 +32,36 @@ const Wrapper = styled.div`
   }
 `
 
-const Option = styled.div`
-  font-weight: 500;
-  font-size: 14px;
-  opacity: ${({ activeText }) => (activeText ? 1 : 0.6)};
-  color: ${({ theme }) => theme.white};
-  display: flex;
-  :hover {
-    opacity: 1;
+// font-weight: 600;
+// color: #FFFFFF;
+// background-color: #22354F;
+// padding: 8px 12px;
+// border-radius: 8px;
+
+const Option = styled.div(({ theme, activeText }) => {
+  let styles = {
+    fontSize: '14px',
+    opacity: activeText ? 1 : 0.6,
+    color: theme.white,
+    display: 'flex',
+    padding: '8px 12px',
+    ':hover': {
+      opacity: 1,
+    },
   }
-`
+
+  if (activeText) {
+    styles = {
+      ...styles,
+      fontWeight: 600,
+      color: '#fff',
+      backgroundColor: '#22354F',
+      borderRadius: '8px',
+    }
+  }
+
+  return styles
+})
 
 const DesktopWrapper = styled.div`
   display: flex;
@@ -111,13 +127,13 @@ function SideNav({ history }) {
     <Wrapper isMobile={below1080}>
       {!below1080 ? (
         <DesktopWrapper>
-          <AutoColumn gap="1rem" style={{ marginLeft: '.75rem', marginTop: '1.5rem' }}>
+          <AutoColumn gap="1rem" style={{ marginLeft: '.5rem', marginTop: '1.5rem' }}>
             <Title />
             {!below1080 && (
-              <AutoColumn gap="1.25rem" style={{ marginTop: '1rem' }}>
+              <AutoColumn gap="0.75rem" style={{ marginTop: '1rem' }}>
                 <BasicLink to="/home">
                   <Option activeText={history.location.pathname === '/home' ?? undefined}>
-                    <TrendingUp size={20} style={{ marginRight: '.75rem' }} />
+                    <TrendingUp size={20} style={{ marginRight: '.75rem', marginTop: '-0.1rem' }} />
                     Overview
                   </Option>
                 </BasicLink>
@@ -129,7 +145,7 @@ function SideNav({ history }) {
                       undefined
                     }
                   >
-                    <Disc size={20} style={{ marginRight: '.75rem' }} />
+                    <Disc size={20} style={{ marginRight: '.75rem', marginTop: '-0.1rem' }} />
                     Tokens
                   </Option>
                 </BasicLink>
@@ -141,7 +157,7 @@ function SideNav({ history }) {
                       undefined
                     }
                   >
-                    <PieChart size={20} style={{ marginRight: '.75rem' }} />
+                    <PieChart size={20} style={{ marginRight: '.75rem', marginTop: '-0.1rem' }} />
                     Pairs
                   </Option>
                 </BasicLink>
@@ -154,7 +170,7 @@ function SideNav({ history }) {
                       undefined
                     }
                   >
-                    <List size={20} style={{ marginRight: '.75rem' }} />
+                    <List size={20} style={{ marginRight: '.75rem', marginTop: '-0.1rem' }} />
                     Accounts
                   </Option>
                 </BasicLink>

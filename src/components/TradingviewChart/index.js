@@ -6,7 +6,7 @@ import { formattedNum } from '../../utils'
 import styled from 'styled-components'
 import { usePrevious } from 'react-use'
 import { Play } from 'react-feather'
-import { useDarkModeManager } from '../../contexts/LocalStorage'
+import { useDarkModeManager } from 'contexts/LocalStorage'
 import { IconWrapper } from '..'
 
 dayjs.extend(utc)
@@ -81,7 +81,7 @@ const TradingViewChart = ({
   // if no chart created yet, create one with options and add to DOM manually
   useEffect(() => {
     if (!chartCreated && formattedData) {
-      var chart = createChart(ref.current, {
+      const chart = createChart(ref.current, {
         width: width,
         height: HEIGHT,
         layout: {
@@ -100,11 +100,11 @@ const TradingViewChart = ({
         },
         grid: {
           horzLines: {
-            color: 'rgba(197, 203, 206, 0.5)',
+            color: 'rgba(79, 143, 234, 0.5)',
             visible: false,
           },
           vertLines: {
-            color: 'rgba(197, 203, 206, 0.5)',
+            color: 'rgba(79, 143, 234, 0.5)',
             visible: false,
           },
         },
@@ -117,7 +117,7 @@ const TradingViewChart = ({
             visible: true,
             style: 0,
             width: 2,
-            color: 'rgba(32, 38, 46, 0.1)',
+            color: 'rgba(21, 87, 180, 0.1)',
             labelVisible: false,
           },
         },
@@ -129,7 +129,7 @@ const TradingViewChart = ({
       var series =
         type === CHART_TYPES.BAR
           ? chart.addHistogramSeries({
-              color: '#ff007a',
+              color: '#4f8fea',
               priceFormat: {
                 type: 'volume',
               },
@@ -137,13 +137,13 @@ const TradingViewChart = ({
                 top: 0.32,
                 bottom: 0,
               },
-              lineColor: '#ff007a',
+              lineColor: '#4f8fea',
               lineWidth: 3,
             })
           : chart.addAreaSeries({
-              topColor: '#ff007a',
-              bottomColor: 'rgba(255, 0, 122, 0)',
-              lineColor: '#ff007a',
+              topColor: '#4f8fea',
+              bottomColor: 'rgba(79, 143, 234, 0)',
+              lineColor: '#4f8fea',
               lineWidth: 3,
             })
 
@@ -161,7 +161,7 @@ const TradingViewChart = ({
       // format numbers
       let percentChange = baseChange?.toFixed(2)
       let formattedPercentChange = (percentChange > 0 ? '+' : '') + percentChange + '%'
-      let color = percentChange >= 0 ? 'green' : 'red'
+      let color = percentChange >= 0 ? '#43FFF6' : 'red'
 
       // get the title of the chart
       function setLastBarText() {

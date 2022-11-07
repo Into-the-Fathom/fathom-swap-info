@@ -2,41 +2,34 @@ import React, { useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import 'feather-icons'
 import styled from 'styled-components'
-import Panel from '../components/Panel'
-import {
-  PageWrapper,
-  ContentWrapperLarge,
-  StyledIcon,
-  BlockedWrapper,
-  BlockedMessageWrapper,
-} from '../components/index'
-import { AutoRow, RowBetween, RowFixed } from '../components/Row'
-import Column, { AutoColumn } from '../components/Column'
-import { ButtonLight, ButtonDark } from '../components/ButtonStyled'
-import PairChart from '../components/PairChart'
-import Link from '../components/Link'
-import TxnList from '../components/TxnList'
-import Loader from '../components/LocalLoader'
-import { BasicLink } from '../components/Link'
-import Search from '../components/Search'
-import { formattedNum, formattedPercent, getPoolLink, getSwapLink, shortenAddress } from '../utils'
+import Panel from 'components/Panel'
+import { PageWrapper, ContentWrapperLarge, StyledIcon, BlockedWrapper, BlockedMessageWrapper } from 'components/index'
+import { AutoRow, RowBetween, RowFixed } from 'components/Row'
+import Column, { AutoColumn } from 'components/Column'
+import { ButtonLight, ButtonDark } from 'components/ButtonStyled'
+import PairChart from 'components/PairChart'
+import Link from 'components/Link'
+import TxnList from 'components/TxnList'
+import Loader from 'components/LocalLoader'
+import { BasicLink } from 'components/Link'
+import Search from 'components/Search'
+import { formattedNum, formattedPercent, getPoolLink, getSwapLink, shortenAddress } from 'utils'
 import { useColor } from '../hooks'
-import { usePairData, usePairTransactions } from '../contexts/PairData'
-import { TYPE, ThemedBackground } from '../Theme'
-import { transparentize } from 'polished'
-import CopyHelper from '../components/Copy'
+import { usePairData, usePairTransactions } from 'contexts/PairData'
+import { TYPE } from 'Theme'
+import CopyHelper from 'components/Copy'
 import { useMedia } from 'react-use'
-import DoubleTokenLogo from '../components/DoubleLogo'
-import TokenLogo from '../components/TokenLogo'
-import { Hover } from '../components'
-import { useEthPrice } from '../contexts/GlobalData'
-import Warning from '../components/Warning'
-import { usePathDismissed, useSavedPairs } from '../contexts/LocalStorage'
+import DoubleTokenLogo from 'components/DoubleLogo'
+import TokenLogo from 'components/TokenLogo'
+import { Hover } from 'components'
+import { useEthPrice } from 'contexts/GlobalData'
+import Warning from 'components/Warning'
+import { usePathDismissed, useSavedPairs } from 'contexts/LocalStorage'
 
 import { Bookmark, PlusCircle, AlertCircle } from 'react-feather'
-import FormattedName from '../components/FormattedName'
-import { useListedTokens } from '../contexts/Application'
-import HoverText from '../components/HoverText'
+import FormattedName from 'components/FormattedName'
+import { useListedTokens } from 'contexts/Application'
+import HoverText from 'components/HoverText'
 import { UNTRACKED_COPY, PAIR_BLACKLIST, BLOCKED_WARNINGS } from '../constants'
 
 const DashboardWrapper = styled.div`
@@ -203,9 +196,10 @@ function PairPage({ pairAddress, history }) {
             <TYPE.light style={{ textAlign: 'center' }}>
               {BLOCKED_WARNINGS[pairAddress] ?? `This pair is not supported.`}
             </TYPE.light>
-            <Link external={true} href={'https://apothem.blocksscan.io/address/' + pairAddress.replace(/^.{2}/g, 'xdc')}>{`More about ${shortenAddress(
-              pairAddress
-            )}`}</Link>
+            <Link
+              external={true}
+              href={'https://apothem.blocksscan.io/address/' + pairAddress.replace(/^.{2}/g, 'xdc')}
+            >{`More about ${shortenAddress(pairAddress)}`}</Link>
           </AutoColumn>
         </BlockedMessageWrapper>
       </BlockedWrapper>
@@ -214,7 +208,6 @@ function PairPage({ pairAddress, history }) {
 
   return (
     <PageWrapper>
-      <ThemedBackground backgroundColor={transparentize(0.6, backgroundColor)} />
       <span />
       <Warning
         type={'pair'}
@@ -499,8 +492,11 @@ function PairPage({ pairAddress, history }) {
                       <CopyHelper toCopy={token1?.id} />
                     </AutoRow>
                   </Column>
-                  <ButtonLight color={backgroundColor}>
-                    <Link color={backgroundColor} external href={'https://apothem.blocksscan.io/address/' + pairAddress.replace(/^.{2}/g, 'xdc')}>
+                  <ButtonLight>
+                    <Link
+                      external
+                      href={'https://apothem.blocksscan.io/address/' + pairAddress.replace(/^.{2}/g, 'xdc')}
+                    >
                       View on BlocksScan ↗
                     </Link>
                   </ButtonLight>

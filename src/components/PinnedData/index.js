@@ -19,7 +19,7 @@ const RightColumn = styled.div`
   height: 100vh;
   width: ${({ open }) => (open ? '160px' : '23px')};
   padding: 1.25rem;
-  border-left: ${({ theme, open }) => '1px solid' + theme.bg3};
+  border-left: ${({ theme, open }) => '1px solid' + theme.borderBG};
   background-color: ${({ theme }) => theme.bg1};
   z-index: 9999;
   overflow: auto;
@@ -30,7 +30,7 @@ const RightColumn = styled.div`
 
 const SavedButton = styled(RowBetween)`
   padding-bottom: ${({ open }) => open && '20px'};
-  border-bottom: ${({ theme, open }) => open && '1px solid' + theme.bg3};
+  border-bottom: ${({ theme, open }) => open && '1px solid' + theme.borderBG};
   margin-bottom: ${({ open }) => open && '1.25rem'};
 
   :hover {
@@ -44,7 +44,7 @@ const ScrollableDiv = styled(AutoColumn)`
 `
 
 const StyledIcon = styled.div`
-  color: ${({ theme }) => theme.text2};
+  color: ${({ theme }) => theme.text5};
 `
 
 function PinnedData({ history, open, setSavedOpen }) {

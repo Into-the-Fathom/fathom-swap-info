@@ -74,7 +74,7 @@ export const Hover = styled.div`
 `
 
 export const StyledIcon = styled.div`
-  color: ${({ theme }) => theme.text1};
+  color: ${({ theme }) => theme.text5};
 `
 
 const EmptyCard = styled.div`

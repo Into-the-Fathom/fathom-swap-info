@@ -1,6 +1,6 @@
 import React from 'react'
 import { ThemeProvider as StyledComponentsThemeProvider, createGlobalStyle } from 'styled-components'
-import { useDarkModeManager } from '../contexts/LocalStorage'
+import { useDarkModeManager } from 'contexts/LocalStorage'
 import styled from 'styled-components'
 import { Text } from 'rebass'
 
@@ -12,10 +12,10 @@ export default function ThemeProvider({ children }) {
 
 const theme = (darkMode, color) => ({
   customColor: color,
-  textColor: darkMode ? color : 'black',
+  textColor: color,
 
   panelColor: darkMode ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 0)',
-  backgroundColor: darkMode ? '#212429' : '#F7F8FA',
+  backgroundColor: '#0E1D34',
 
   uniswapPink: darkMode ? '#ff007a' : 'black',
 
@@ -24,28 +24,29 @@ const theme = (darkMode, color) => ({
   shadowColor: darkMode ? '#000' : '#2F80ED',
   mercuryGray: darkMode ? '#333333' : '#E1E1E1',
 
-  text1: darkMode ? '#FAFAFA' : '#1F1F1F',
-  text2: darkMode ? '#C3C5CB' : '#565A69',
-  text3: darkMode ? '#6C7284' : '#888D9B',
-  text4: darkMode ? '#565A69' : '#C3C5CB',
-  text5: darkMode ? '#2C2F36' : '#EDEEF2',
+  text1: '#FAFAFA',
+  text2: '#C3C5CB',
+  text3: '#002F2D',
+  text4: '#565A69',
+  text5: '#43FFF6',
 
   // special case text types
   white: '#FFFFFF',
 
   // backgrounds / greys
-  bg1: darkMode ? '#212429' : '#FAFAFA',
-  bg2: darkMode ? '#2C2F36' : '#F7F8FA',
-  bg3: darkMode ? '#40444F' : '#EDEEF2',
-  bg4: darkMode ? '#565A69' : '#CED0D9',
-  bg5: darkMode ? '#565A69' : '#888D9B',
-  bg6: darkMode ? '#000' : '#FFFFFF',
+  bg1: '#0E1D34',
+  bg2: '#2C2F36',
+  bg3: '#43FFF6',
+  bg4: '#565A69',
+  bg5: '565A69',
+  bg6: '#000',
 
   //specialty colors
   modalBG: darkMode ? 'rgba(0,0,0,0.85)' : 'rgba(0,0,0,0.6)',
-  advancedBG: darkMode ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.4)',
+  advancedBG: '#192A42',
   onlyLight: darkMode ? '#22242a' : 'transparent',
   divider: darkMode ? 'rgba(43, 43, 43, 0.435)' : 'rgba(43, 43, 43, 0.035)',
+  borderBG: '#2c3f59',
 
   //primary colors
   primary1: darkMode ? '#2172E5' : '#ff007a',
@@ -69,10 +70,10 @@ const theme = (darkMode, color) => ({
   green1: '#27AE60',
   yellow1: '#FFE270',
   yellow2: '#F3841E',
-  link: '#2172E5',
+  link: '#fff',
   blue: '2f80ed',
 
-  background: darkMode ? 'black' : `radial-gradient(50% 50% at 50% 50%, #ff007a30 0%, #fff 0%)`,
+  background: '#0E1D34',
 })
 
 const TextWrapper = styled(Text)`
@@ -88,6 +89,10 @@ export const TYPE = {
     return <TextWrapper fontWeight={400} fontSize={14} color={'text1'} {...props} />
   },
 
+  green(props) {
+    return <TextWrapper fontWeight={400} fontSize={14} color={'text3'} {...props} />
+  },
+
   small(props) {
     return <TextWrapper fontWeight={500} fontSize={11} color={'text1'} {...props} />
   },
@@ -101,19 +106,13 @@ export const TYPE = {
   },
 
   light(props) {
-    return <TextWrapper fontWeight={400} color={'text3'} fontSize={14} {...props} />
+    return <TextWrapper fontWeight={400} color={'text4'} fontSize={14} {...props} />
   },
 
   pink(props) {
     return <TextWrapper fontWeight={props.faded ? 400 : 600} color={props.faded ? 'text1' : 'text1'} {...props} />
   },
 }
-
-export const Hover = styled.div`
-  :hover {
-    cursor: pointer;
-  }
-`
 
 export const Link = styled.a.attrs({
   target: '_blank',
@@ -135,24 +134,24 @@ export const Link = styled.a.attrs({
   }
 `
 
-export const ThemedBackground = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  pointer-events: none;
-  max-width: 100vw !important;
-  height: 200vh;
-  mix-blend-mode: color;
-  background: ${({ backgroundColor }) =>
-    `radial-gradient(50% 50% at 50% 50%, ${backgroundColor} 0%, rgba(255, 255, 255, 0) 100%)`};
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  /* z-index: ; */
-
-  transform: translateY(-110vh);
-`
+// export const ThemedBackground = styled.div`
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   pointer-events: none;
+//   max-width: 100vw !important;
+//   height: 200vh;
+//   mix-blend-mode: color;
+//   background: ${({ backgroundColor }) =>
+//     `radial-gradient(50% 50% at 50% 50%, ${backgroundColor} 0%, rgba(255, 255, 255, 0) 100%)`};
+//   position: absolute;
+//   top: 0px;
+//   left: 0px;
+//   /* z-index: ; */
+//
+//   transform: translateY(-110vh);
+// `
 
 export const GlobalStyle = createGlobalStyle`
   @import url('https://rsms.me/inter/inter.css');
@@ -168,11 +167,12 @@ export const GlobalStyle = createGlobalStyle`
     width: 100%;
     height: 100%;
     font-size: 14px;    
-    background-color: ${({ theme }) => theme.bg6};
+    background-color: ${({ theme }) => theme.bg1};
   }
 
   a {
     text-decoration: none;
+    color: #fff;
 
     :hover {
       text-decoration: none
@@ -225,7 +225,7 @@ export const GlobalStyle = createGlobalStyle`
   html {
     font-size: 1rem;
     font-variant: none;
-    color: 'black';
+    color: #000;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);

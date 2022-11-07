@@ -9,7 +9,7 @@ import { useSavedAccounts } from '../../contexts/LocalStorage'
 import { AutoColumn } from '../Column'
 import { TYPE } from '../../Theme'
 import { Hover, StyledIcon } from '..'
-import Panel from '../Panel'
+import Panel from 'components/Panel'
 import { Divider } from '..'
 import { Flex } from 'rebass'
 
@@ -39,10 +39,10 @@ const Input = styled.input`
   background-color: ${({ theme }) => theme.bg1};
   font-size: 16px;
   margin-right: 1rem;
-  border: 1px solid ${({ theme }) => theme.bg3};
+  border: 1px solid ${({ theme }) => theme.borderBG};
 
   ::placeholder {
-    color: ${({ theme }) => theme.text3};
+    color: ${({ theme }) => theme.white};
     font-size: 14px;
   }
 
