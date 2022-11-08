@@ -1,7 +1,7 @@
 {
   "name": "@fathomswap/info",
   "private": true,
-  "homepage": "https://info.fathomswap.org",
+  "homepage": ".",
   "devDependencies": {
     "@popperjs/core": "^2.4.2",
     "@reach/portal": "^0.10.3",
