@@ -3,12 +3,11 @@ import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { Flex } from 'rebass'
-import Link from '../Link'
-import { RowFixed } from '../Row'
-import Logo from '../../assets/logo_white.svg'
-import Wordmark from '../../assets/wordmark_white.svg'
+import Link from 'components/Link'
+import { RowFixed } from 'components/Row'
+import Logo from 'assets/Fathom-app-logo.svg'
 
-import { BasicLink } from '../Link'
+import { BasicLink } from 'components/Link'
 import { useMedia } from 'react-use'
 
 const TitleWrapper = styled.div`
@@ -20,14 +19,14 @@ const TitleWrapper = styled.div`
   }
 `
 
-const UniIcon = styled(Link)`
+const FathomIcon = styled(Link)`
   transition: transform 0.3s ease;
   :hover {
     transform: rotate(-5deg);
   }
 `
 
-const Option = styled.div`
+const Option = styled.div<{ activeText: boolean }>`
   font-weight: 500;
   font-size: 14px;
   opacity: ${({ activeText }) => (activeText ? 1 : 0.6)};
@@ -47,12 +46,9 @@ export default function Title() {
     <TitleWrapper onClick={() => history.push('/')}>
       <Flex alignItems="center" style={{ justifyContent: 'space-between' }}>
         <RowFixed>
-          <UniIcon id="link" onClick={() => history.push('/')}>
-            <img width={'24px'} src={Logo} alt="logo" />
-          </UniIcon>
-          {!below1080 && (
-            <img width={'84px'} style={{ marginLeft: '8px', marginTop: '0px' }} src={Wordmark} alt="logo" />
-          )}
+          <FathomIcon id="link" onClick={() => history.push('/')}>
+            <img width={'140px'} src={Logo} alt="logo" />
+          </FathomIcon>
         </RowFixed>
         {below1080 && (
           <RowFixed style={{ alignItems: 'flex-end' }}>

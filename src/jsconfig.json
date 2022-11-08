@@ -16,8 +16,11 @@
     "downlevelIteration": true,
     "allowSyntheticDefaultImports": true,
     "types": ["react-spring", "jest"],
-    "baseUrl": "./src"
+    "baseUrl": ".",
+    "paths": {
+      "*": ["./*"]
+    }
   },
   "exclude": ["node_modules", "cypress"],
-  "include": ["**/*.js", "**/*.ts", "**/*.tsx", "src/components/analytics/GoogleAnalyticsReporter.jsx"]
+  "include": ["**/*.js", "**/*.ts", "**/*.tsx", "src/components/analytics/GoogleAnalyticsReporter.jsx", "src"]
 }

@@ -3,29 +3,28 @@ import 'feather-icons'
 import { withRouter } from 'react-router-dom'
 import { Text } from 'rebass'
 import styled from 'styled-components'
-import Link from '../components/Link'
-import Panel from '../components/Panel'
-import TokenLogo from '../components/TokenLogo'
-import PairList from '../components/PairList'
-import Loader from '../components/LocalLoader'
-import { AutoRow, RowBetween, RowFixed } from '../components/Row'
-import Column, { AutoColumn } from '../components/Column'
-import { ButtonLight, ButtonDark } from '../components/ButtonStyled'
-import TxnList from '../components/TxnList'
-import TokenChart from '../components/TokenChart'
-import { BasicLink } from '../components/Link'
-import Search from '../components/Search'
-import { formattedNum, formattedPercent, getPoolLink, getSwapLink, localNumber } from '../utils'
-import { useTokenData, useTokenTransactions, useTokenPairs } from '../contexts/TokenData'
-import { TYPE, ThemedBackground } from '../Theme'
-import { transparentize } from 'polished'
-import { useColor } from '../hooks'
-import CopyHelper from '../components/Copy'
+import Link from 'components/Link'
+import Panel from 'components/Panel'
+import TokenLogo from 'components/TokenLogo'
+import PairList from 'components/PairList'
+import Loader from 'components/LocalLoader'
+import { AutoRow, RowBetween, RowFixed } from 'components/Row'
+import Column, { AutoColumn } from 'components/Column'
+import { ButtonLight, ButtonDark } from 'components/ButtonStyled'
+import TxnList from 'components/TxnList'
+import TokenChart from 'components/TokenChart'
+import { BasicLink } from 'components/Link'
+import Search from 'components/Search'
+import { formattedNum, formattedPercent, getPoolLink, getSwapLink, localNumber } from 'utils'
+import { useTokenData, useTokenTransactions, useTokenPairs } from 'contexts/TokenData'
+import { TYPE } from 'Theme'
+import { useColor } from 'hooks'
+import CopyHelper from 'components/Copy'
 import { useMedia } from 'react-use'
-import { useDataForList } from '../contexts/PairData'
+import { useDataForList } from 'contexts/PairData'
 import { useEffect } from 'react'
-import Warning from '../components/Warning'
-import { usePathDismissed, useSavedTokens } from '../contexts/LocalStorage'
+import Warning from 'components/Warning'
+import { usePathDismissed, useSavedTokens } from 'contexts/LocalStorage'
 import { Hover, PageWrapper, ContentWrapper, StyledIcon, BlockedWrapper, BlockedMessageWrapper } from '../components'
 import { PlusCircle, Bookmark, AlertCircle } from 'react-feather'
 import FormattedName from '../components/FormattedName'
@@ -179,9 +178,10 @@ function TokenPage({ address, history }) {
             <TYPE.light style={{ textAlign: 'center' }}>
               {BLOCKED_WARNINGS[address] ?? `This token is not supported.`}
             </TYPE.light>
-            <Link external={true} href={'https://apothem.blocksscan.io/address/' + address.replace(/^.{2}/g, 'xdc')}>{`More about ${shortenAddress(
-              address
-            )}`}</Link>
+            <Link
+              external={true}
+              href={'https://apothem.blocksscan.io/address/' + address.replace(/^.{2}/g, 'xdc')}
+            >{`More about ${shortenAddress(address)}`}</Link>
           </AutoColumn>
         </BlockedMessageWrapper>
       </BlockedWrapper>
@@ -190,7 +190,6 @@ function TokenPage({ address, history }) {
 
   return (
     <PageWrapper>
-      <ThemedBackground backgroundColor={transparentize(0.6, backgroundColor)} />
       <Warning
         type={'token'}
         show={!dismissed && listedTokens && !listedTokens.includes(address)}
@@ -260,10 +259,10 @@ function TokenPage({ address, history }) {
                     <></>
                   )}
                   <Link href={getPoolLink(address)} target="_blank">
-                    <ButtonLight color={backgroundColor}>+ Add Liquidity</ButtonLight>
+                    <ButtonLight>+ Add Liquidity</ButtonLight>
                   </Link>
                   <Link href={getSwapLink(address)} target="_blank">
-                    <ButtonDark ml={'.5rem'} mr={below1080 && '.5rem'} color={backgroundColor}>
+                    <ButtonDark ml={'.5rem'} mr={below1080 && '.5rem'}>
                       Trade
                     </ButtonDark>
                   </Link>
@@ -351,7 +350,7 @@ function TokenPage({ address, history }) {
                     gridRow: below1080 ? '' : '1/4',
                   }}
                 >
-                  <TokenChart address={address} color={backgroundColor} base={priceUSD} />
+                  <TokenChart address={address} base={priceUSD} />
                 </Panel>
               </PanelWrapper>
             </>
@@ -375,7 +374,7 @@ function TokenPage({ address, history }) {
               }}
             >
               {address && fetchedPairsList ? (
-                <PairList color={backgroundColor} address={address} pairs={fetchedPairsList} useTracked={useTracked} />
+                <PairList address={address} pairs={fetchedPairsList} useTracked={useTracked} />
               ) : (
                 <Loader />
               )}
@@ -383,9 +382,7 @@ function TokenPage({ address, history }) {
             <RowBetween mt={40} mb={'1rem'}>
               <TYPE.main fontSize={'1.125rem'}>Transactions</TYPE.main> <div />
             </RowBetween>
-            <Panel rounded>
-              {transactions ? <TxnList color={backgroundColor} transactions={transactions} /> : <Loader />}
-            </Panel>
+            <Panel rounded>{transactions ? <TxnList transactions={transactions} /> : <Loader />}</Panel>
             <>
               <RowBetween style={{ marginTop: '3rem' }}>
                 <TYPE.main fontSize={'1.125rem'}>Token Information</TYPE.main>{' '}
@@ -420,7 +417,11 @@ function TokenPage({ address, history }) {
                     </AutoRow>
                   </Column>
                   <ButtonLight color={backgroundColor}>
-                    <Link color={backgroundColor} external href={'https://apothem.blocksscan.io/address/' + address.replace(/^.{2}/g, 'xdc')}>
+                    <Link
+                      color={backgroundColor}
+                      external
+                      href={'https://apothem.blocksscan.io/address/' + address.replace(/^.{2}/g, 'xdc')}
+                    >
                       View on BlocksScan ↗
                     </Link>
                   </ButtonLight>

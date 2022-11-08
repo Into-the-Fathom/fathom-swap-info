@@ -3,12 +3,12 @@ import { BigNumber } from 'bignumber.js'
 import dayjs from 'dayjs'
 import { ethers } from 'ethers'
 import utc from 'dayjs/plugin/utc'
-import { client, blockClient } from '../apollo/client'
-import { GET_BLOCK, GET_BLOCKS, SHARE_VALUE } from '../apollo/queries'
+import { client, blockClient } from 'apollo/client'
+import { GET_BLOCK, GET_BLOCKS, SHARE_VALUE } from 'apollo/queries'
 import { Text } from 'rebass'
 import _Decimal from 'decimal.js-light'
 import toFormat from 'toformat'
-import { timeframeOptions } from '../constants'
+import { timeframeOptions } from 'constants/index'
 import Numeral from 'numeral'
 
 // format libraries
@@ -48,7 +48,8 @@ export function getPoolLink(token0Address, token1Address = null, remove = false)
     return (
       `https://fathom.mypinata.cloud/ipfs/QmPz44rPFG635CAGFnUGjQRNGmYHfYsAvyn9NjK71honXm/#/` +
       (remove ? `remove` : `add`) +
-      `/${token0Address === '0xcec1609efd3f12d0da63250ef6761a7482dda3bf' ? 'XDC' : token0Address}/${token1Address === '0xcec1609efd3f12d0da63250ef6761a7482dda3bf' ? 'XDC' : token1Address
+      `/${token0Address === '0xcec1609efd3f12d0da63250ef6761a7482dda3bf' ? 'XDC' : token0Address}/${
+        token1Address === '0xcec1609efd3f12d0da63250ef6761a7482dda3bf' ? 'XDC' : token1Address
       }`
     )
   }
@@ -58,8 +59,9 @@ export function getSwapLink(token0Address, token1Address = null) {
   if (!token1Address) {
     return `https://fathom.mypinata.cloud/ipfs/QmPz44rPFG635CAGFnUGjQRNGmYHfYsAvyn9NjK71honXm/#/swap?inputCurrency=${token0Address}`
   } else {
-    return `https://fathom.mypinata.cloud/ipfs/QmPz44rPFG635CAGFnUGjQRNGmYHfYsAvyn9NjK71honXm/#/swap?inputCurrency=${token0Address === '0xcec1609efd3f12d0da63250ef6761a7482dda3bf' ? 'XDC' : token0Address
-      }&outputCurrency=${token1Address === '0xcec1609efd3f12d0da63250ef6761a7482dda3bf' ? 'XDC' : token1Address}`
+    return `https://fathom.mypinata.cloud/ipfs/QmPz44rPFG635CAGFnUGjQRNGmYHfYsAvyn9NjK71honXm/#/swap?inputCurrency=${
+      token0Address === '0xcec1609efd3f12d0da63250ef6761a7482dda3bf' ? 'XDC' : token0Address
+    }&outputCurrency=${token1Address === '0xcec1609efd3f12d0da63250ef6761a7482dda3bf' ? 'XDC' : token1Address}`
   }
 }
 
@@ -423,9 +425,9 @@ export function formattedPercent(percent, useBrackets = false) {
   }
   if (fixedPercent > 0) {
     if (fixedPercent > 100) {
-      return <Text fontWeight={500} color="green">{`+${percent?.toFixed(0).toLocaleString()}%`}</Text>
+      return <Text fontWeight={500} color="text5">{`+${percent?.toFixed(0).toLocaleString()}%`}</Text>
     } else {
-      return <Text fontWeight={500} color="green">{`+${fixedPercent}%`}</Text>
+      return <Text fontWeight={500} color="text5">{`+${fixedPercent}%`}</Text>
     }
   } else {
     return <Text fontWeight={500} color="red">{`${fixedPercent}%`}</Text>

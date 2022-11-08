@@ -4,6 +4,7 @@ import { useCopyClipboard } from '../../hooks'
 import { CheckCircle, Copy } from 'react-feather'
 import { StyledIcon } from '..'
 
+
 const CopyIcon = styled.div`
   color: #aeaeae;
   flex-shrink: 0;

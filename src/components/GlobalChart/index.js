@@ -1,14 +1,14 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react'
 import { ResponsiveContainer } from 'recharts'
-import { timeframeOptions } from '../../constants'
-import { useGlobalChartData, useGlobalData } from '../../contexts/GlobalData'
+import { timeframeOptions } from 'constants/index'
+import { useGlobalChartData, useGlobalData } from 'contexts/GlobalData'
 import { useMedia } from 'react-use'
-import DropdownSelect from '../DropdownSelect'
-import TradingViewChart, { CHART_TYPES } from '../TradingviewChart'
-import { RowFixed } from '../Row'
-import { OptionButton } from '../ButtonStyled'
-import { getTimeframe } from '../../utils'
-import { TYPE } from '../../Theme'
+import DropdownSelect from 'components/DropdownSelect'
+import TradingViewChart, { CHART_TYPES } from 'components/TradingviewChart'
+import { RowFixed } from 'components/Row'
+import { OptionButton } from 'components/ButtonStyled'
+import { getTimeframe } from 'utils'
+import { TYPE } from 'Theme'
 
 const CHART_VIEW = {
   VOLUME: 'Volume',
@@ -116,14 +116,14 @@ const GlobalChart = ({ display }) => {
             active={volumeWindow === VOLUME_WINDOW.DAYS}
             onClick={() => setVolumeWindow(VOLUME_WINDOW.DAYS)}
           >
-            <TYPE.body>D</TYPE.body>
+            {volumeWindow === VOLUME_WINDOW.DAYS ? <TYPE.green>D</TYPE.green> : <TYPE.body>D</TYPE.body>}
           </OptionButton>
           <OptionButton
             style={{ marginLeft: '4px' }}
             active={volumeWindow === VOLUME_WINDOW.WEEKLY}
             onClick={() => setVolumeWindow(VOLUME_WINDOW.WEEKLY)}
           >
-            <TYPE.body>W</TYPE.body>
+            {volumeWindow === VOLUME_WINDOW.WEEKLY ? <TYPE.green>W</TYPE.green> : <TYPE.body>W</TYPE.body>}
           </OptionButton>
         </RowFixed>
       )}

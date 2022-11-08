@@ -116,13 +116,13 @@ const DataText = styled(Flex)`
 
 const SortText = styled.button`
   cursor: pointer;
-  font-weight: ${({ active, theme }) => (active ? 500 : 400)};
+  font-weight: ${({ active }) => (active ? 500 : 400)};
   margin-right: 0.75rem !important;
   border: none;
   background-color: transparent;
   font-size: 1rem;
   padding: 0px;
-  color: ${({ active, theme }) => (active ? theme.text1 : theme.text3)};
+  color: ${({ active, theme }) => (active ? theme.text5 : theme.text1)};
   outline: none;
 
   @media screen and (max-width: 600px) {

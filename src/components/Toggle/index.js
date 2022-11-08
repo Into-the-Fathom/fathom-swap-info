@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Sun, Moon } from 'react-feather'
 
-const IconWrapper = styled.div<{ isActive?: boolean }>`
+const IconWrapper = styled.div`
   opacity: ${({ isActive }) => (isActive ? 0.8 : 0.4)};
 
   :hover {
@@ -23,12 +23,7 @@ const StyledToggle = styled.div`
   }
 `
 
-export interface ToggleProps {
-  isActive: boolean
-  toggle: () => void
-}
-
-export default function Toggle({ isActive, toggle }: ToggleProps) {
+export default function Toggle({ isActive, toggle }) {
   return (
     <StyledToggle onClick={toggle}>
       <span>

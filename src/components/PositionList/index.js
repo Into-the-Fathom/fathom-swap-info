@@ -206,7 +206,7 @@ function PositionList({ positions }) {
         {!below500 && (
           <DataText area="return">
             <AutoColumn gap="12px" justify="flex-end">
-              <TYPE.main color={'green'}>
+              <TYPE.main color={'text5'}>
                 <RowFixed>{formattedNum(position?.fees.sum, true, true)}</RowFixed>
               </TYPE.main>
               <AutoColumn gap="4px" justify="flex-end">

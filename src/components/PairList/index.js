@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { useMedia } from 'react-use'
 import dayjs from 'dayjs'
-import LocalLoader from '../LocalLoader'
+import LocalLoader from 'components/LocalLoader'
 import utc from 'dayjs/plugin/utc'
 import { Box, Flex, Text } from 'rebass'
 import styled from 'styled-components'
 
-import { CustomLink } from '../Link'
-import { Divider } from '../../components'
+import { CustomLink } from 'components/Link'
+import { Divider } from 'components'
 import { withRouter } from 'react-router-dom'
-import { formattedNum, formattedPercent } from '../../utils'
-import DoubleTokenLogo from '../DoubleLogo'
-import FormattedName from '../FormattedName'
-import QuestionHelper from '../QuestionHelper'
-import { TYPE } from '../../Theme'
+import { formattedNum, formattedPercent } from 'utils'
+import DoubleTokenLogo from 'components/DoubleLogo'
+import FormattedName from 'components/FormattedName'
+import QuestionHelper from 'components/QuestionHelper'
+import { TYPE } from 'Theme'
 import { PAIR_BLACKLIST } from '../../constants'
-import { AutoColumn } from '../Column'
+import { AutoColumn } from 'components/Column'
 
 dayjs.extend(utc)
 
@@ -164,6 +164,9 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10, useTracked = fals
       if (Object.keys(pairs).length % ITEMS_PER_PAGE === 0) {
         extraPages = 0
       }
+
+      console.log(pairs)
+      console.log(ITEMS_PER_PAGE)
       setMaxPage(Math.floor(Object.keys(pairs).length / ITEMS_PER_PAGE) + extraPages)
     }
   }, [ITEMS_PER_PAGE, pairs])

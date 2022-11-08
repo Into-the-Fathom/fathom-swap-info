@@ -3,28 +3,27 @@ import { withRouter } from 'react-router-dom'
 import { Box } from 'rebass'
 import styled from 'styled-components'
 
-import { AutoRow, RowBetween } from '../components/Row'
-import { AutoColumn } from '../components/Column'
-import PairList from '../components/PairList'
-import TopTokenList from '../components/TokenList'
-import TxnList from '../components/TxnList'
-import GlobalChart from '../components/GlobalChart'
-import Search from '../components/Search'
-import GlobalStats from '../components/GlobalStats'
+import { AutoRow, RowBetween } from 'components/Row'
+import { AutoColumn } from 'components/Column'
+import PairList from 'components/PairList'
+import TopTokenList from 'components/TokenList'
+import TxnList from 'components/TxnList'
+import GlobalChart from 'components/GlobalChart'
+import Search from 'components/Search'
+import GlobalStats from 'components/GlobalStats'
 
-import { useGlobalData, useGlobalTransactions } from '../contexts/GlobalData'
-import { useAllPairData } from '../contexts/PairData'
+import { useGlobalData, useGlobalTransactions } from 'contexts/GlobalData'
+import { useAllPairData } from 'contexts/PairData'
 import { useMedia } from 'react-use'
-import Panel from '../components/Panel'
-import { useAllTokenData } from '../contexts/TokenData'
-import { formattedNum, formattedPercent } from '../utils'
-import { TYPE, ThemedBackground } from '../Theme'
-import { transparentize } from 'polished'
-import { CustomLink } from '../components/Link'
+import Panel from 'components/Panel'
+import { useAllTokenData } from 'contexts/TokenData'
+import { formattedNum, formattedPercent } from 'utils'
+import { TYPE } from 'Theme'
+import { CustomLink } from 'components/Link'
 
-import { PageWrapper, ContentWrapper } from '../components'
-import CheckBox from '../components/Checkbox'
-import QuestionHelper from '../components/QuestionHelper'
+import { PageWrapper, ContentWrapper } from 'components'
+import CheckBox from 'components/Checkbox'
+import QuestionHelper from 'components/QuestionHelper'
 
 const ListOptions = styled(AutoRow)`
   height: 40px;
@@ -69,7 +68,6 @@ function GlobalPage() {
 
   return (
     <PageWrapper>
-      <ThemedBackground backgroundColor={transparentize(0.6, '#ff007a')} />
       <ContentWrapper>
         <div>
           <AutoColumn gap="24px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
@@ -158,7 +156,7 @@ function GlobalPage() {
             </RowBetween>
           </ListOptions>
           <Panel style={{ marginTop: '6px', padding: '1.125rem 0 ' }}>
-            <PairList pairs={allPairs} useTracked={useTracked} />
+            <PairList pairs={allPairs} useTracked={useTracked} color={'#fff'} />
           </Panel>
           <span>
             <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '2rem' }}>
@@ -166,7 +164,7 @@ function GlobalPage() {
             </TYPE.main>
           </span>
           <Panel style={{ margin: '1rem 0' }}>
-            <TxnList transactions={transactions} />
+            <TxnList transactions={transactions} color={'#fff'} />
           </Panel>
         </div>
       </ContentWrapper>

@@ -2,22 +2,22 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { ApolloProvider } from 'react-apollo'
 import { client } from './apollo/client'
-import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom'
-import GlobalPage from './pages/GlobalPage'
-import TokenPage from './pages/TokenPage'
-import PairPage from './pages/PairPage'
-import { useGlobalData, useGlobalChartData } from './contexts/GlobalData'
-import { isAddress } from './utils'
-import AccountPage from './pages/AccountPage'
-import AllTokensPage from './pages/AllTokensPage'
-import AllPairsPage from './pages/AllPairsPage'
-import PinnedData from './components/PinnedData'
+import { Route, Switch, HashRouter, Redirect } from 'react-router-dom'
+import GlobalPage from 'pages/GlobalPage'
+import TokenPage from 'pages/TokenPage'
+import PairPage from 'pages/PairPage'
+import { useGlobalData, useGlobalChartData } from 'contexts/GlobalData'
+import { isAddress } from 'utils'
+import AccountPage from 'pages/AccountPage'
+import AllTokensPage from 'pages/AllTokensPage'
+import AllPairsPage from 'pages/AllPairsPage'
+import PinnedData from 'components/PinnedData'
 
-import SideNav from './components/SideNav'
-import AccountLookup from './pages/AccountLookup'
-import LocalLoader from './components/LocalLoader'
-import { useLatestBlocks } from './contexts/Application'
-import GoogleAnalyticsReporter from './components/analytics/GoogleAnalyticsReporter'
+import SideNav from 'components/SideNav'
+import AccountLookup from 'pages/AccountLookup'
+import LocalLoader from 'components/LocalLoader'
+import { useLatestBlocks } from 'contexts/Application'
+import GoogleAnalyticsReporter from 'components/analytics/GoogleAnalyticsReporter'
 import { PAIR_BLACKLIST, TOKEN_BLACKLIST } from './constants'
 
 const AppWrapper = styled.div`
@@ -58,7 +58,7 @@ const Center = styled.div`
   height: 100%;
   z-index: 9999;
   transition: width 0.25s ease;
-  background-color: ${({ theme }) => theme.onlyLight};
+  background-color: ${({ theme }) => theme.bg1};
 `
 
 const WarningWrapper = styled.div`
@@ -119,7 +119,7 @@ function App() {
         Object.keys(globalData).length > 0 &&
         globalChartData &&
         Object.keys(globalChartData).length > 0 ? (
-          <BrowserRouter>
+          <HashRouter>
             <Route component={GoogleAnalyticsReporter} />
             <Switch>
               <Route
@@ -203,7 +203,7 @@ function App() {
 
               <Redirect to="/home" />
             </Switch>
-          </BrowserRouter>
+          </HashRouter>
         ) : (
           <LocalLoader fill="true" />
         )}
