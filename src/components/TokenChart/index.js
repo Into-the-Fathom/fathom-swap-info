@@ -1,20 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import { Area, XAxis, YAxis, ResponsiveContainer, Tooltip, AreaChart, BarChart, Bar } from 'recharts'
-import { AutoRow, RowBetween, RowFixed } from '../Row'
+import { AutoRow, RowBetween, RowFixed } from 'components/Row'
 
-import { toK, toNiceDate, toNiceDateYear, formattedNum, getTimeframe } from '../../utils'
-import { OptionButton } from '../ButtonStyled'
+import { toK, toNiceDate, toNiceDateYear, formattedNum, getTimeframe } from 'utils'
+import { OptionButton } from 'components/ButtonStyled'
 import { darken } from 'polished'
 import { useMedia, usePrevious } from 'react-use'
-import { timeframeOptions } from '../../constants'
-import { useTokenChartData, useTokenPriceData } from '../../contexts/TokenData'
-import DropdownSelect from '../DropdownSelect'
-import CandleStickChart from '../CandleChart'
-import LocalLoader from '../LocalLoader'
-import { AutoColumn } from '../Column'
+import { timeframeOptions } from 'constants/index'
+import { useTokenChartData, useTokenPriceData } from 'contexts/TokenData'
+import DropdownSelect from 'components/DropdownSelect'
+import CandleStickChart from 'components/CandleChart'
+import LocalLoader from 'components/LocalLoader'
+import { AutoColumn } from 'components/Column'
 import { Activity } from 'react-feather'
-import { useDarkModeManager } from '../../contexts/LocalStorage'
 
 const ChartWrapper = styled.div`
   height: 100%;
@@ -47,8 +46,7 @@ const TokenChart = ({ address, color, base }) => {
   const [chartFilter, setChartFilter] = useState(CHART_VIEW.PRICE)
   const [frequency, setFrequency] = useState(DATA_FREQUENCY.HOUR)
 
-  const [darkMode] = useDarkModeManager()
-  const textColor = darkMode ? 'white' : 'black'
+  const textColor = 'white'
 
   // reset view on new address
   const addressPrev = usePrevious(address)

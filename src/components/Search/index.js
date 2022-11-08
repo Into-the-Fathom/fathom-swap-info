@@ -4,20 +4,20 @@ import styled from 'styled-components'
 import Row, { RowFixed } from 'components/Row'
 import TokenLogo from 'components/TokenLogo'
 import { Search as SearchIcon, X } from 'react-feather'
-import { BasicLink } from '../Link'
+import { BasicLink } from 'components/Link'
 
 import { useAllTokenData, useTokenData } from 'contexts/TokenData'
 import { useAllPairData, usePairData } from 'contexts/PairData'
 import DoubleTokenLogo from 'components/DoubleLogo'
 import { useMedia } from 'react-use'
 import { useAllPairsInUniswap, useAllTokensInUniswap } from 'contexts/GlobalData'
-import { TOKEN_BLACKLIST, PAIR_BLACKLIST } from '../../constants'
+import { TOKEN_BLACKLIST, PAIR_BLACKLIST } from 'constants/index'
 
 import { client } from 'apollo/client'
 import { PAIR_SEARCH, TOKEN_SEARCH } from 'apollo/queries'
-import FormattedName from '../FormattedName'
-import { TYPE } from '../../Theme'
-import { updateNameData } from '../../utils/data'
+import FormattedName from 'components/FormattedName'
+import { TYPE } from 'Theme'
+import { updateNameData } from 'utils/data'
 
 const Container = styled.div`
   height: 48px;
