@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer, useMemo, useCallback, useEffect } from 'react'
 
-import { client } from '../apollo/client'
+import { client } from 'apollo/client'
 import {
   TOKEN_DATA,
   FILTERED_TRANSACTIONS,
@@ -9,9 +9,9 @@ import {
   PRICES_BY_BLOCK,
   PAIR_DATA,
   TOKENS_HISTORICAL_BULK,
-} from '../apollo/queries'
+} from 'apollo/queries'
 
-import { useEthPrice } from './GlobalData'
+import { useEthPrice } from 'contexts/GlobalData'
 
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
@@ -23,10 +23,10 @@ import {
   isAddress,
   getBlocksFromTimestamps,
   splitQuery,
-} from '../utils'
-import { timeframeOptions } from '../constants'
-import { useLatestBlocks } from './Application'
-import { updateNameData } from '../utils/data'
+} from 'utils'
+import { timeframeOptions } from 'constants/index'
+import { useLatestBlocks } from 'contexts/Application'
+import { updateNameData } from 'utils/data'
 
 const UPDATE = 'UPDATE'
 const UPDATE_TOKEN_TXNS = 'UPDATE_TOKEN_TXNS'

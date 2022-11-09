@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { XAxis, YAxis, ResponsiveContainer, Tooltip, LineChart, Line, CartesianGrid } from 'recharts'
-import { AutoRow, RowBetween } from '../Row'
+import { AutoRow, RowBetween } from 'components/Row'
 
-import { toK, toNiceDate, toNiceDateYear, formattedNum, getTimeframe } from '../../utils'
-import { OptionButton } from '../ButtonStyled'
+import { toK, toNiceDate, toNiceDateYear, formattedNum, getTimeframe } from 'utils'
+import { OptionButton } from 'components/ButtonStyled'
 import { useMedia } from 'react-use'
-import { timeframeOptions } from '../../constants'
-import DropdownSelect from '../DropdownSelect'
-import { useUserPositionChart } from '../../contexts/User'
-import { useTimeframe } from '../../contexts/Application'
-import LocalLoader from '../LocalLoader'
-import { useColor } from '../../hooks'
-import { useDarkModeManager } from '../../contexts/LocalStorage'
+import { timeframeOptions } from 'constants/index'
+import DropdownSelect from 'components/DropdownSelect'
+import { useUserPositionChart } from 'contexts/User'
+import { useTimeframe } from 'contexts/Application'
+import LocalLoader from 'components/LocalLoader'
+import { useColor } from 'hooks'
+import { useDarkModeManager } from 'contexts/LocalStorage'
 
 const ChartWrapper = styled.div`
   max-height: 420px;

@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { usePopper } from 'react-popper'
 import styled from 'styled-components'
 import Portal from '@reach/portal'
-import useInterval from '../../hooks'
+import useInterval from 'hooks'
 
 const PopoverContainer = styled.div<{ show: boolean }>`
   z-index: 9999;
@@ -14,7 +14,7 @@ const PopoverContainer = styled.div<{ show: boolean }>`
   transition: visibility 150ms linear, opacity 150ms linear;
 
   background: ${({ theme }) => theme.bg2};
-  border: 1px solid ${({ theme }) => theme.bg3};
+  border: 1px solid ${({ theme }) => theme.borderBG};
   box-shadow: 0 4px 8px 0 ${({ theme }) => transparentize(0.9, theme.shadow1)};
   color: ${({ theme }) => theme.text2};
   border-radius: 8px;

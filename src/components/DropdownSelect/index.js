@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import Row, { RowBetween } from '../Row'
-import { AutoColumn } from '../Column'
+import Row, { RowBetween } from 'components/Row'
+import { AutoColumn } from 'components/Column'
 import { ChevronDown as Arrow } from 'react-feather'
-import { TYPE } from '../../Theme'
-import { StyledIcon } from '..'
+import { TYPE } from 'Theme'
+import { StyledIcon } from 'components'
 
 const Wrapper = styled.div`
   z-index: 20;

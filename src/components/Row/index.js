@@ -6,7 +6,7 @@ const Row = styled(Box)`
   display: flex;
   padding: 0;
   align-items: center;
-  align-items: ${({ align }) => align && align};
+  align-items: ${({ align, active }) => align && align};
   padding: ${({ padding }) => padding};
   border: ${({ border }) => border};
   border-radius: ${({ borderRadius }) => borderRadius};
@@ -32,6 +32,12 @@ export const AutoRow = styled(Row)`
 
 export const RowFixed = styled(Row)`
   width: fit-content;
+`
+
+export const TableHeaderBox = styled.div`
+  color: ${({ theme }) => theme.primaryText2};
+  text-transform: uppercase;
+  font-size: 11px;
 `
 
 export default Row

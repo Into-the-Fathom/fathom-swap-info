@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import { default as ReactSelect } from 'react-select'
 import { isMobile } from 'react-device-detect'
 
-import Popout from './popout'
+import Popout from 'components/Select/popout'
 
-import { customStyles, customStylesMobile, customStylesTime } from './styles'
+import { customStyles, customStylesMobile, customStylesTime } from 'components/Select/styles'
 
 const MenuLabel = styled.div`
   display: flex;

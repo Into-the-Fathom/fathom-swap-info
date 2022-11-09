@@ -10,19 +10,19 @@ export default function ThemeProvider({ children }) {
   return <StyledComponentsThemeProvider theme={theme(darkMode)}>{children}</StyledComponentsThemeProvider>
 }
 
-const theme = (darkMode, color) => ({
+const theme = (color) => ({
   customColor: color,
   textColor: color,
 
-  panelColor: darkMode ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 0)',
+  panelColor: 'rgba(255, 255, 255, 0)',
   backgroundColor: '#0E1D34',
 
-  uniswapPink: darkMode ? '#ff007a' : 'black',
+  uniswapPink: '#ff007a',
 
-  concreteGray: darkMode ? '#292C2F' : '#FAFAFA',
-  inputBackground: darkMode ? '#1F1F1F' : '#FAFAFA',
-  shadowColor: darkMode ? '#000' : '#2F80ED',
-  mercuryGray: darkMode ? '#333333' : '#E1E1E1',
+  concreteGray: '#292C2F',
+  inputBackground: '#1F1F1F',
+  shadowColor: '#000',
+  mercuryGray: '#333333',
 
   text1: '#FAFAFA',
   text2: '#C3C5CB',
@@ -42,28 +42,31 @@ const theme = (darkMode, color) => ({
   bg6: '#000',
 
   //specialty colors
-  modalBG: darkMode ? 'rgba(0,0,0,0.85)' : 'rgba(0,0,0,0.6)',
+  modalBG: 'rgba(0,0,0,0.85)',
   advancedBG: '#192A42',
-  onlyLight: darkMode ? '#22242a' : 'transparent',
-  divider: darkMode ? 'rgba(43, 43, 43, 0.435)' : 'rgba(43, 43, 43, 0.035)',
-  borderBG: '#2c3f59',
+  onlyLight: '#22242a',
+  divider: '#131f35',
+  headerBackground: '#131f35',
+  borderBG: '#253656',
+  placeholderColor: '#4F658C',
 
   //primary colors
-  primary1: darkMode ? '#2172E5' : '#ff007a',
-  primary2: darkMode ? '#3680E7' : '#FF8CC3',
-  primary3: darkMode ? '#4D8FEA' : '#FF99C9',
-  primary4: darkMode ? '#376bad70' : '#F6DDE8',
-  primary5: darkMode ? '#153d6f70' : '#FDEAF1',
+  primary1: '#2172E5',
+  primary2: '#3680E7',
+  primary3: '#4D8FEA',
+  primary4: '#376bad70',
+  primary5: '#153d6f70',
 
   // color text
-  primaryText1: darkMode ? '#6da8ff' : '#ff007a',
+  primaryText1: '#6da8ff',
+  primaryText2: '#5977A0',
 
   // secondary colors
-  secondary1: darkMode ? '#2172E5' : '#ff007a',
-  secondary2: darkMode ? '#17000b26' : '#F6DDE8',
-  secondary3: darkMode ? '#17000b26' : '#FDEAF1',
+  secondary1: '#2172E5',
+  secondary2: '#17000b26',
+  secondary3: '#17000b26',
 
-  shadow1: darkMode ? '#000' : '#2F80ED',
+  shadow1: '#000',
 
   // other
   red1: '#FF6871',
@@ -134,25 +137,6 @@ export const Link = styled.a.attrs({
   }
 `
 
-// export const ThemedBackground = styled.div`
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   right: 0;
-//   pointer-events: none;
-//   max-width: 100vw !important;
-//   height: 200vh;
-//   mix-blend-mode: color;
-//   background: ${({ backgroundColor }) =>
-//     `radial-gradient(50% 50% at 50% 50%, ${backgroundColor} 0%, rgba(255, 255, 255, 0) 100%)`};
-//   position: absolute;
-//   top: 0px;
-//   left: 0px;
-//   /* z-index: ; */
-//
-//   transform: translateY(-110vh);
-// `
-
 export const GlobalStyle = createGlobalStyle`
   @import url('https://rsms.me/inter/inter.css');
   html { font-family: 'Inter', sans-serif; }
@@ -166,8 +150,8 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     width: 100%;
     height: 100%;
-    font-size: 14px;    
-    background-color: ${({ theme }) => theme.bg1};
+    font-size: 14px;
+    background: linear-gradient(180deg, #000817 7.88%, #0D1725 113.25%);
   }
 
   a {

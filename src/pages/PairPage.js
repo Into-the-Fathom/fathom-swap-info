@@ -14,7 +14,7 @@ import Loader from 'components/LocalLoader'
 import { BasicLink } from 'components/Link'
 import Search from 'components/Search'
 import { formattedNum, formattedPercent, getPoolLink, getSwapLink, shortenAddress } from 'utils'
-import { useColor } from '../hooks'
+import { useColor } from 'hooks'
 import { usePairData, usePairTransactions } from 'contexts/PairData'
 import { TYPE } from 'Theme'
 import CopyHelper from 'components/Copy'
@@ -30,7 +30,8 @@ import { Bookmark, PlusCircle, AlertCircle } from 'react-feather'
 import FormattedName from 'components/FormattedName'
 import { useListedTokens } from 'contexts/Application'
 import HoverText from 'components/HoverText'
-import { UNTRACKED_COPY, PAIR_BLACKLIST, BLOCKED_WARNINGS } from '../constants'
+import { UNTRACKED_COPY, PAIR_BLACKLIST, BLOCKED_WARNINGS } from 'constants/index'
+import { TableHeaderBox } from 'components/Row'
 
 const DashboardWrapper = styled.div`
   width: 100%;
@@ -446,7 +447,9 @@ function PairPage({ pairAddress, history }) {
               >
                 <TokenDetailsLayout>
                   <Column>
-                    <TYPE.main>Pair Name</TYPE.main>
+                    <TYPE.main>
+                      <TableHeaderBox>Name</TableHeaderBox>
+                    </TYPE.main>
                     <TYPE.main style={{ marginTop: '.5rem' }}>
                       <RowFixed>
                         <FormattedName text={token0?.symbol ?? ''} maxCharacters={8} />
@@ -456,7 +459,11 @@ function PairPage({ pairAddress, history }) {
                     </TYPE.main>
                   </Column>
                   <Column>
-                    <TYPE.main>Pair Address</TYPE.main>
+                    <TYPE.main>
+                      <TableHeaderBox>
+                        <TableHeaderBox>Pair Address</TableHeaderBox>
+                      </TableHeaderBox>
+                    </TYPE.main>
                     <AutoRow align="flex-end">
                       <TYPE.main style={{ marginTop: '.5rem' }}>
                         {pairAddress.slice(0, 6) + '...' + pairAddress.slice(38, 42)}
@@ -467,8 +474,11 @@ function PairPage({ pairAddress, history }) {
                   <Column>
                     <TYPE.main>
                       <RowFixed>
-                        <FormattedName text={token0?.symbol ?? ''} maxCharacters={8} />{' '}
-                        <span style={{ marginLeft: '4px' }}>Address</span>
+                        <FormattedName Wrapper={TableHeaderBox} text={token0?.symbol ?? ''} maxCharacters={8} />{' '}
+                        <TableHeaderBox>
+                          {' '}
+                          <span style={{ marginLeft: '4px' }}>Address</span>
+                        </TableHeaderBox>
                       </RowFixed>
                     </TYPE.main>
                     <AutoRow align="flex-end">
@@ -481,8 +491,10 @@ function PairPage({ pairAddress, history }) {
                   <Column>
                     <TYPE.main>
                       <RowFixed>
-                        <FormattedName text={token1?.symbol ?? ''} maxCharacters={8} />{' '}
-                        <span style={{ marginLeft: '4px' }}>Address</span>
+                        <FormattedName Wrapper={TableHeaderBox} text={token1?.symbol ?? ''} maxCharacters={8} />{' '}
+                        <span style={{ marginLeft: '4px' }}>
+                          <TableHeaderBox>Address</TableHeaderBox>
+                        </span>
                       </RowFixed>
                     </TYPE.main>
                     <AutoRow align="flex-end">
