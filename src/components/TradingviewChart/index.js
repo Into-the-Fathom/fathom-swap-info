@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef } from 'react'
 import { createChart } from 'lightweight-charts'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import { formattedNum } from '../../utils'
+import { formattedNum } from 'utils'
 import styled from 'styled-components'
 import { usePrevious } from 'react-use'
 import { Play } from 'react-feather'
 import { useDarkModeManager } from 'contexts/LocalStorage'
-import { IconWrapper } from '..'
+import { IconWrapper } from 'components'
+import dropSrc from 'assets/drop.svg'
+import riseSrc from 'assets/rise.svg'
 
 dayjs.extend(utc)
 
@@ -63,7 +65,7 @@ const TradingViewChart = ({
   const topScale = type === CHART_TYPES.AREA ? 0.32 : 0.2
 
   const [darkMode] = useDarkModeManager()
-  const textColor = darkMode ? 'white' : 'black'
+  const textColor = '#6379A1'
   const previousTheme = usePrevious(darkMode)
 
   // reset the chart if them switches
@@ -100,11 +102,11 @@ const TradingViewChart = ({
         },
         grid: {
           horzLines: {
-            color: 'rgba(79, 143, 234, 0.5)',
+            color: '#003CFF',
             visible: false,
           },
           vertLines: {
-            color: 'rgba(79, 143, 234, 0.5)',
+            color: '#003CFF',
             visible: false,
           },
         },
@@ -117,7 +119,7 @@ const TradingViewChart = ({
             visible: true,
             style: 0,
             width: 2,
-            color: 'rgba(21, 87, 180, 0.1)',
+            color: '#003CFF',
             labelVisible: false,
           },
         },
@@ -129,7 +131,7 @@ const TradingViewChart = ({
       var series =
         type === CHART_TYPES.BAR
           ? chart.addHistogramSeries({
-              color: '#4f8fea',
+              color: '#003CFF',
               priceFormat: {
                 type: 'volume',
               },
@@ -137,13 +139,13 @@ const TradingViewChart = ({
                 top: 0.32,
                 bottom: 0,
               },
-              lineColor: '#4f8fea',
+              lineColor: '#003CFF',
               lineWidth: 3,
             })
           : chart.addAreaSeries({
-              topColor: '#4f8fea',
-              bottomColor: 'rgba(79, 143, 234, 0)',
-              lineColor: '#4f8fea',
+              topColor: '#003CFF',
+              bottomColor: '#003CFF',
+              lineColor: '#003CFF',
               lineWidth: 3,
             })
 
@@ -161,17 +163,31 @@ const TradingViewChart = ({
       // format numbers
       let percentChange = baseChange?.toFixed(2)
       let formattedPercentChange = (percentChange > 0 ? '+' : '') + percentChange + '%'
-      let color = percentChange >= 0 ? '#43FFF6' : 'red'
+      let percentageBackgroundColor = percentChange >= 0 ? '#173D0F' : '#811717'
 
       // get the title of the chart
       function setLastBarText() {
         toolTip.innerHTML =
-          `<div style="font-size: 16px; margin: 4px 0px; color: ${textColor};">${title} ${
+          `<div style="position: absolute; top: -42px; font-size: 16px; margin: 4px 0px; color: white;">${title} ${
             type === CHART_TYPES.BAR && !useWeekly ? '(24hr)' : ''
           }</div>` +
-          `<div style="font-size: 22px; margin: 4px 0px; color:${textColor}" >` +
+          `<div style="display: flex; justify-content: space-between; align-items: center; font-size: 22px; position: absolute; top: -20px; margin: 4px 0px; color:white" >` +
           formattedNum(base ?? 0, true) +
-          `<span style="margin-left: 10px; font-size: 16px; color: ${color};">${formattedPercentChange}</span>` +
+          `<span style="
+                padding: 4px 8px;
+                margin-left: 10px;
+                display: flex;
+                align-items: center;
+                gap: 7px;                          
+                font-size: 16px;
+                font-size: 12px;
+                border-radius: 6px;
+                background-color: ${percentageBackgroundColor};
+          ">
+          <img src="${percentChange >= 0 ? riseSrc : dropSrc}" alt="percentage-state" />
+          
+${formattedPercentChange}
+</span>` +
           '</div>'
       }
       setLastBarText()
@@ -200,8 +216,8 @@ const TradingViewChart = ({
           var price = param.seriesPrices.get(series)
 
           toolTip.innerHTML =
-            `<div style="font-size: 16px; margin: 4px 0px; color: ${textColor};">${title}</div>` +
-            `<div style="font-size: 22px; margin: 4px 0px; color: ${textColor}">` +
+            `<div style="font-size: 16px; position: absolute; top: -42px; margin: 4px 0px; color: white;">${title}</div>` +
+            `<div style="font-size: 22px; position: absolute; top: -20px; margin: 4px 0px; color: white">` +
             formattedNum(price, true) +
             '</div>' +
             '<div>' +

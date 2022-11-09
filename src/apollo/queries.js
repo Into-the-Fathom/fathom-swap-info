@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { FACTORY_ADDRESS, BUNDLE_ID } from '../constants'
+import { FACTORY_ADDRESS, BUNDLE_ID } from 'constants/index'
 
 export const SUBGRAPH_HEALTH = gql`
   query health {

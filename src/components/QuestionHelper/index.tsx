@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { HelpCircle as Question } from 'react-feather'
 import styled from 'styled-components'
-import Popover, { PopoverProps } from '../Popover'
+import Popover, { PopoverProps } from 'components/Popover'
 
 const QuestionWrapper = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ const QuestionWrapper = styled.div`
   outline: none;
   cursor: default;
   border-radius: 36px;
-  background-color: ${({ theme }) => theme.bg2};
+  background-color: ${({ theme }) => theme.primaryText2};
   color: ${({ theme }) => theme.text2};
 
   :hover,
@@ -47,7 +47,7 @@ export default function QuestionHelper({ text, disabled }: { text: string; disab
     <span style={{ marginLeft: 4 }}>
       <Tooltip text={text} show={show && !disabled}>
         <QuestionWrapper onClick={open} onMouseEnter={open} onMouseLeave={close}>
-          <Question size={16} />
+          <Question size={11} />
         </QuestionWrapper>
       </Tooltip>
     </span>

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { TYPE } from '../../Theme'
-import { RowFixed } from '../Row'
+import { TYPE } from 'Theme'
+import { RowFixed } from 'components/Row'
 
 const StyleCheckbox = styled.input`
   background: ${({ theme }) => theme.bg2};

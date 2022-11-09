@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { isAddress } from '../../utils'
+import { isAddress } from 'utils'
 
 const BAD_IMAGES = {}
 

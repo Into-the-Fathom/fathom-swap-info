@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { useMedia } from 'react-use'
 import dayjs from 'dayjs'
-import LocalLoader from '../LocalLoader'
+import LocalLoader from 'components/LocalLoader'
 import utc from 'dayjs/plugin/utc'
 import { Box, Flex } from 'rebass'
 import styled from 'styled-components'
 
-import { CustomLink } from '../Link'
-import { Divider } from '..'
+import { CustomLink } from 'components/Link'
+import { Divider } from 'components'
 import { withRouter } from 'react-router-dom'
-import { formattedNum } from '../../utils'
-import { TYPE } from '../../Theme'
-import DoubleTokenLogo from '../DoubleLogo'
-import { RowFixed } from '../Row'
+import { formattedNum } from 'utils'
+import { TYPE } from 'Theme'
+import DoubleTokenLogo from 'components/DoubleLogo'
+import { RowFixed } from 'components/Row'
+import { TableHeaderBox } from 'components/Row'
 
 dayjs.extend(utc)
 
@@ -25,7 +26,7 @@ const PageButtons = styled.div`
 `
 
 const Arrow = styled.div`
-  color: ${({ theme }) => theme.primary1};
+  color: ${({ theme }) => theme.white};
   opacity: ${(props) => (props.faded ? 0.3 : 1)};
   padding: 0 20px;
   user-select: none;
@@ -58,6 +59,13 @@ const DashGrid = styled.div`
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: 'name pair value';
   }
+`
+
+const HeaderWrapper = styled(DashGrid)`
+  background: ${({ theme }) => theme.headerBackground};
+  border-radius: 8px;
+  padding-top: 7px !important;
+  padding-bottom: 7px !important;
 `
 
 const ListWrapper = styled.div``
@@ -101,7 +109,7 @@ function LPList({ lps, disbaleLinks, maxItems = 10 }) {
 
   const ListItem = ({ lp, index }) => {
     return (
-      <DashGrid style={{ height: '48px' }} disbaleLinks={disbaleLinks} focus={true}>
+      <DashGrid style={{ height: '48px', padding: '0 1.125rem' }} disbaleLinks={disbaleLinks} focus={true}>
         {!below600 && (
           <DataText area="number" fontWeight="500">
             {index}
@@ -145,14 +153,22 @@ function LPList({ lps, disbaleLinks, maxItems = 10 }) {
 
   return (
     <ListWrapper>
-      <DashGrid center={true} disbaleLinks={disbaleLinks} style={{ height: 'fit-content', padding: ' 0 0 1rem 0' }}>
+      <HeaderWrapper
+        center={true}
+        disbaleLinks={disbaleLinks}
+        style={{ height: 'fit-content', padding: '0px 1.125rem 1rem' }}
+      >
         {!below600 && (
           <Flex alignItems="center" justifyContent="flex-start">
-            <TYPE.main area="number">#</TYPE.main>
+            <TYPE.main area="number">
+              <TableHeaderBox>#</TableHeaderBox>
+            </TYPE.main>
           </Flex>
         )}
         <Flex alignItems="center" justifyContent="flex-start">
-          <TYPE.main area="name">Account</TYPE.main>
+          <TYPE.main area="name">
+            <TableHeaderBox>Account</TableHeaderBox>
+          </TYPE.main>
         </Flex>
         {/* {!below1080 && (
           <Flex alignItems="center" justifyContent="flexEnd">
@@ -160,13 +176,16 @@ function LPList({ lps, disbaleLinks, maxItems = 10 }) {
           </Flex>
         )} */}
         <Flex alignItems="center" justifyContent="flexEnd">
-          <TYPE.main area="pair">Pair</TYPE.main>
+          <TYPE.main area="pair">
+            <TableHeaderBox>Pair</TableHeaderBox>
+          </TYPE.main>
         </Flex>
         <Flex alignItems="center" justifyContent="flexEnd">
-          <TYPE.main area="value">Value</TYPE.main>
+          <TYPE.main area="value">
+            <TableHeaderBox>Value</TableHeaderBox>
+          </TYPE.main>
         </Flex>
-      </DashGrid>
-      <Divider />
+      </HeaderWrapper>
       <List p={0}>{!lpList ? <LocalLoader /> : lpList}</List>
       <PageButtons>
         <div onClick={() => setPage(page === 1 ? page : page - 1)}>

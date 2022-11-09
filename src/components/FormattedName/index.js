@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Tooltip } from '../QuestionHelper'
+import { Tooltip } from 'components/QuestionHelper'
 
 const TextWrapper = styled.div`
   position: relative;
@@ -17,7 +17,16 @@ const TextWrapper = styled.div`
   }
 `
 
-const FormattedName = ({ text, maxCharacters, margin = false, adjustSize = false, fontSize, link, ...rest }) => {
+const FormattedName = ({
+  text,
+  maxCharacters,
+  Wrapper,
+  margin = false,
+  adjustSize = false,
+  fontSize,
+  link,
+  ...rest
+}) => {
   const [showHover, setShowHover] = useState(false)
 
   if (!text) {
@@ -36,7 +45,11 @@ const FormattedName = ({ text, maxCharacters, margin = false, adjustSize = false
           fontSize={fontSize}
           {...rest}
         >
-          {' ' + text.slice(0, maxCharacters - 1) + '...'}
+          {Wrapper ? (
+            <Wrapper>{' ' + text.slice(0, maxCharacters - 1) + '...'}</Wrapper>
+          ) : (
+            ' ' + text.slice(0, maxCharacters - 1) + '...'
+          )}
         </TextWrapper>
       </Tooltip>
     )
@@ -44,7 +57,7 @@ const FormattedName = ({ text, maxCharacters, margin = false, adjustSize = false
 
   return (
     <TextWrapper margin={margin} adjustSize={adjustSize} link={link} fontSize={fontSize} {...rest}>
-      {text}
+      {Wrapper ? <Wrapper>{text}</Wrapper> : text}
     </TextWrapper>
   )
 }

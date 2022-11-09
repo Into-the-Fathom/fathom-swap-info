@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import { useCurrentCurrency } from '../../contexts/Application'
+import { useCurrentCurrency } from 'contexts/Application'
 
-import Row from '../Row'
+import Row from 'components/Row'
 import { ChevronDown as Arrow } from 'react-feather'
 
 const Select = styled.div`

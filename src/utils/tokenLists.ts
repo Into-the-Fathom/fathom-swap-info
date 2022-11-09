@@ -44,7 +44,7 @@ export default async function getTokenList(listUrl: string): Promise<any> {
     }
 
     if (!response.ok) {
-      if (isLast) throw new Error(`Failed to download list ${listUrl}`)
+      if (isLast) console.log(`Failed to download list ${listUrl}`)
       continue
     }
 

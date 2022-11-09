@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer, useMemo, useCallback, useEffect, useState } from 'react'
 
-import { client } from '../apollo/client'
+import { client } from 'apollo/client'
 import {
   PAIR_DATA,
   PAIR_CHART,
@@ -9,9 +9,9 @@ import {
   PAIRS_BULK,
   PAIRS_HISTORICAL_BULK,
   HOURLY_PAIR_RATES,
-} from '../apollo/queries'
+} from 'apollo/queries'
 
-import { useEthPrice } from './GlobalData'
+import { useEthPrice } from 'contexts/GlobalData'
 
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
@@ -23,10 +23,10 @@ import {
   getBlocksFromTimestamps,
   getTimestampsForChanges,
   splitQuery,
-} from '../utils'
-import { timeframeOptions, TRACKED_OVERRIDES_PAIRS, TRACKED_OVERRIDES_TOKENS } from '../constants'
-import { useLatestBlocks } from './Application'
-import { updateNameData } from '../utils/data'
+} from 'utils'
+import { timeframeOptions, TRACKED_OVERRIDES_PAIRS, TRACKED_OVERRIDES_TOKENS } from 'constants/index'
+import { useLatestBlocks } from 'contexts/Application'
+import { updateNameData } from 'utils/data'
 
 const UPDATE = 'UPDATE'
 const UPDATE_PAIR_TXNS = 'UPDATE_PAIR_TXNS'
@@ -39,9 +39,9 @@ dayjs.extend(utc)
 export function safeAccess(object, path) {
   return object
     ? path.reduce(
-      (accumulator, currentValue) => (accumulator && accumulator[currentValue] ? accumulator[currentValue] : null),
-      object
-    )
+        (accumulator, currentValue) => (accumulator && accumulator[currentValue] ? accumulator[currentValue] : null),
+        object
+      )
     : null
 }
 
