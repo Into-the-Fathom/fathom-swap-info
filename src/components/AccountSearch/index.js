@@ -151,7 +151,7 @@ function AccountSearch({ history, small }) {
 
         {small && (
           <>
-            <TYPE.main>{'Accounts'}</TYPE.main>
+            <TYPE.main marginBottom="1rem">{'Accounts'}</TYPE.main>
             {savedAccounts?.length > 0 ? (
               savedAccounts.map((account) => {
                 return (

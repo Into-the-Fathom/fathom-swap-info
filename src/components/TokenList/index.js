@@ -112,7 +112,7 @@ const DataText = styled(Flex)`
   }
 `
 
-export const HeaderWrapper = styled(DashGrid)`
+const HeaderWrapper = styled(DashGrid)`
   background: ${({ theme }) => theme.headerBackground};
   border-radius: 8px;
   padding-top: 7px !important;
