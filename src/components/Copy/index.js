@@ -4,7 +4,6 @@ import { useCopyClipboard } from 'hooks'
 import { CheckCircle, Copy } from 'react-feather'
 import { StyledIcon } from 'components'
 
-
 const CopyIcon = styled.div`
   color: #aeaeae;
   flex-shrink: 0;
@@ -20,7 +19,6 @@ const CopyIcon = styled.div`
   }
 `
 const TransactionStatusText = styled.span`
-  margin-left: 0.25rem;
   ${({ theme }) => theme.flexRowNoWrap};
   align-items: center;
   color: black;

@@ -12,8 +12,8 @@ import { useTokenChartData, useTokenPriceData } from 'contexts/TokenData'
 import DropdownSelect from 'components/DropdownSelect'
 import CandleStickChart from 'components/CandleChart'
 import LocalLoader from 'components/LocalLoader'
-import { AutoColumn } from 'components/Column'
 import { Activity } from 'react-feather'
+import { useDarkModeManager } from 'contexts/LocalStorage'
 
 const ChartWrapper = styled.div`
   height: 100%;
@@ -46,7 +46,8 @@ const TokenChart = ({ address, color, base }) => {
   const [chartFilter, setChartFilter] = useState(CHART_VIEW.PRICE)
   const [frequency, setFrequency] = useState(DATA_FREQUENCY.HOUR)
 
-  const textColor = 'white'
+  const [darkMode] = useDarkModeManager()
+  const textColor = darkMode ? 'white' : 'black'
 
   // reset view on new address
   const addressPrev = usePrevious(address)
@@ -144,7 +145,7 @@ const TokenChart = ({ address, color, base }) => {
           }
           align="flex-start"
         >
-          <AutoColumn gap="8px">
+          <div>
             <RowFixed>
               <OptionButton
                 active={chartFilter === CHART_VIEW.LIQUIDITY}
@@ -194,7 +195,7 @@ const TokenChart = ({ address, color, base }) => {
                 </PriceOption>
               </AutoRow>
             )}
-          </AutoColumn>
+          </div>
           <AutoRow justify="flex-end" gap="6px" align="flex-start">
             <OptionButton
               active={timeWindow === timeframeOptions.WEEK}

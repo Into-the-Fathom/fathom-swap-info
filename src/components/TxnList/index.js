@@ -191,7 +191,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
   // parse the txns and format for UI
   useEffect(() => {
     if (transactions && transactions.mints && transactions.burns && transactions.swaps) {
-      let newTxns = []
+      const newTxns = []
       if (transactions.mints.length > 0) {
         transactions.mints.map((mint) => {
           let newTxn = {}
@@ -289,7 +289,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
 
   const ListItem = ({ item }) => {
     return (
-      <DashGrid style={{ height: '48px', padding: '0px 1.125rem 1rem' }}>
+      <DashGrid style={{ height: '48px', padding: '0px 1.125rem' }}>
         <DataText area="txn" fontWeight="500">
           <Link color={color} external href={urls.showTransaction(item.hash)}>
             {getTransactionType(item.type, item.token1Symbol, item.token0Symbol)}

@@ -97,6 +97,33 @@ const HeaderWrapper = styled.div`
   margin-bottom: 1rem;
 `
 
+const AccountDetailsLayout = styled.div`
+  display: inline-grid;
+  width: calc(100% - 1.25rem);
+  grid-template-columns: auto auto auto 1fr;
+  gap: 75px;
+  align-items: start;
+  padding-left: 1.25rem;
+
+  &:last-child {
+    align-items: center;
+    justify-items: end;
+  }
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    > * {
+      /* grid-column: 1 / 4; */
+      margin-bottom: 1rem;
+    }
+
+    &:last-child {
+      align-items: start;
+      justify-items: start;
+    }
+  }
+`
+
 function AccountPage({ account }) {
   // get data for this account
   const transactions = useUserTransactions(account)
@@ -330,22 +357,20 @@ function AccountPage({ account }) {
           <HeaderWrapper>
             <TableHeaderBox>Wallet Stats</TableHeaderBox>
           </HeaderWrapper>{' '}
-          <AutoRow gap="20px">
+          <AccountDetailsLayout>
             <AutoColumn gap="8px">
-              <TYPE.header fontSize={24}>{totalSwappedUSD ? formattedNum(totalSwappedUSD, true) : '-'}</TYPE.header>
+              <TYPE.header>{totalSwappedUSD ? formattedNum(totalSwappedUSD, true) : '-'}</TYPE.header>
               <TYPE.main>Total Value Swapped</TYPE.main>
             </AutoColumn>
             <AutoColumn gap="8px">
-              <TYPE.header fontSize={24}>
-                {totalSwappedUSD ? formattedNum(totalSwappedUSD * 0.003, true) : '-'}
-              </TYPE.header>
+              <TYPE.header>{totalSwappedUSD ? formattedNum(totalSwappedUSD * 0.003, true) : '-'}</TYPE.header>
               <TYPE.main>Total Fees Paid</TYPE.main>
             </AutoColumn>
             <AutoColumn gap="8px">
-              <TYPE.header fontSize={24}>{transactionCount ? transactionCount : '-'}</TYPE.header>
+              <TYPE.header>{transactionCount ? transactionCount : '-'}</TYPE.header>
               <TYPE.main>Total Transactions</TYPE.main>
             </AutoColumn>
-          </AutoRow>
+          </AccountDetailsLayout>
         </DashboardWrapper>
       </ContentWrapper>
     </PageWrapper>

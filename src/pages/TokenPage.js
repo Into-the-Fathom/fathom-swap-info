@@ -34,6 +34,7 @@ import { UNTRACKED_COPY, TOKEN_BLACKLIST, BLOCKED_WARNINGS } from 'constants/ind
 import QuestionHelper from 'components/QuestionHelper'
 import Checkbox from 'components/Checkbox'
 import { shortenAddress } from 'utils'
+import { TableHeaderBox } from 'components/Row'
 
 const DashboardWrapper = styled.div`
   width: 100%;
@@ -63,10 +64,11 @@ const PanelWrapper = styled.div`
 
 const TokenDetailsLayout = styled.div`
   display: inline-grid;
-  width: 100%;
+  width: calc(100% - 1.25rem);
   grid-template-columns: auto auto auto 1fr;
-  column-gap: 30px;
+  gap: 75px;
   align-items: start;
+  padding-left: 1.25rem;
 
   &:last-child {
     align-items: center;
@@ -97,6 +99,13 @@ const WarningIcon = styled(AlertCircle)`
 const WarningGrouping = styled.div`
   opacity: ${({ disabled }) => disabled && '0.4'};
   pointer-events: ${({ disabled }) => disabled && 'none'};
+`
+
+const HeaderWrapper = styled.div`
+  background: ${({ theme }) => theme.headerBackground};
+  border-radius: 8px;
+  padding-top: 7px !important;
+  padding-bottom: 7px !important;
 `
 
 function TokenPage({ address, history }) {
@@ -350,7 +359,7 @@ function TokenPage({ address, history }) {
                     gridRow: below1080 ? '' : '1/4',
                   }}
                 >
-                  <TokenChart address={address} base={priceUSD} color={'#4f8fea'} />
+                  <TokenChart address={address} base={priceUSD} color={'#003CFF'} />
                 </Panel>
               </PanelWrapper>
             </>
@@ -376,26 +385,26 @@ function TokenPage({ address, history }) {
             </RowBetween>
             {transactions ? <TxnList transactions={transactions} /> : <Loader />}
             <>
-              <RowBetween style={{ marginTop: '3rem', marginBottom: '2rem' }}>
-                <TYPE.main fontSize={'1.125rem'}>Token Information</TYPE.main>{' '}
-              </RowBetween>
+              <HeaderWrapper style={{ marginTop: '3rem', marginBottom: '2rem', padding: '0px 1.125rem' }}>
+                <TableHeaderBox>Token Information</TableHeaderBox>{' '}
+              </HeaderWrapper>
               <TokenDetailsLayout>
                 <Column>
                   <TYPE.main>Symbol</TYPE.main>
-                  <Text style={{ marginTop: '.5rem' }} fontSize={24} fontWeight="500">
+                  <TYPE.main style={{ marginTop: '.5rem' }} fontWeight="500">
                     <FormattedName text={symbol} maxCharacters={12} />
-                  </Text>
+                  </TYPE.main>
                 </Column>
                 <Column>
                   <TYPE.main>Name</TYPE.main>
-                  <TYPE.main style={{ marginTop: '.5rem' }} fontSize={24} fontWeight="500">
+                  <TYPE.main style={{ marginTop: '.5rem' }} fontWeight="500">
                     <FormattedName text={name} maxCharacters={16} />
                   </TYPE.main>
                 </Column>
                 <Column>
                   <TYPE.main>Address</TYPE.main>
                   <AutoRow align="flex-end">
-                    <TYPE.main style={{ marginTop: '.5rem' }} fontSize={24} fontWeight="500">
+                    <TYPE.main style={{ marginTop: '.5rem' }} fontWeight="500">
                       {address.slice(0, 8) + '...' + address.slice(36, 42)}
                     </TYPE.main>
                     <CopyHelper toCopy={address} />
