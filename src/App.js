@@ -58,7 +58,8 @@ const Center = styled.div`
   height: 100%;
   z-index: 9999;
   transition: width 0.25s ease;
-  background: linear-gradient(180deg, #000817 7.88%, #0D1725 113.25%);
+  background: linear-gradient(180deg, #000817 7.88%, #0d1725 113.25%);
+  overflow: hidden;
 `
 
 const WarningWrapper = styled.div`
