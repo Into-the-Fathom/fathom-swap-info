@@ -40,16 +40,16 @@ export function getTimeframe(timeWindow) {
 export function getPoolLink(token0Address, token1Address = null, remove = false) {
   if (!token1Address) {
     return (
-      `https://fathom.mypinata.cloud/ipfs/QmPz44rPFG635CAGFnUGjQRNGmYHfYsAvyn9NjK71honXm/#/` +
+      `https://swap.fathom.fi/#/` +
       (remove ? `remove` : `add`) +
-      `/${token0Address === '0xcec1609efd3f12d0da63250ef6761a7482dda3bf' ? 'XDC' : token0Address}/${'XDC'}`
+      `/${token0Address === '0xE99500AB4A413164DA49Af83B9824749059b46ce' ? 'XDC' : token0Address}/${'XDC'}`
     )
   } else {
     return (
-      `https://fathom.mypinata.cloud/ipfs/QmPz44rPFG635CAGFnUGjQRNGmYHfYsAvyn9NjK71honXm/#/` +
+      `https://swap.fathom.fi/#/` +
       (remove ? `remove` : `add`) +
-      `/${token0Address === '0xcec1609efd3f12d0da63250ef6761a7482dda3bf' ? 'XDC' : token0Address}/${
-        token1Address === '0xcec1609efd3f12d0da63250ef6761a7482dda3bf' ? 'XDC' : token1Address
+      `/${token0Address === '0xE99500AB4A413164DA49Af83B9824749059b46ce' ? 'XDC' : token0Address}/${
+        token1Address === '0xE99500AB4A413164DA49Af83B9824749059b46ce' ? 'XDC' : token1Address
       }`
     )
   }
@@ -57,11 +57,11 @@ export function getPoolLink(token0Address, token1Address = null, remove = false)
 
 export function getSwapLink(token0Address, token1Address = null) {
   if (!token1Address) {
-    return `https://fathom.mypinata.cloud/ipfs/QmPz44rPFG635CAGFnUGjQRNGmYHfYsAvyn9NjK71honXm/#/swap?inputCurrency=${token0Address}`
+    return `https://swap.fathom.fi/#/swap?inputCurrency=${token0Address}`
   } else {
-    return `https://fathom.mypinata.cloud/ipfs/QmPz44rPFG635CAGFnUGjQRNGmYHfYsAvyn9NjK71honXm/#/swap?inputCurrency=${
-      token0Address === '0xcec1609efd3f12d0da63250ef6761a7482dda3bf' ? 'XDC' : token0Address
-    }&outputCurrency=${token1Address === '0xcec1609efd3f12d0da63250ef6761a7482dda3bf' ? 'XDC' : token1Address}`
+    return `https://swap.fathom.fi/#/swap?inputCurrency=${
+      token0Address === '0xE99500AB4A413164DA49Af83B9824749059b46ce' ? 'XDC' : token0Address
+    }&outputCurrency=${token1Address === '0xE99500AB4A413164DA49Af83B9824749059b46ce' ? 'XDC' : token1Address}`
   }
 }
 

@@ -13,7 +13,7 @@ export const timeframeOptions = {
 
 // token list urls to fetch tokens from - use for warnings on tokens and pairs
 export const SUPPORTED_LIST_URLS__NO_ENS = [
-  'https://ipfs.io/ipfs/QmaHUk2XSp342MXHFuC67edUwHx8VapRXioXotLeHsarmd',
+  'https://raw.githubusercontent.com/Into-the-Fathom/fathom-swap-default-token-list/dev/src/tokenlists/apothem.json',
 ]
 
 // hide from overview list
@@ -40,21 +40,8 @@ export const TOKEN_BLACKLIST = [
 
 // pair blacklist
 export const PAIR_BLACKLIST = [
-  '0xf85484f334929a258baeb6121f073b1470c430bd',
-  '0xd741f14eb076feab2124b81ce56655b5d6c93ad9',
-  '0xea66333ede83daf4f90ed0863817fea7d60db796',
-  '0xd1d426a420eaf98ae4a4f98906d7faf559631b20',
-  '0xc1ed773864931ab2f19e41ad45b39756d3c3c4cb',
-  '0xbdc865ae3dc930c1c8220291887aead6931addfd',
-  '0xa7857bb47d46db4b7ad449e0b3fe4fa40d93d884',
-  '0x9ab0343cba68440518e408aef71c58de8a60a895',
-  '0x8e0ba61db9eeaf57fcf50475444eec93249d1533',
-  '0x884955287bebdaf41d0264e39b40cfdb064a18d2',
-  '0x71b0a7bd532f2615bf4733ac3ccd133861d8da4d',
-  '0xaf23e77566298ee5442cdf10a66f32efc00fb44b',
-  '0x67d0975398624bca4a0ec8e3e9d895bccf92fb4b',
-  '0x537fe68212e7a8b2b73ac4cb784ac25838774bec',
-  '0x05388431d51fea5b9eea9cf34fc64895610f5445',
+  '0x55b0f13daffdea62d9889db558bd6fce8d30669e',
+  '0x1ddccfcc3b55f7397ad839815b5ded451fd445c2',
 ]
 
 // warnings to display if page contains info about blocked token
