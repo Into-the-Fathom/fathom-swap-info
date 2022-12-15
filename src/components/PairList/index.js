@@ -174,8 +174,6 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10, useTracked = fals
         extraPages = 0
       }
 
-      console.log(pairs)
-      console.log(ITEMS_PER_PAGE)
       setMaxPage(Math.floor(Object.keys(pairs).length / ITEMS_PER_PAGE) + extraPages)
     }
   }, [ITEMS_PER_PAGE, pairs])

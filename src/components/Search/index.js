@@ -159,9 +159,6 @@ export const Search = ({ small = false }) => {
   let allTokens = useAllTokensInUniswap()
   const allTokenData = useAllTokenData()
 
-  console.log(allTokens)
-  console.log(allTokenData)
-
   let allPairs = useAllPairsInUniswap()
   const allPairData = useAllPairData()
 
