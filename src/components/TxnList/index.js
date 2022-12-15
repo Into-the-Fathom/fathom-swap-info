@@ -426,6 +426,9 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
             </Flex>
           )}
           <Flex alignItems="center">
+            <TableHeaderBox area="account">Transaction</TableHeaderBox>
+          </Flex>
+          <Flex alignItems="center">
             <ClickableText
               area="time"
               color="textDim"
