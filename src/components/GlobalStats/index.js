@@ -3,12 +3,13 @@ import styled from 'styled-components'
 import { RowBetween } from 'components/Row'
 import { useMedia } from 'react-use'
 import { useGlobalData, useEthPrice } from 'contexts/GlobalData'
-import { formattedNum, localNumber } from 'utils'
+import { formattedNum } from 'utils'
 import { Box } from 'rebass/styled-components'
 
 import { getTokenLogoURL } from 'utils/getTokenLogo'
 
-import transferSrc from 'assets/transfer.svg';
+import transferSrc from 'assets/transfer.svg'
+import dollarSrc from 'assets/dollar.svg'
 
 const Header = styled.div`
   width: 100%;
@@ -68,7 +69,7 @@ export default function GlobalStats() {
   const below1024 = useMedia('(max-width: 1024px)')
   const below400 = useMedia('(max-width: 400px)')
 
-  const { oneDayVolumeUSD, oneDayTxns, pairCount } = useGlobalData()
+  const { oneDayVolumeUSD, oneDayTxns } = useGlobalData()
   const [ethPrice] = useEthPrice()
   const formattedEthPrice = ethPrice ? formattedNum(ethPrice, true) : '-'
   const oneDayFees = oneDayVolumeUSD ? formattedNum(oneDayVolumeUSD * 0.003, true) : ''
@@ -78,6 +79,19 @@ export default function GlobalStats() {
       <RowBetween style={{ marginTop: '1rem', marginBottom: '2rem' }}>
         <GridStats>
           {!below400 && (
+            <>
+              <GridStatsItem>
+                <ImgWrapper>
+                  <img src={getTokenLogoURL('FTHM')} alt="fthm" width={24} />
+                </ImgWrapper>
+                <TextWrapper>
+                  <Title>FTHM Price</Title>
+                  <Value>{formattedEthPrice}</Value>
+                </TextWrapper>
+              </GridStatsItem>
+            </>
+          )}
+          {!below1024 && (
             <GridStatsItem>
               <ImgWrapper>
                 <img src={getTokenLogoURL('WXDC')} alt="xdc" width={24} />
@@ -88,26 +102,14 @@ export default function GlobalStats() {
               </TextWrapper>
             </GridStatsItem>
           )}
-
           {!below1180 && (
             <GridStatsItem>
               <ImgWrapper>
-                <img src={transferSrc} alt="transfer" width={24} />
+                <img src={getTokenLogoURL('FXD')} alt="fxd" width={24} />
               </ImgWrapper>
               <TextWrapper>
-                <Title>Transactions (24H)</Title>
-                <Value>{localNumber(oneDayTxns)}</Value>
-              </TextWrapper>
-            </GridStatsItem>
-          )}
-          {!below1024 && (
-            <GridStatsItem>
-              <ImgWrapper>
-                <img src={transferSrc} alt="transfer" width={24} />
-              </ImgWrapper>
-              <TextWrapper>
-                <Title>Pairs</Title>
-                <Value>{localNumber(pairCount)}</Value>
+                <Title>FXD Price</Title>
+                <Value>{formattedEthPrice}</Value>
               </TextWrapper>
             </GridStatsItem>
           )}
@@ -117,8 +119,8 @@ export default function GlobalStats() {
                 <img src={transferSrc} alt="transfer" width={24} />
               </ImgWrapper>
               <TextWrapper>
-                <Title>Fees (24H)</Title>
-                <Value>{oneDayFees}</Value>
+                <Title>Transactions (24h)</Title>
+                <Value>{oneDayTxns}</Value>
               </TextWrapper>
             </GridStatsItem>
           )}
@@ -126,10 +128,10 @@ export default function GlobalStats() {
           {!below1295 && (
             <GridStatsItem>
               <ImgWrapper>
-                <img src={transferSrc} alt="transfer" width={24} />
+                <img src={dollarSrc} alt="transfer" width={24} />
               </ImgWrapper>
               <TextWrapper>
-                <Title>Fees (24H)</Title>
+                <Title>Fees (24h)</Title>
                 <Value>{oneDayFees}</Value>
               </TextWrapper>
             </GridStatsItem>
