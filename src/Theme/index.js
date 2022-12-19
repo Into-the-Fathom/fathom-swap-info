@@ -153,6 +153,10 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 14px;
     background: linear-gradient(180deg, #000817 7.88%, #0D1725 113.25%);
   }
+  
+  html {
+    background-color: #0D1725;
+  }
 
   a {
     text-decoration: none;
