@@ -18,7 +18,7 @@ export const getTokenLogoURL = (address: string) => {
   if (findToken) {
     logo = findToken.logoURI
   } else {
-    logo = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${address}/logo.png`
+    logo = `https://raw.githubusercontent.com/trustwallet/assets/dev/blockchains/ethereum/assets/${address}/logo.png`
   }
 
   return logo
