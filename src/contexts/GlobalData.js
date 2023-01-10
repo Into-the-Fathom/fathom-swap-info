@@ -565,8 +565,6 @@ export function useGlobalData() {
 
   const data = state?.globalData
 
-  // const combinedVolume = useTokenDataCombined(offsetVolumes)
-
   useEffect(() => {
     async function fetchData() {
       let globalData = await getGlobalData(ethPrice, oldEthPrice)
@@ -743,4 +741,48 @@ export function useTopLps() {
   })
 
   return topLps
+}
+
+export function useFxdPrice() {
+  const [fxdPrice, setFxdPrice] = useState(0)
+
+  const allPairs = useAllPairData()
+
+  useEffect(() => {
+    if (Object.keys(allPairs).length) {
+      const [, findPair] = Object.entries(allPairs)?.find(([key, pairItem]) => {
+        return (
+          (pairItem.token0.symbol === 'US+' && pairItem.token1.symbol === 'FXD') ||
+          (pairItem.token0.symbol === 'FXD' && pairItem.token1.symbol === 'US+')
+        )
+      })
+      setFxdPrice(findPair.token0.symbol === 'FXD' ? findPair.token1Price : findPair.token0Price)
+    }
+  }, [allPairs, setFxdPrice])
+
+  return {
+    fxdPrice,
+  }
+}
+
+export function useFTHMPrice() {
+  const [fthmPrice, setFthmPrice] = useState(0)
+
+  const allPairs = useAllPairData()
+
+  useEffect(() => {
+    if (Object.keys(allPairs).length) {
+      const [, findPair] = Object.entries(allPairs)?.find(([key, pairItem]) => {
+        return (
+          (pairItem.token0.symbol === 'US+' && pairItem.token1.symbol === 'FTHM') ||
+          (pairItem.token0.symbol === 'FTHM' && pairItem.token1.symbol === 'US+')
+        )
+      })
+      setFthmPrice(findPair.token0.symbol === 'FTHM' ? findPair.token1Price : findPair.token0Price)
+    }
+  }, [allPairs, setFthmPrice])
+
+  return {
+    fthmPrice,
+  }
 }
