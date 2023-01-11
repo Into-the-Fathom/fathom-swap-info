@@ -31,6 +31,7 @@ export const TOKEN_BLACKLIST = [
   '0xaf23e77566298ee5442cdf10a66f32efc00fb44b',
   '0x322742814990bf0b075fc2b33186ca63122ffb08',
   '0xbde88af3e99f29acb9dba853416024a44bfc7f8b',
+  '0x2db58e5850f4f9ba63ff4306cf1f6426c7a6b9b7',
 
   // rebass tokens
   '0x9ea3b5b4ec044b70375236a281986106457b20ef',
@@ -55,6 +56,8 @@ export const PAIR_BLACKLIST = [
   '0xd6ac7b39a169fd767726f87a62a1c11aa6e8a512',
   '0x8017c21e5f6ff1de52fb492e9f20080e3fb5cc7d',
   '0x1980476bb14ded1123dc0b8d2d64e048480b1666',
+  '0xf7666aa1b3a566fc60d5162064ebc241ad05a8ab',
+  '0x49b5ae345ed49a3b4f3c8934c3eca99007b2c27b',
 ]
 
 // warnings to display if page contains info about blocked token
