@@ -86,3 +86,6 @@ export const TRACKED_OVERRIDES_PAIRS = [
 // tokens that should be tracked but arent due to lag in subgraph
 // all pairs that include token will be tracked
 export const TRACKED_OVERRIDES_TOKENS = ['0x956f47f50a910163d8bf957cf5846d573e7f87ca']
+
+export const FXD_US_PLUS_PAIR_ID = '0x2cc177599cbbae5300107e77a12320afc3d5d64f'
+export const FTHM_US_PLUS_PAIR_ID = '0xa34e7cc33b4b77673cd0b0f6bfd1b0bdd96ed05f'
