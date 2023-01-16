@@ -18,10 +18,13 @@ import {
   ALL_PAIRS,
   ALL_TOKENS,
   TOP_LPS_PER_PAIRS,
-} from '../apollo/queries'
+} from 'apollo/queries'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
-import { useAllPairData } from './PairData'
-import { useTokenChartDataCombined } from './TokenData'
+import { useAllPairData } from 'contexts/PairData'
+import { useTokenChartDataCombined } from 'contexts/TokenData'
+
+import { FXD_US_PLUS_PAIR_ID, FTHM_US_PLUS_PAIR_ID } from 'constants/index'
+
 const UPDATE = 'UPDATE'
 const UPDATE_TXNS = 'UPDATE_TXNS'
 const UPDATE_CHART = 'UPDATE_CHART'
@@ -748,13 +751,12 @@ export function useFxdPrice() {
 
   const allPairs = useAllPairData()
 
+  console.log(allPairs)
+
   useEffect(() => {
     if (Object.keys(allPairs).length) {
-      const [, findPair] = Object.entries(allPairs)?.find(([key, pairItem]) => {
-        return (
-          (pairItem.token0.symbol === 'US+' && pairItem.token1.symbol === 'FXD') ||
-          (pairItem.token0.symbol === 'FXD' && pairItem.token1.symbol === 'US+')
-        )
+      const findPair = Object.values(allPairs).find((pairItem) => {
+        return pairItem.id === FXD_US_PLUS_PAIR_ID
       })
       setFxdPrice(findPair.token0.symbol === 'FXD' ? findPair.token1Price : findPair.token0Price)
     }
@@ -772,11 +774,8 @@ export function useFTHMPrice() {
 
   useEffect(() => {
     if (Object.keys(allPairs).length) {
-      const [, findPair] = Object.entries(allPairs)?.find(([key, pairItem]) => {
-        return (
-          (pairItem.token0.symbol === 'US+' && pairItem.token1.symbol === 'FTHM') ||
-          (pairItem.token0.symbol === 'FTHM' && pairItem.token1.symbol === 'US+')
-        )
+      const findPair = Object.values(allPairs).find((pairItem) => {
+        return pairItem.id === FTHM_US_PLUS_PAIR_ID
       })
       setFthmPrice(findPair.token0.symbol === 'FTHM' ? findPair.token1Price : findPair.token0Price)
     }
