@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { Box } from 'rebass'
 import styled from 'styled-components'
@@ -24,6 +24,7 @@ import { CustomLink } from 'components/Link'
 import { PageWrapper, ContentWrapper } from 'components'
 import CheckBox from 'components/Checkbox'
 import QuestionHelper from 'components/QuestionHelper'
+import { TOKEN_BLACKLIST } from 'constants/index'
 
 const ListOptions = styled(AutoRow)`
   height: 40px;
@@ -65,6 +66,17 @@ function GlobalPage() {
 
   // for tracked data on pairs
   const [useTracked, setUseTracked] = useState(true)
+
+  const formattedTokens = useMemo(() => {
+    return (
+      allTokens &&
+      Object.keys(allTokens)
+        .filter((key) => {
+          return !TOKEN_BLACKLIST.includes(key)
+        })
+        .map((key) => allTokens[key])
+    )
+  }, [allTokens])
 
   return (
     <PageWrapper>
@@ -128,15 +140,19 @@ function GlobalPage() {
               </Panel>
             </AutoColumn>
           )}
-          <ListOptions gap="10px" style={{ marginTop: '2rem', marginBottom: '.5rem' }}>
-            <RowBetween>
-              <TYPE.main fontSize={'1.125rem'} style={{ whiteSpace: 'nowrap', marginBottom: '2rem' }}>
-                Top Tokens
-              </TYPE.main>
-              <CustomLink to={'/tokens'}>See All</CustomLink>
-            </RowBetween>
-          </ListOptions>
-          <TopTokenList tokens={allTokens} />
+          {formattedTokens && formattedTokens.length && (
+            <>
+              <ListOptions gap="10px" style={{ marginTop: '2rem', marginBottom: '.5rem' }}>
+                <RowBetween>
+                  <TYPE.main fontSize={'1.125rem'} style={{ whiteSpace: 'nowrap', marginBottom: '2rem' }}>
+                    Top Tokens
+                  </TYPE.main>
+                  <CustomLink to={'/tokens'}>See All</CustomLink>
+                </RowBetween>
+              </ListOptions>
+              <TopTokenList tokens={formattedTokens} />
+            </>
+          )}
           <ListOptions gap="10px" style={{ marginTop: '2rem', marginBottom: '.5rem' }}>
             <RowBetween>
               <TYPE.main fontSize={'1.125rem'} style={{ whiteSpace: 'nowrap', marginBottom: '2rem' }}>

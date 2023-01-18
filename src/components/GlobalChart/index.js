@@ -86,6 +86,7 @@ const GlobalChart = ({ display }) => {
             field="totalLiquidityUSD"
             width={width}
             type={CHART_TYPES.AREA}
+            below800={below800}
           />
         </ResponsiveContainer>
       )}
@@ -100,6 +101,7 @@ const GlobalChart = ({ display }) => {
             width={width}
             type={CHART_TYPES.BAR}
             useWeekly={volumeWindow === VOLUME_WINDOW.WEEKLY}
+            below800={below800}
           />
         </ResponsiveContainer>
       )}
