@@ -34,6 +34,7 @@ const TradingViewChart = ({
   title,
   width,
   useWeekly = false,
+  below800,
 }) => {
   // reference for DOM element to create with chart
   const ref = useRef()
@@ -41,6 +42,10 @@ const TradingViewChart = ({
   // pointer to the chart object
   const [chartCreated, setChartCreated] = useState(false)
   const dataPrev = usePrevious(data)
+
+  const [darkMode] = useDarkModeManager()
+  const textColor = '#6379A1'
+  const previousTheme = usePrevious(darkMode)
 
   useEffect(() => {
     if (data !== dataPrev && chartCreated && type === CHART_TYPES.BAR) {
@@ -63,10 +68,6 @@ const TradingViewChart = ({
 
   // adjust the scale based on the type of chart
   const topScale = type === CHART_TYPES.AREA ? 0.32 : 0.2
-
-  const [darkMode] = useDarkModeManager()
-  const textColor = '#6379A1'
-  const previousTheme = usePrevious(darkMode)
 
   // reset the chart if them switches
   useEffect(() => {
@@ -128,7 +129,7 @@ const TradingViewChart = ({
         },
       })
 
-      var series =
+      const series =
         type === CHART_TYPES.BAR
           ? chart.addHistogramSeries({
               color: '#003CFF',
@@ -150,7 +151,7 @@ const TradingViewChart = ({
             })
 
       series.setData(formattedData)
-      var toolTip = document.createElement('div')
+      const toolTip = document.createElement('div')
       toolTip.setAttribute('id', 'tooltip-id' + type)
       toolTip.className = darkMode ? 'three-line-legend-dark' : 'three-line-legend'
       ref.current.appendChild(toolTip)
@@ -167,13 +168,13 @@ const TradingViewChart = ({
 
       // get the title of the chart
       function setLastBarText() {
-        toolTip.innerHTML =
-          `<div style="position: absolute; top: -42px; font-size: 16px; margin: 4px 0px; color: white;">${title} ${
-            type === CHART_TYPES.BAR && !useWeekly ? '(24hr)' : ''
-          }</div>` +
-          `<div style="display: flex; justify-content: space-between; align-items: center; font-size: 22px; position: absolute; top: -20px; margin: 4px 0px; color:white" >` +
-          formattedNum(base ?? 0, true) +
-          `<span style="
+        toolTip.innerHTML = !below800
+          ? `<div style="position: absolute; top: -42px; font-size: 16px; margin: 4px 0px; color: white;">${title} ${
+              type === CHART_TYPES.BAR && !useWeekly ? '(24hr)' : ''
+            }</div>` +
+            `<div style="display: flex; justify-content: space-between; align-items: center; font-size: 22px; position: absolute; top: -20px; margin: 4px 0px; color:white" >` +
+            formattedNum(base ?? 0, true) +
+            `<span style="
                 padding: 4px 8px;
                 margin-left: 10px;
                 display: flex;
@@ -188,7 +189,8 @@ const TradingViewChart = ({
           
 ${formattedPercentChange}
 </span>` +
-          '</div>'
+            '</div>'
+          : ''
       }
       setLastBarText()
 
@@ -243,6 +245,7 @@ ${formattedPercentChange}
     type,
     useWeekly,
     width,
+    below800,
   ])
 
   // responsiveness

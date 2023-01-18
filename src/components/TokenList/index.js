@@ -12,7 +12,6 @@ import { Divider } from 'components/index'
 import { formattedNum, formattedPercent } from 'utils'
 import { useMedia } from 'react-use'
 import { withRouter } from 'react-router-dom'
-import { TOKEN_BLACKLIST } from 'constants/index'
 import FormattedName from 'components/FormattedName'
 import { TYPE } from 'Theme'
 import { TableHeaderBox } from 'components/Row'
@@ -130,7 +129,7 @@ const SORT_FIELD = {
 }
 
 // @TODO rework into virtualized list
-function TopTokenList({ tokens, itemMax = 10, useTracked = false }) {
+function TopTokenList({ formattedTokens, itemMax = 10, useTracked = false }) {
   // page state
   const [page, setPage] = useState(1)
   const [maxPage, setMaxPage] = useState(1)
@@ -146,28 +145,17 @@ function TopTokenList({ tokens, itemMax = 10, useTracked = false }) {
   useEffect(() => {
     setMaxPage(1) // edit this to do modular
     setPage(1)
-  }, [tokens])
-
-  const formattedTokens = useMemo(() => {
-    return (
-      tokens &&
-      Object.keys(tokens)
-        .filter((key) => {
-          return !TOKEN_BLACKLIST.includes(key)
-        })
-        .map((key) => tokens[key])
-    )
-  }, [tokens])
+  }, [formattedTokens])
 
   useEffect(() => {
-    if (tokens && formattedTokens) {
+    if (formattedTokens) {
       let extraPages = 1
       if (formattedTokens.length % itemMax === 0) {
         extraPages = 0
       }
       setMaxPage(Math.floor(formattedTokens.length / itemMax) + extraPages)
     }
-  }, [tokens, formattedTokens, itemMax])
+  }, [formattedTokens, itemMax])
 
   const filteredList = useMemo(() => {
     return (

@@ -748,10 +748,7 @@ export function useTopLps() {
 
 export function useFxdPrice() {
   const [fxdPrice, setFxdPrice] = useState(0)
-
   const allPairs = useAllPairData()
-
-  console.log(allPairs)
 
   useEffect(() => {
     if (Object.keys(allPairs).length) {
@@ -769,7 +766,6 @@ export function useFxdPrice() {
 
 export function useFTHMPrice() {
   const [fthmPrice, setFthmPrice] = useState(0)
-
   const allPairs = useAllPairData()
 
   useEffect(() => {

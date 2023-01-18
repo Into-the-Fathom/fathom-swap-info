@@ -24,6 +24,9 @@ const GridStats = styled.div`
   column-gap: 6px;
   align-items: start;
   justify-content: space-between;
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 `
 
 const GridStatsItem = styled.div`
@@ -34,6 +37,16 @@ const GridStatsItem = styled.div`
   border-radius: 6px;
   padding: 16px;
   gap: 20px;
+  width: calc(100%- 32px);
+  @media (max-width: 600px) {
+    padding: 10px;
+    gap: 10px;
+    width: calc(100%- 20px);
+  }
+  @media (max-width: 400px) {
+    padding: 10px;
+    width: calc(100%- 20px);
+  }
 `
 
 const TextWrapper = styled(Box)`
@@ -48,6 +61,8 @@ const ImgWrapper = styled(Box)`
   height: 32px;
   border-radius: 8px;
   padding: 4px;
+  display: flex;
+  justify-content: center;
 `
 
 const Title = styled.div`
@@ -64,10 +79,7 @@ const Value = styled.div`
 `
 
 export default function GlobalStats() {
-  const below1295 = useMedia('(max-width: 1295px)')
-  const below1180 = useMedia('(max-width: 1180px)')
-  const below1024 = useMedia('(max-width: 1024px)')
-  const below400 = useMedia('(max-width: 400px)')
+  const below800 = useMedia('(max-width: 800px)')
 
   const { oneDayVolumeUSD, oneDayTxns } = useGlobalData()
   const [ethPrice] = useEthPrice()
@@ -84,20 +96,16 @@ export default function GlobalStats() {
     <Header>
       <RowBetween style={{ marginTop: '1rem', marginBottom: '2rem' }}>
         <GridStats>
-          {!below400 && (
-            <>
-              <GridStatsItem>
-                <ImgWrapper>
-                  <img src={getTokenLogoURL('FTHM')} alt="fthm" width={24} />
-                </ImgWrapper>
-                <TextWrapper>
-                  <Title>FTHM Price</Title>
-                  <Value>{formattedFthmPrice}</Value>
-                </TextWrapper>
-              </GridStatsItem>
-            </>
-          )}
-          {!below1024 && (
+          <>
+            <GridStatsItem>
+              <ImgWrapper>
+                <img src={getTokenLogoURL('FTHM')} alt="fthm" width={24} />
+              </ImgWrapper>
+              <TextWrapper>
+                <Title>FTHM Price</Title>
+                <Value>{formattedFthmPrice}</Value>
+              </TextWrapper>
+            </GridStatsItem>
             <GridStatsItem>
               <ImgWrapper>
                 <img src={getTokenLogoURL('WXDC')} alt="xdc" width={24} />
@@ -107,8 +115,6 @@ export default function GlobalStats() {
                 <Value>{formattedEthPrice}</Value>
               </TextWrapper>
             </GridStatsItem>
-          )}
-          {!below1180 && (
             <GridStatsItem>
               <ImgWrapper>
                 <img src={getTokenLogoURL('FXD')} alt="fxd" width={24} />
@@ -118,8 +124,8 @@ export default function GlobalStats() {
                 <Value>{formattedFxdPrice}</Value>
               </TextWrapper>
             </GridStatsItem>
-          )}
-          {!below1295 && (
+          </>
+          {!below800 && (
             <GridStatsItem>
               <ImgWrapper>
                 <img src={transferSrc} alt="transfer" width={24} />
@@ -131,7 +137,7 @@ export default function GlobalStats() {
             </GridStatsItem>
           )}
 
-          {!below1295 && (
+          {!below800 && (
             <GridStatsItem>
               <ImgWrapper>
                 <img src={dollarSrc} alt="transfer" width={24} />
