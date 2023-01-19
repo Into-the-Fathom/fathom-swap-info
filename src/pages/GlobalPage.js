@@ -150,7 +150,7 @@ function GlobalPage() {
                   <CustomLink to={'/tokens'}>See All</CustomLink>
                 </RowBetween>
               </ListOptions>
-              <TopTokenList tokens={formattedTokens} />
+              <TopTokenList formattedTokens={formattedTokens} />
             </>
           )}
           <ListOptions gap="10px" style={{ marginTop: '2rem', marginBottom: '.5rem' }}>
