@@ -360,6 +360,7 @@ function TokenPage({ address, history }) {
                   }}
                 >
                   <TokenChart address={address} base={priceUSD} color={'#003CFF'} />
+
                 </Panel>
               </PanelWrapper>
             </>
