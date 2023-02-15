@@ -1,29 +1,29 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react'
 import styled from 'styled-components'
-import { useUserTransactions, useUserPositions, useMiningPositions } from '../contexts/User'
-import TxnList from '../components/TxnList'
-import Panel from '../components/Panel'
-import { formattedNum } from '../utils'
-import Row, { AutoRow, RowFixed, RowBetween } from '../components/Row'
-import { AutoColumn } from '../components/Column'
-import UserChart from '../components/UserChart'
-import PairReturnsChart from '../components/PairReturnsChart'
-import PositionList from '../components/PositionList'
-import MiningPositionList from '../components/MiningPositionList'
-import { TYPE } from '../Theme'
-import { ButtonDropdown, ButtonLight } from '../components/ButtonStyled'
-import { PageWrapper, ContentWrapper, StyledIcon } from '../components'
-import DoubleTokenLogo from '../components/DoubleLogo'
+import { useUserTransactions, useUserPositions } from 'contexts/User'
+import TxnList from 'components/TxnList'
+import Panel from 'components/Panel'
+import { formattedNum } from 'utils'
+import Row, { AutoRow, RowFixed, RowBetween } from 'components/Row'
+import { AutoColumn } from 'components/Column'
+import UserChart from 'components/UserChart'
+import PairReturnsChart from 'components/PairReturnsChart'
+import PositionList from 'components/PositionList'
+import { TYPE } from 'Theme'
+import { ButtonDropdown } from 'components/ButtonStyled'
+import { PageWrapper, ContentWrapper, StyledIcon } from 'components'
+import DoubleTokenLogo from 'components/DoubleLogo'
 import { Bookmark, Activity } from 'react-feather'
-import Link from '../components/Link'
-import { FEE_WARNING_TOKENS } from '../constants'
-import { BasicLink } from '../components/Link'
+import Link from 'components/Link'
+import { FEE_WARNING_TOKENS } from 'constants/index'
+import { BasicLink } from 'components/Link'
 import { useMedia } from 'react-use'
-import Search from '../components/Search'
-import { useSavedAccounts } from '../contexts/LocalStorage'
+import Search from 'components/Search'
+import { useSavedAccounts } from 'contexts/LocalStorage'
+import { TableHeaderBox } from 'components/Row'
 
 const AccountWrapper = styled.div`
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: transparent;
   padding: 6px 16px;
   border-radius: 100px;
   display: flex;
@@ -88,11 +88,46 @@ const Warning = styled.div`
   width: calc(100% - 2rem);
 `
 
+const HeaderWrapper = styled.div`
+  background: ${({ theme }) => theme.headerBackground};
+  border-radius: 8px;
+  font-size: 1.125rem;
+  padding: 7px 1.125rem 7px;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+`
+
+const AccountDetailsLayout = styled.div`
+  display: inline-grid;
+  width: calc(100% - 1.25rem);
+  grid-template-columns: auto auto auto 1fr;
+  gap: 75px;
+  align-items: start;
+  padding-left: 1.25rem;
+
+  &:last-child {
+    align-items: center;
+    justify-items: end;
+  }
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    > * {
+      /* grid-column: 1 / 4; */
+      margin-bottom: 1rem;
+    }
+
+    &:last-child {
+      align-items: start;
+      justify-items: start;
+    }
+  }
+`
+
 function AccountPage({ account }) {
   // get data for this account
   const transactions = useUserTransactions(account)
   const positions = useUserPositions(account)
-  const miningPositions = useMiningPositions(account)
 
   // get data for user stats
   const transactionCount = transactions?.swaps?.length + transactions?.burns?.length + transactions?.mints?.length
@@ -166,7 +201,11 @@ function AccountPage({ account }) {
         <RowBetween>
           <TYPE.body>
             <BasicLink to="/accounts">{'Accounts '}</BasicLink>→{' '}
-            <Link lineHeight={'145.23%'} href={'https://apothem.blocksscan.io/address/' + account.replace(/^.{2}/g, 'xdc')} target="_blank">
+            <Link
+              lineHeight={'145.23%'}
+              href={'https://apothem.blocksscan.io/address/' + account.replace(/^.{2}/g, 'xdc')}
+              target="_blank"
+            >
               {' '}
               {account?.slice(0, 42)}{' '}
             </Link>
@@ -177,7 +216,11 @@ function AccountPage({ account }) {
           <RowBetween>
             <span>
               <TYPE.header fontSize={24}>{account?.slice(0, 6) + '...' + account?.slice(38, 42)}</TYPE.header>
-              <Link lineHeight={'145.23%'} href={'https://apothem.blocksscan.io/address/' + account.replace(/^.{2}/g, 'xdc')} target="_blank">
+              <Link
+                lineHeight={'145.23%'}
+                href={'https://apothem.blocksscan.io/address/' + account.replace(/^.{2}/g, 'xdc')}
+                target="_blank"
+              >
                 <TYPE.main fontSize={14}>View on BlocksScan</TYPE.main>
               </Link>
             </span>
@@ -217,11 +260,11 @@ function AccountPage({ account }) {
                 <Flyout>
                   <AutoColumn gap="0px">
                     {positions?.map((p, i) => {
-                      if (p.pair.token1.symbol === 'WETH') {
-                        p.pair.token1.symbol = 'ETH'
+                      if (p.pair.token1.symbol === 'WXDC') {
+                        p.pair.token1.symbol = 'XDC'
                       }
-                      if (p.pair.token0.symbol === 'WETH') {
-                        p.pair.token0.symbol = 'ETH'
+                      if (p.pair.token0.symbol === 'WXDC') {
+                        p.pair.token0.symbol = 'XDC'
                       }
                       return (
                         p.pair.id !== activePosition?.pair.id && (
@@ -303,69 +346,31 @@ function AccountPage({ account }) {
               </Panel>
             </PanelWrapper>
           )}
-          <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '3rem' }}>
+          <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '3rem', marginBottom: '2rem' }}>
             Positions
           </TYPE.main>{' '}
-          <Panel
-            style={{
-              marginTop: '1.5rem',
-            }}
-          >
-            <PositionList positions={positions} />
-          </Panel>
-          <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '3rem' }}>
-            Liquidity Mining Pools
-          </TYPE.main>
-          <Panel
-            style={{
-              marginTop: '1.5rem',
-            }}
-          >
-            {miningPositions && <MiningPositionList miningPositions={miningPositions} />}
-            {!miningPositions && (
-              <AutoColumn gap="8px" justify="flex-start">
-                <TYPE.main>No Staked Liquidity.</TYPE.main>
-                <AutoRow gap="8px" justify="flex-start">
-                  <ButtonLight style={{ padding: '4px 6px', borderRadius: '4px' }}>Learn More</ButtonLight>{' '}
-                </AutoRow>{' '}
-              </AutoColumn>
-            )}
-          </Panel>
-          <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '3rem' }}>
+          <PositionList positions={positions} />
+          <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '3rem', marginBottom: '2rem' }}>
             Transactions
           </TYPE.main>{' '}
-          <Panel
-            style={{
-              marginTop: '1.5rem',
-            }}
-          >
-            <TxnList transactions={transactions} />
-          </Panel>
-          <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '3rem' }}>
-            Wallet Stats
-          </TYPE.main>{' '}
-          <Panel
-            style={{
-              marginTop: '1.5rem',
-            }}
-          >
-            <AutoRow gap="20px">
-              <AutoColumn gap="8px">
-                <TYPE.header fontSize={24}>{totalSwappedUSD ? formattedNum(totalSwappedUSD, true) : '-'}</TYPE.header>
-                <TYPE.main>Total Value Swapped</TYPE.main>
-              </AutoColumn>
-              <AutoColumn gap="8px">
-                <TYPE.header fontSize={24}>
-                  {totalSwappedUSD ? formattedNum(totalSwappedUSD * 0.003, true) : '-'}
-                </TYPE.header>
-                <TYPE.main>Total Fees Paid</TYPE.main>
-              </AutoColumn>
-              <AutoColumn gap="8px">
-                <TYPE.header fontSize={24}>{transactionCount ? transactionCount : '-'}</TYPE.header>
-                <TYPE.main>Total Transactions</TYPE.main>
-              </AutoColumn>
-            </AutoRow>
-          </Panel>
+          <TxnList transactions={transactions} />
+          <HeaderWrapper>
+            <TableHeaderBox>Wallet Stats</TableHeaderBox>
+          </HeaderWrapper>{' '}
+          <AccountDetailsLayout>
+            <AutoColumn gap="8px">
+              <TYPE.header>{totalSwappedUSD ? formattedNum(totalSwappedUSD, true) : '-'}</TYPE.header>
+              <TYPE.main>Total Value Swapped</TYPE.main>
+            </AutoColumn>
+            <AutoColumn gap="8px">
+              <TYPE.header>{totalSwappedUSD ? formattedNum(totalSwappedUSD * 0.003, true) : '-'}</TYPE.header>
+              <TYPE.main>Total Fees Paid</TYPE.main>
+            </AutoColumn>
+            <AutoColumn gap="8px">
+              <TYPE.header>{transactionCount ? transactionCount : '-'}</TYPE.header>
+              <TYPE.main>Total Transactions</TYPE.main>
+            </AutoColumn>
+          </AccountDetailsLayout>
         </DashboardWrapper>
       </ContentWrapper>
     </PageWrapper>

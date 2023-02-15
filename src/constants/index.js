@@ -1,4 +1,4 @@
-export const FACTORY_ADDRESS = '0x69310bcBcC35b3d5C2b62C72E75dA68d58FDafC9'
+export const FACTORY_ADDRESS = '0xe350508951929D3e19222824F41790621fb18A15'
 
 export const BUNDLE_ID = '1'
 
@@ -13,7 +13,7 @@ export const timeframeOptions = {
 
 // token list urls to fetch tokens from - use for warnings on tokens and pairs
 export const SUPPORTED_LIST_URLS__NO_ENS = [
-  'https://ipfs.io/ipfs/QmaHUk2XSp342MXHFuC67edUwHx8VapRXioXotLeHsarmd',
+  'https://raw.githubusercontent.com/Into-the-Fathom/fathom-swap-default-token-list/dev/src/tokenlists/apothem.json',
 ]
 
 // hide from overview list
@@ -29,6 +29,9 @@ export const TOKEN_BLACKLIST = [
   '0xfc2cf100a301f1b8fdc0fa00272537e88900a9e2',
   '0x8789fe3afe51865494a727cb8bc73439492a04b2',
   '0xaf23e77566298ee5442cdf10a66f32efc00fb44b',
+  '0x322742814990bf0b075fc2b33186ca63122ffb08',
+  '0xbde88af3e99f29acb9dba853416024a44bfc7f8b',
+  '0x2db58e5850f4f9ba63ff4306cf1f6426c7a6b9b7',
 
   // rebass tokens
   '0x9ea3b5b4ec044b70375236a281986106457b20ef',
@@ -36,25 +39,25 @@ export const TOKEN_BLACKLIST = [
   '0x3d7e683fc9c86b4d653c9e47ca12517440fad14e',
   '0xfae9c647ad7d89e738aba720acf09af93dc535f7',
   '0x7296368fe9bcb25d3ecc19af13655b907818cc09',
+  '0x9624167f18d3989304f793f40266ae0b005e663f',
 ]
 
 // pair blacklist
 export const PAIR_BLACKLIST = [
-  '0xf85484f334929a258baeb6121f073b1470c430bd',
-  '0xd741f14eb076feab2124b81ce56655b5d6c93ad9',
-  '0xea66333ede83daf4f90ed0863817fea7d60db796',
-  '0xd1d426a420eaf98ae4a4f98906d7faf559631b20',
-  '0xc1ed773864931ab2f19e41ad45b39756d3c3c4cb',
-  '0xbdc865ae3dc930c1c8220291887aead6931addfd',
-  '0xa7857bb47d46db4b7ad449e0b3fe4fa40d93d884',
-  '0x9ab0343cba68440518e408aef71c58de8a60a895',
-  '0x8e0ba61db9eeaf57fcf50475444eec93249d1533',
-  '0x884955287bebdaf41d0264e39b40cfdb064a18d2',
-  '0x71b0a7bd532f2615bf4733ac3ccd133861d8da4d',
-  '0xaf23e77566298ee5442cdf10a66f32efc00fb44b',
-  '0x67d0975398624bca4a0ec8e3e9d895bccf92fb4b',
-  '0x537fe68212e7a8b2b73ac4cb784ac25838774bec',
-  '0x05388431d51fea5b9eea9cf34fc64895610f5445',
+  '0x3be9992b136e8750736305f6bf281e08dcf48f42',
+  '0x1ddccfcc3b55f7397ad839815b5ded451fd445c2',
+  '0x7f14490bf1fd40972962017b3102e7018d878221',
+  '0x55b0f13daffdea62d9889db558bd6fce8d30669e',
+  '0x887a9f4e7ddfb8a37619a9ad382408e66a74f370',
+  '0xbf9bd4ad831ef5d41d25f6826ac5bc8d5dcf76db',
+  '0x2cc177599cbbae5300107e77a12320afc3d5d64f',
+  '0x887ef5ee4c4432f52d45eef7885654b9b2590e62',
+  '0x48d82ab1a0709914b9f1cf919df8cb6686af3042',
+  '0xd6ac7b39a169fd767726f87a62a1c11aa6e8a512',
+  '0x8017c21e5f6ff1de52fb492e9f20080e3fb5cc7d',
+  '0x1980476bb14ded1123dc0b8d2d64e048480b1666',
+  '0xf7666aa1b3a566fc60d5162064ebc241ad05a8ab',
+  '0x49b5ae345ed49a3b4f3c8934c3eca99007b2c27b',
 ]
 
 // warnings to display if page contains info about blocked token
@@ -83,3 +86,6 @@ export const TRACKED_OVERRIDES_PAIRS = [
 // tokens that should be tracked but arent due to lag in subgraph
 // all pairs that include token will be tracked
 export const TRACKED_OVERRIDES_TOKENS = ['0x956f47f50a910163d8bf957cf5846d573e7f87ca']
+
+export const FXD_US_PLUS_PAIR_ID = '0x2cc177599cbbae5300107e77a12320afc3d5d64f'
+export const FTHM_US_PLUS_PAIR_ID = '0xa34e7cc33b4b77673cd0b0f6bfd1b0bdd96ed05f'

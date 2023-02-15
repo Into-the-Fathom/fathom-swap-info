@@ -2,8 +2,8 @@ import React from 'react'
 import { Button as RebassButton } from 'rebass/styled-components'
 import styled from 'styled-components'
 import { ChevronDown, ChevronUp } from 'react-feather'
-import { RowBetween } from '../Row'
-import { StyledIcon } from '..'
+import { RowBetween } from 'components/Row'
+import { StyledIcon } from 'components'
 
 const Base = styled(RebassButton)`
   padding: 8px 12px;
@@ -94,9 +94,8 @@ export const OptionButton = styled.div`
   white-space: nowrap;
   padding: 6px;
   border-radius: 6px;
-  border: 1px solid ${({ theme }) => theme.bg3};
-  background-color: ${({ active, theme }) => active && theme.bg3};
-  color: ${({ active, theme }) => (active ? theme.text3 : theme.bg3)};
+  background-color: ${({ active, theme }) => active && '#324567'};
+  color: ${({ theme }) => theme.white};
 
   :hover {
     cursor: ${({ disabled }) => !disabled && 'pointer'};

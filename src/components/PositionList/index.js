@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { useMedia } from 'react-use'
 import dayjs from 'dayjs'
-import LocalLoader from '../LocalLoader'
+import LocalLoader from 'components/LocalLoader'
 import utc from 'dayjs/plugin/utc'
 import { Box, Flex, Text } from 'rebass'
 import styled from 'styled-components'
-import Link, { CustomLink } from '../Link'
-import { Divider } from '../../components'
-import DoubleTokenLogo from '../DoubleLogo'
+import Link, { CustomLink } from 'components/Link'
+import { Divider } from 'components'
+import DoubleTokenLogo from 'components/DoubleLogo'
 import { withRouter } from 'react-router-dom'
-import { formattedNum, getPoolLink } from '../../utils'
-import { AutoColumn } from '../Column'
-import { useEthPrice } from '../../contexts/GlobalData'
-import { RowFixed } from '../Row'
-import { ButtonLight } from '../ButtonStyled'
-import { TYPE } from '../../Theme'
-import FormattedName from '../FormattedName'
+import { formattedNum, getPoolLink } from 'utils'
+import { AutoColumn } from 'components/Column'
+import { useEthPrice } from 'contexts/GlobalData'
+import { RowFixed } from 'components/Row'
+import { ButtonLight } from 'components/ButtonStyled'
+import { TYPE } from 'Theme'
+import FormattedName from 'components/FormattedName'
+import { TableHeaderBox } from 'components/Row'
 
 dayjs.extend(utc)
 
@@ -28,7 +29,7 @@ const PageButtons = styled.div`
 `
 
 const Arrow = styled.div`
-  color: ${({ theme }) => theme.primary1};
+  color: ${({ theme }) => theme.white};
   opacity: ${(props) => (props.faded ? 0.3 : 1)};
   padding: 0 20px;
   user-select: none;
@@ -45,7 +46,7 @@ const DashGrid = styled.div`
   display: grid;
   grid-gap: 1em;
   grid-template-columns: 5px 0.5fr 1fr 1fr;
-  grid-template-areas: 'number name uniswap return';
+  grid-template-areas: 'number name fathomswap return';
   align-items: flex-start;
   padding: 20px 0;
 
@@ -62,18 +63,25 @@ const DashGrid = styled.div`
 
   @media screen and (min-width: 1200px) {
     grid-template-columns: 35px 2.5fr 1fr 1fr;
-    grid-template-areas: 'number name uniswap return';
+    grid-template-areas: 'number name fathomswap return';
   }
 
   @media screen and (max-width: 740px) {
     grid-template-columns: 2.5fr 1fr 1fr;
-    grid-template-areas: 'name uniswap return';
+    grid-template-areas: 'name fathomswap return';
   }
 
   @media screen and (max-width: 500px) {
     grid-template-columns: 2.5fr 1fr;
-    grid-template-areas: 'name uniswap';
+    grid-template-areas: 'name fathomswap';
   }
+`
+
+const HeaderWrapper = styled(DashGrid)`
+  background: ${({ theme }) => theme.headerBackground};
+  border-radius: 8px;
+  padding-top: 7px !important;
+  padding-bottom: 7px !important;
 `
 
 const ListWrapper = styled.div``
@@ -91,6 +99,7 @@ const ClickableText = styled(Text)`
 
 const DataText = styled(Flex)`
   align-items: center;
+  justify-content: flex-start;
   text-align: center;
   color: ${({ theme }) => theme.text1};
   & > * {
@@ -104,7 +113,7 @@ const DataText = styled(Flex)`
 
 const SORT_FIELD = {
   VALUE: 'VALUE',
-  UNISWAP_RETURN: 'UNISWAP_RETURN',
+  FATHOMSWAP_RETURN: 'FATHOMSWAP_RETURN',
 }
 
 function PositionList({ positions }) {
@@ -142,10 +151,10 @@ function PositionList({ positions }) {
     const valueUSD = poolOwnership * position.pair.reserveUSD
 
     return (
-      <DashGrid style={{ opacity: poolOwnership > 0 ? 1 : 0.6 }} focus={true}>
+      <DashGrid style={{ opacity: poolOwnership > 0 ? 1 : 0.6, padding: '0.75rem 1.125rem' }} focus={true}>
         {!below740 && <DataText area="number">{index}</DataText>}
-        <DataText area="name" justifyContent="flex-start" alignItems="flex-start">
-          <AutoColumn gap="8px" justify="flex-start" align="flex-start">
+        <DataText area="name" justifyContent="flex-start" alignItems="center">
+          <AutoColumn gap="8px" justify="flex-start" align="center">
             <DoubleTokenLogo size={16} a0={position.pair.token0.id} a1={position.pair.token1.id} margin={!below740} />
           </AutoColumn>
           <AutoColumn gap="8px" justify="flex-start" style={{ marginLeft: '20px' }}>
@@ -174,10 +183,10 @@ function PositionList({ positions }) {
             </RowFixed>
           </AutoColumn>
         </DataText>
-        <DataText area="uniswap">
-          <AutoColumn gap="12px" justify="flex-end">
+        <DataText area="fathomswap">
+          <AutoColumn gap="12px" justify="flex-start">
             <TYPE.main>{formattedNum(valueUSD, true, true)}</TYPE.main>
-            <AutoColumn gap="4px" justify="flex-end">
+            <AutoColumn gap="4px" justify="flex-start">
               <RowFixed>
                 <TYPE.small fontWeight={400}>
                   {formattedNum(poolOwnership * parseFloat(position.pair.reserve0))}{' '}
@@ -205,11 +214,11 @@ function PositionList({ positions }) {
         </DataText>
         {!below500 && (
           <DataText area="return">
-            <AutoColumn gap="12px" justify="flex-end">
+            <AutoColumn gap="12px" justify="flex-start">
               <TYPE.main color={'text5'}>
                 <RowFixed>{formattedNum(position?.fees.sum, true, true)}</RowFixed>
               </TYPE.main>
-              <AutoColumn gap="4px" justify="flex-end">
+              <AutoColumn gap="4px" justify="flex-start">
                 <RowFixed>
                   <TYPE.small fontWeight={400}>
                     {parseFloat(position.pair.token0.derivedETH)
@@ -252,75 +261,74 @@ function PositionList({ positions }) {
     )
   }
 
-  const positionsSorted =
-    positions &&
-    positions
-
-      .sort((p0, p1) => {
-        if (sortedColumn === SORT_FIELD.PRINCIPAL) {
-          return p0?.principal?.usd > p1?.principal?.usd ? (sortDirection ? -1 : 1) : sortDirection ? 1 : -1
-        }
-        if (sortedColumn === SORT_FIELD.HODL) {
-          return p0?.hodl?.sum > p1?.hodl?.sum ? (sortDirection ? -1 : 1) : sortDirection ? 1 : -1
-        }
-        if (sortedColumn === SORT_FIELD.UNISWAP_RETURN) {
-          return p0?.uniswap?.return > p1?.uniswap?.return ? (sortDirection ? -1 : 1) : sortDirection ? 1 : -1
-        }
-        if (sortedColumn === SORT_FIELD.VALUE) {
-          const bal0 = (p0.liquidityTokenBalance / p0.pair.totalSupply) * p0.pair.reserveUSD
-          const bal1 = (p1.liquidityTokenBalance / p1.pair.totalSupply) * p1.pair.reserveUSD
-          return bal0 > bal1 ? (sortDirection ? -1 : 1) : sortDirection ? 1 : -1
-        }
-        return 1
-      })
-      .slice(ITEMS_PER_PAGE * (page - 1), page * ITEMS_PER_PAGE)
-      .map((position, index) => {
-        return (
-          <div key={index}>
-            <ListItem key={index} index={(page - 1) * 10 + index + 1} position={position} />
-            <Divider />
-          </div>
-        )
-      })
+  const positionsSorted = useMemo(
+    () =>
+      positions &&
+      positions
+        .sort((p0, p1) => {
+          if (sortedColumn === SORT_FIELD.FATHOMSWAP_RETURN) {
+            return p0?.uniswap?.return > p1?.uniswap?.return ? (sortDirection ? -1 : 1) : sortDirection ? 1 : -1
+          }
+          if (sortedColumn === SORT_FIELD.VALUE) {
+            const bal0 = (p0.liquidityTokenBalance / p0.pair.totalSupply) * p0.pair.reserveUSD
+            const bal1 = (p1.liquidityTokenBalance / p1.pair.totalSupply) * p1.pair.reserveUSD
+            return bal0 > bal1 ? (sortDirection ? -1 : 1) : sortDirection ? 1 : -1
+          }
+          return 1
+        })
+        .slice(ITEMS_PER_PAGE * (page - 1), page * ITEMS_PER_PAGE)
+        .map((position, index) => {
+          return (
+            <div key={index}>
+              <ListItem key={index} index={(page - 1) * 10 + index + 1} position={position} />
+              <Divider />
+            </div>
+          )
+        }),
+    [positions, page, sortDirection, sortedColumn]
+  )
 
   return (
     <ListWrapper>
-      <DashGrid center={true} style={{ height: '32px', padding: 0 }}>
+      <HeaderWrapper center={true} style={{ padding: '0 1.125rem 1rem' }}>
         {!below740 && (
-          <Flex alignItems="flex-start" justifyContent="flexStart">
-            <TYPE.main area="number">#</TYPE.main>
+          <Flex alignItems="center" justifyContent="flex-start">
+            <TableHeaderBox>#</TableHeaderBox>
           </Flex>
         )}
-        <Flex alignItems="flex-start" justifyContent="flex-start">
-          <TYPE.main area="number">Name</TYPE.main>
+        <Flex alignItems="center" justifyContent="flex-start">
+          <TableHeaderBox area="number">Name</TableHeaderBox>
         </Flex>
-        <Flex alignItems="center" justifyContent="flexEnd">
+        <Flex alignItems="center" justifyContent="flex-start">
           <ClickableText
-            area="uniswap"
+            area="fathomswap"
             onClick={(e) => {
               setSortedColumn(SORT_FIELD.VALUE)
               setSortDirection(sortedColumn !== SORT_FIELD.VALUE ? true : !sortDirection)
             }}
           >
-            {below740 ? 'Value' : 'Liquidity'} {sortedColumn === SORT_FIELD.VALUE ? (!sortDirection ? '↑' : '↓') : ''}
+            <TableHeaderBox>
+              {below740 ? 'Value' : 'Liquidity'} {sortedColumn === SORT_FIELD.VALUE ? (!sortDirection ? '↑' : '↓') : ''}
+            </TableHeaderBox>
           </ClickableText>
         </Flex>
         {!below500 && (
-          <Flex alignItems="center" justifyContent="flexEnd">
+          <Flex alignItems="center" justifyContent="flex-start">
             <ClickableText
               area="return"
               onClick={() => {
-                setSortedColumn(SORT_FIELD.UNISWAP_RETURN)
-                setSortDirection(sortedColumn !== SORT_FIELD.UNISWAP_RETURN ? true : !sortDirection)
+                setSortedColumn(SORT_FIELD.FATHOMSWAP_RETURN)
+                setSortDirection(sortedColumn !== SORT_FIELD.FATHOMSWAP_RETURN ? true : !sortDirection)
               }}
             >
-              {below740 ? 'Fees' : 'Total Fees Earned'}{' '}
-              {sortedColumn === SORT_FIELD.UNISWAP_RETURN ? (!sortDirection ? '↑' : '↓') : ''}
+              <TableHeaderBox>
+                {below740 ? 'Fees' : 'Total Fees Earned'}{' '}
+                {sortedColumn === SORT_FIELD.FATHOMSWAP_RETURN ? (!sortDirection ? '↑' : '↓') : ''}
+              </TableHeaderBox>
             </ClickableText>
           </Flex>
         )}
-      </DashGrid>
-      <Divider />
+      </HeaderWrapper>
       <List p={0}>{!positionsSorted ? <LocalLoader /> : positionsSorted}</List>
       <PageButtons>
         <div onClick={() => setPage(page === 1 ? page : page - 1)}>

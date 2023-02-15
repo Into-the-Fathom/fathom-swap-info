@@ -3,19 +3,20 @@ import styled from 'styled-components'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 
-import { formatTime, formattedNum, urls } from '../../utils'
+import { formatTime, formattedNum, urls } from 'utils'
 import { useMedia } from 'react-use'
-import { useCurrentCurrency } from '../../contexts/Application'
-import { RowFixed, RowBetween } from '../Row'
+import { useCurrentCurrency } from 'contexts/Application'
+import { RowFixed, RowBetween } from 'components/Row'
 
-import LocalLoader from '../LocalLoader'
+import LocalLoader from 'components/LocalLoader'
 import { Box, Flex, Text } from 'rebass'
-import Link from '../Link'
+import Link from 'components/Link'
 import { Divider, EmptyCard } from '..'
-import DropdownSelect from '../DropdownSelect'
-import FormattedName from '../FormattedName'
-import { TYPE } from '../../Theme'
-import { updateNameData } from '../../utils/data'
+import DropdownSelect from 'components/DropdownSelect'
+import FormattedName from 'components/FormattedName'
+import { TYPE } from 'Theme'
+import { updateNameData } from 'utils/data'
+import { TableHeaderBox } from 'components/Row'
 
 dayjs.extend(utc)
 
@@ -28,7 +29,7 @@ const PageButtons = styled.div`
 `
 
 const Arrow = styled.div`
-  color: #2f80ed;
+  color: ${({ theme }) => theme.white};
   opacity: ${(props) => (props.faded ? 0.3 : 1)};
   padding: 0 20px;
   user-select: none;
@@ -83,6 +84,13 @@ const DashGrid = styled.div`
     grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas: 'txn value amountToken amountOther account time';
   }
+`
+
+const HeaderWrapper = styled(DashGrid)`
+  background: ${({ theme }) => theme.headerBackground};
+  border-radius: 8px;
+  padding-top: 7px !important;
+  padding-bottom: 7px !important;
 `
 
 const ClickableText = styled(Text)`
@@ -183,7 +191,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
   // parse the txns and format for UI
   useEffect(() => {
     if (transactions && transactions.mints && transactions.burns && transactions.swaps) {
-      let newTxns = []
+      const newTxns = []
       if (transactions.mints.length > 0) {
         transactions.mints.map((mint) => {
           let newTxn = {}
@@ -281,7 +289,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
 
   const ListItem = ({ item }) => {
     return (
-      <DashGrid style={{ height: '48px' }}>
+      <DashGrid style={{ height: '48px', padding: '0px 1.125rem' }}>
         <DataText area="txn" fontWeight="500">
           <Link color={color} external href={urls.showTransaction(item.hash)}>
             {getTransactionType(item.type, item.token1Symbol, item.token0Symbol)}
@@ -304,7 +312,11 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
         )}
         {!below1080 && (
           <DataText area="account">
-            <Link color={color} external href={'https://apothem.blocksscan.io/address/' + item.account.replace(/^.{2}/g, 'xdc')}>
+            <Link
+              color={color}
+              external
+              href={'https://apothem.blocksscan.io/address/' + item.account.replace(/^.{2}/g, 'xdc')}
+            >
               {item.account && item.account.slice(0, 6) + '...' + item.account.slice(38, 42)}
             </Link>
           </DataText>
@@ -316,7 +328,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
 
   return (
     <>
-      <DashGrid center={true} style={{ height: 'fit-content', padding: '0 0 1rem 0' }}>
+      <Box mb={4}>
         {below780 ? (
           <RowBetween area="txn">
             <DropdownSelect options={TXN_TYPE} active={txFilter} setActive={setTxFilter} color={color} />
@@ -357,8 +369,9 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
             </SortText>
           </RowFixed>
         )}
-
-        <Flex alignItems="center" justifyContent="flexStart">
+      </Box>
+      <HeaderWrapper center={true} style={{ height: 'fit-content', padding: '0 1.125rem 1rem' }}>
+        <Flex alignItems="center" justifyContent="flex-start">
           <ClickableText
             color="textDim"
             area="value"
@@ -367,7 +380,9 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
               setSortDirection(sortedColumn !== SORT_FIELD.VALUE ? true : !sortDirection)
             }}
           >
-            Total Value {sortedColumn === SORT_FIELD.VALUE ? (!sortDirection ? '↑' : '↓') : ''}
+            <TableHeaderBox>
+              Value {sortedColumn === SORT_FIELD.VALUE ? (!sortDirection ? '↑' : '↓') : ''}
+            </TableHeaderBox>
           </ClickableText>
         </Flex>
         {!below780 && (
@@ -380,8 +395,10 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
                 setSortDirection(sortedColumn !== SORT_FIELD.AMOUNT0 ? true : !sortDirection)
               }}
             >
-              {symbol0Override ? symbol0Override + ' Amount' : 'Token Amount'}{' '}
-              {sortedColumn === SORT_FIELD.AMOUNT0 ? (sortDirection ? '↑' : '↓') : ''}
+              <TableHeaderBox>
+                {symbol0Override ? symbol0Override + ' Amount' : 'Token Amount'}{' '}
+                {sortedColumn === SORT_FIELD.AMOUNT0 ? (sortDirection ? '↑' : '↓') : ''}
+              </TableHeaderBox>
             </ClickableText>
           </Flex>
         )}
@@ -396,16 +413,21 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
                   setSortDirection(sortedColumn !== SORT_FIELD.AMOUNT1 ? true : !sortDirection)
                 }}
               >
-                {symbol1Override ? symbol1Override + ' Amount' : 'Token Amount'}{' '}
-                {sortedColumn === SORT_FIELD.AMOUNT1 ? (sortDirection ? '↑' : '↓') : ''}
+                <TableHeaderBox>
+                  {symbol1Override ? symbol1Override + ' Amount' : 'Token Amount'}{' '}
+                  {sortedColumn === SORT_FIELD.AMOUNT1 ? (sortDirection ? '↑' : '↓') : ''}
+                </TableHeaderBox>
               </ClickableText>
             </Flex>
           )}
           {!below1080 && (
             <Flex alignItems="center">
-              <TYPE.body area="account">Account</TYPE.body>
+              <TableHeaderBox area="account">Account</TableHeaderBox>
             </Flex>
           )}
+          <Flex alignItems="center">
+            <TableHeaderBox area="account">Transaction</TableHeaderBox>
+          </Flex>
           <Flex alignItems="center">
             <ClickableText
               area="time"
@@ -415,12 +437,13 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
                 setSortDirection(sortedColumn !== SORT_FIELD.TIMESTAMP ? true : !sortDirection)
               }}
             >
-              Time {sortedColumn === SORT_FIELD.TIMESTAMP ? (!sortDirection ? '↑' : '↓') : ''}
+              <TableHeaderBox>
+                Time {sortedColumn === SORT_FIELD.TIMESTAMP ? (!sortDirection ? '↑' : '↓') : ''}
+              </TableHeaderBox>
             </ClickableText>
           </Flex>
         </>
-      </DashGrid>
-      <Divider />
+      </HeaderWrapper>
       <List p={0}>
         {!filteredList ? (
           <LocalLoader />

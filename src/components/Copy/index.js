@@ -1,9 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useCopyClipboard } from '../../hooks'
+import { useCopyClipboard } from 'hooks'
 import { CheckCircle, Copy } from 'react-feather'
-import { StyledIcon } from '..'
-
+import { StyledIcon } from 'components'
 
 const CopyIcon = styled.div`
   color: #aeaeae;
@@ -20,7 +19,6 @@ const CopyIcon = styled.div`
   }
 `
 const TransactionStatusText = styled.span`
-  margin-left: 0.25rem;
   ${({ theme }) => theme.flexRowNoWrap};
   align-items: center;
   color: black;

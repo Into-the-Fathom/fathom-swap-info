@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from 'react'
+import React, { FC, useCallback, useState } from 'react'
 import styled from 'styled-components'
-import Popover, { PopoverProps } from '../Popover'
+import Popover, { PopoverProps } from 'components/Popover'
 
 const Wrapper = styled.span`
   display: flex;
@@ -19,7 +19,7 @@ interface TooltipProps extends Omit<PopoverProps, 'content'> {
   text: string
 }
 
-export function Tooltip({ text, ...rest }: TooltipProps) {
+export const Tooltip: FC<TooltipProps> = ({ text, ...rest }) => {
   return <Popover content={<TooltipContainer>{text}</TooltipContainer>} {...rest} />
 }
 

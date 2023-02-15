@@ -14,7 +14,6 @@ import Loader from 'components/LocalLoader'
 import { BasicLink } from 'components/Link'
 import Search from 'components/Search'
 import { formattedNum, formattedPercent, getPoolLink, getSwapLink, shortenAddress } from 'utils'
-import { useColor } from '../hooks'
 import { usePairData, usePairTransactions } from 'contexts/PairData'
 import { TYPE } from 'Theme'
 import CopyHelper from 'components/Copy'
@@ -30,7 +29,8 @@ import { Bookmark, PlusCircle, AlertCircle } from 'react-feather'
 import FormattedName from 'components/FormattedName'
 import { useListedTokens } from 'contexts/Application'
 import HoverText from 'components/HoverText'
-import { UNTRACKED_COPY, PAIR_BLACKLIST, BLOCKED_WARNINGS } from '../constants'
+import { UNTRACKED_COPY, PAIR_BLACKLIST, BLOCKED_WARNINGS } from 'constants/index'
+import { TableHeaderBox } from 'components/Row'
 
 const DashboardWrapper = styled.div`
   width: 100%;
@@ -60,17 +60,18 @@ const PanelWrapper = styled.div`
 
 const TokenDetailsLayout = styled.div`
   display: inline-grid;
-  width: 100%;
+  width: calc(100% - 1.125rem);
   grid-template-columns: auto auto auto auto 1fr;
   column-gap: 60px;
   align-items: start;
+  padding-left: 1.125rem;
 
   &:last-child {
     align-items: center;
     justify-items: end;
   }
   @media screen and (max-width: 1024px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     align-items: stretch;
     > * {
       /* grid-column: 1 / 4; */
@@ -113,6 +114,12 @@ const WarningGrouping = styled.div`
   opacity: ${({ disabled }) => disabled && '0.4'};
   pointer-events: ${({ disabled }) => disabled && 'none'};
 `
+const HeaderWrapper = styled.div`
+  background: ${({ theme }) => theme.headerBackground};
+  border-radius: 8px;
+  padding-top: 7px !important;
+  padding-bottom: 7px !important;
+`
 
 function PairPage({ pairAddress, history }) {
   const {
@@ -134,7 +141,6 @@ function PairPage({ pairAddress, history }) {
   }, [])
 
   const transactions = usePairTransactions(pairAddress)
-  const backgroundColor = useColor(pairAddress)
 
   const formattedLiquidity = reserveUSD ? formattedNum(reserveUSD, true) : formattedNum(trackedReserveUSD, true)
   const usingUntrackedLiquidity = !trackedReserveUSD && !!reserveUSD
@@ -280,10 +286,10 @@ function PairPage({ pairAddress, history }) {
                   )}
 
                   <Link external href={getPoolLink(token0?.id, token1?.id)}>
-                    <ButtonLight color={backgroundColor}>+ Add Liquidity</ButtonLight>
+                    <ButtonLight>+ Add Liquidity</ButtonLight>
                   </Link>
                   <Link external href={getSwapLink(token0?.id, token1?.id)}>
-                    <ButtonDark ml={!below1080 && '.5rem'} mr={below1080 && '.5rem'} color={backgroundColor}>
+                    <ButtonDark ml={!below1080 && '.5rem'} mr={below1080 && '.5rem'}>
                       Trade
                     </ButtonDark>
                   </Link>
@@ -418,90 +424,73 @@ function PairPage({ pairAddress, history }) {
                 >
                   <PairChart
                     address={pairAddress}
-                    color={backgroundColor}
                     base0={reserve1 / reserve0}
                     base1={reserve0 / reserve1}
+                    color={'#003CFF'}
                   />
                 </Panel>
               </PanelWrapper>
-              <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '3rem' }}>
+              <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '3rem', marginBottom: '2rem' }}>
                 Transactions
               </TYPE.main>{' '}
-              <Panel
-                style={{
-                  marginTop: '1.5rem',
-                }}
-              >
-                {transactions ? <TxnList transactions={transactions} /> : <Loader />}
-              </Panel>
-              <RowBetween style={{ marginTop: '3rem' }}>
-                <TYPE.main fontSize={'1.125rem'}>Pair Information</TYPE.main>{' '}
-              </RowBetween>
-              <Panel
-                rounded
-                style={{
-                  marginTop: '1.5rem',
-                }}
-                p={20}
-              >
-                <TokenDetailsLayout>
-                  <Column>
-                    <TYPE.main>Pair Name</TYPE.main>
+              {transactions ? <TxnList transactions={transactions} /> : <Loader />}
+              <HeaderWrapper style={{ marginTop: '3rem', marginBottom: '2rem', padding: '0 1.125rem 1rem' }}>
+                <TableHeaderBox>Pair Information</TableHeaderBox>{' '}
+              </HeaderWrapper>
+              <TokenDetailsLayout>
+                <Column>
+                  <TYPE.main>Pair Name</TYPE.main>
+                  <TYPE.main style={{ marginTop: '.5rem' }}>
+                    <RowFixed>
+                      <FormattedName text={token0?.symbol ?? ''} maxCharacters={8} />
+                      -
+                      <FormattedName text={token1?.symbol ?? ''} maxCharacters={8} />
+                    </RowFixed>
+                  </TYPE.main>
+                </Column>
+                <Column>
+                  <TYPE.main>Pair Address</TYPE.main>
+                  <AutoRow align="flex-end">
                     <TYPE.main style={{ marginTop: '.5rem' }}>
-                      <RowFixed>
-                        <FormattedName text={token0?.symbol ?? ''} maxCharacters={8} />
-                        -
-                        <FormattedName text={token1?.symbol ?? ''} maxCharacters={8} />
-                      </RowFixed>
+                      {pairAddress.slice(0, 6) + '...' + pairAddress.slice(38, 42)}
                     </TYPE.main>
-                  </Column>
-                  <Column>
-                    <TYPE.main>Pair Address</TYPE.main>
-                    <AutoRow align="flex-end">
-                      <TYPE.main style={{ marginTop: '.5rem' }}>
-                        {pairAddress.slice(0, 6) + '...' + pairAddress.slice(38, 42)}
-                      </TYPE.main>
-                      <CopyHelper toCopy={pairAddress} />
-                    </AutoRow>
-                  </Column>
-                  <Column>
-                    <TYPE.main>
-                      <RowFixed>
-                        <FormattedName text={token0?.symbol ?? ''} maxCharacters={8} />{' '}
-                        <span style={{ marginLeft: '4px' }}>Address</span>
-                      </RowFixed>
+                    <CopyHelper toCopy={pairAddress} />
+                  </AutoRow>
+                </Column>
+                <Column>
+                  <TYPE.main>
+                    <RowFixed>
+                      <FormattedName text={token0?.symbol ?? ''} maxCharacters={8} />{' '}
+                      <span style={{ marginLeft: '4px' }}>Address</span>
+                    </RowFixed>
+                  </TYPE.main>
+                  <AutoRow align="flex-end">
+                    <TYPE.main style={{ marginTop: '.5rem' }}>
+                      {token0 && token0.id.slice(0, 6) + '...' + token0.id.slice(38, 42)}
                     </TYPE.main>
-                    <AutoRow align="flex-end">
-                      <TYPE.main style={{ marginTop: '.5rem' }}>
-                        {token0 && token0.id.slice(0, 6) + '...' + token0.id.slice(38, 42)}
-                      </TYPE.main>
-                      <CopyHelper toCopy={token0?.id} />
-                    </AutoRow>
-                  </Column>
-                  <Column>
-                    <TYPE.main>
-                      <RowFixed>
-                        <FormattedName text={token1?.symbol ?? ''} maxCharacters={8} />{' '}
-                        <span style={{ marginLeft: '4px' }}>Address</span>
-                      </RowFixed>
+                    <CopyHelper toCopy={token0?.id} />
+                  </AutoRow>
+                </Column>
+                <Column>
+                  <TYPE.main>
+                    <RowFixed>
+                      <FormattedName text={token1?.symbol ?? ''} maxCharacters={8} />{' '}
+                      <span style={{ marginLeft: '4px' }}>Address</span>
+                    </RowFixed>
+                  </TYPE.main>
+                  <AutoRow align="flex-end">
+                    <TYPE.main style={{ marginTop: '.5rem' }} fontSize={16}>
+                      {token1 && token1.id.slice(0, 6) + '...' + token1.id.slice(38, 42)}
                     </TYPE.main>
-                    <AutoRow align="flex-end">
-                      <TYPE.main style={{ marginTop: '.5rem' }} fontSize={16}>
-                        {token1 && token1.id.slice(0, 6) + '...' + token1.id.slice(38, 42)}
-                      </TYPE.main>
-                      <CopyHelper toCopy={token1?.id} />
-                    </AutoRow>
-                  </Column>
-                  <ButtonLight>
-                    <Link
-                      external
-                      href={'https://apothem.blocksscan.io/address/' + pairAddress.replace(/^.{2}/g, 'xdc')}
-                    >
-                      View on BlocksScan ↗
-                    </Link>
-                  </ButtonLight>
-                </TokenDetailsLayout>
-              </Panel>
+                    <CopyHelper toCopy={token1?.id} />
+                  </AutoRow>
+                </Column>
+                <ButtonLight>
+                  <Link external href={'https://apothem.blocksscan.io/address/' + pairAddress.replace(/^.{2}/g, 'xdc')}>
+                    View on BlocksScan ↗
+                  </Link>
+                </ButtonLight>
+              </TokenDetailsLayout>
             </>
           </DashboardWrapper>
         </WarningGrouping>

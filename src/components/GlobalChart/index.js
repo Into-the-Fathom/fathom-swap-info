@@ -86,6 +86,7 @@ const GlobalChart = ({ display }) => {
             field="totalLiquidityUSD"
             width={width}
             type={CHART_TYPES.AREA}
+            below800={below800}
           />
         </ResponsiveContainer>
       )}
@@ -100,15 +101,16 @@ const GlobalChart = ({ display }) => {
             width={width}
             type={CHART_TYPES.BAR}
             useWeekly={volumeWindow === VOLUME_WINDOW.WEEKLY}
+            below800={below800}
           />
         </ResponsiveContainer>
       )}
       {display === 'volume' && (
         <RowFixed
           style={{
-            bottom: '70px',
+            top: '-42px',
             position: 'absolute',
-            left: '20px',
+            right: '32px',
             zIndex: 10,
           }}
         >
@@ -116,14 +118,14 @@ const GlobalChart = ({ display }) => {
             active={volumeWindow === VOLUME_WINDOW.DAYS}
             onClick={() => setVolumeWindow(VOLUME_WINDOW.DAYS)}
           >
-            {volumeWindow === VOLUME_WINDOW.DAYS ? <TYPE.green>D</TYPE.green> : <TYPE.body>D</TYPE.body>}
+            <TYPE.body>D</TYPE.body>
           </OptionButton>
           <OptionButton
             style={{ marginLeft: '4px' }}
             active={volumeWindow === VOLUME_WINDOW.WEEKLY}
             onClick={() => setVolumeWindow(VOLUME_WINDOW.WEEKLY)}
           >
-            {volumeWindow === VOLUME_WINDOW.WEEKLY ? <TYPE.green>W</TYPE.green> : <TYPE.body>W</TYPE.body>}
+            <TYPE.body>W</TYPE.body>
           </OptionButton>
         </RowFixed>
       )}

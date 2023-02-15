@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useReducer, useMemo, useCallback, useEffect, useState } from 'react'
-import { client } from '../apollo/client'
+import { client } from 'apollo/client'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import { useTimeframe } from './Application'
+import { useTimeframe } from 'contexts/Application'
 import {
   getPercentChange,
   getBlockFromTimestamp,
@@ -18,10 +18,13 @@ import {
   ALL_PAIRS,
   ALL_TOKENS,
   TOP_LPS_PER_PAIRS,
-} from '../apollo/queries'
+} from 'apollo/queries'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
-import { useAllPairData } from './PairData'
-import { useTokenChartDataCombined } from './TokenData'
+import { useAllPairData } from 'contexts/PairData'
+import { useTokenChartDataCombined } from 'contexts/TokenData'
+
+import { FXD_US_PLUS_PAIR_ID, FTHM_US_PLUS_PAIR_ID } from 'constants/index'
+
 const UPDATE = 'UPDATE'
 const UPDATE_TXNS = 'UPDATE_TXNS'
 const UPDATE_CHART = 'UPDATE_CHART'
@@ -274,7 +277,7 @@ async function getGlobalData(ethPrice, oldEthPrice) {
     })
     const twoWeekData = twoWeekResult.data.fathomSwapFactories[0]
 
-    if (data && oneDayData && twoDayData && twoWeekData) {
+    if (data && oneDayData && twoDayData) {
       let [oneDayVolumeUSD, volumeChangeUSD] = get2DayPercentChange(
         data.totalVolumeUSD,
         oneDayData.totalVolumeUSD,
@@ -283,8 +286,8 @@ async function getGlobalData(ethPrice, oldEthPrice) {
 
       const [oneWeekVolume, weeklyVolumeChange] = get2DayPercentChange(
         data.totalVolumeUSD,
-        oneWeekData.totalVolumeUSD,
-        twoWeekData.totalVolumeUSD
+        oneWeekData ? oneWeekData.totalVolumeUSD : 0,
+        twoWeekData ? twoWeekData.totalVolumeUSD : 0
       )
 
       const [oneDayTxns, txnChange] = get2DayPercentChange(
@@ -565,8 +568,6 @@ export function useGlobalData() {
 
   const data = state?.globalData
 
-  // const combinedVolume = useTokenDataCombined(offsetVolumes)
-
   useEffect(() => {
     async function fetchData() {
       let globalData = await getGlobalData(ethPrice, oldEthPrice)
@@ -743,4 +744,40 @@ export function useTopLps() {
   })
 
   return topLps
+}
+
+export function useFxdPrice() {
+  const [fxdPrice, setFxdPrice] = useState(0)
+  const allPairs = useAllPairData()
+
+  useEffect(() => {
+    if (Object.keys(allPairs).length) {
+      const findPair = Object.values(allPairs).find((pairItem) => {
+        return pairItem.id === FXD_US_PLUS_PAIR_ID
+      })
+      setFxdPrice(findPair.token0.symbol === 'FXD' ? findPair.token1Price : findPair.token0Price)
+    }
+  }, [allPairs, setFxdPrice])
+
+  return {
+    fxdPrice,
+  }
+}
+
+export function useFTHMPrice() {
+  const [fthmPrice, setFthmPrice] = useState(0)
+  const allPairs = useAllPairData()
+
+  useEffect(() => {
+    if (Object.keys(allPairs).length) {
+      const findPair = Object.values(allPairs).find((pairItem) => {
+        return pairItem.id === FTHM_US_PLUS_PAIR_ID
+      })
+      setFthmPrice(findPair.token0.symbol === 'FTHM' ? findPair.token1Price : findPair.token0Price)
+    }
+  }, [allPairs, setFthmPrice])
+
+  return {
+    fthmPrice,
+  }
 }

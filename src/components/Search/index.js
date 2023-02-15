@@ -27,6 +27,10 @@ const Container = styled.div`
   @media screen and (max-width: 600px) {
     width: 100%;
   }
+
+  @media screen and (min-width: 600px) {
+    width: 60%;
+  }
 `
 
 const Wrapper = styled.div`
@@ -35,7 +39,6 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  padding: 12px 16px;
   border-radius: 12px;
   background: transparent;
   border-bottom-right-radius: ${({ open }) => (open ? '0px' : '12px')};
@@ -61,18 +64,17 @@ const Input = styled.input`
   display: flex;
   align-items: center;
   white-space: nowrap;
-  background: none;
-  border: none;
   outline: none;
   width: 100%;
   color: ${({ theme }) => theme.white};
-  border: 1px solid #2c3f59;
+  border: 1px solid ${({ theme }) => theme.borderBG};
   font-size: ${({ large }) => (large ? '20px' : '14px')};
   border-radius: 8px;
-  padding: 8px 14px;
+  padding: 10px 10px 10px 28px;
+  background-color: #061023;
 
   ::placeholder {
-    color: ${({ theme }) => theme.white};
+    color: ${({ theme }) => theme.placeholderColor};
     font-size: 16px;
   }
 
@@ -88,9 +90,10 @@ const SearchIconLarge = styled(SearchIcon)`
   width: 20px;
   margin-right: 0.5rem;
   position: absolute;
-  right: 10px;
+  left: 6px;
   pointer-events: none;
   color: ${({ theme }) => theme.borderBG};
+  z-index: 1;
 `
 
 const CloseIcon = styled(X)`
@@ -98,8 +101,9 @@ const CloseIcon = styled(X)`
   width: 20px;
   margin-right: 0.5rem;
   position: absolute;
-  right: 10px;
+  left: 6px;
   color: ${({ theme }) => theme.borderBG};
+  z-index: 1;
   :hover {
     cursor: pointer;
   }
@@ -154,9 +158,6 @@ const Blue = styled.span`
 export const Search = ({ small = false }) => {
   let allTokens = useAllTokensInUniswap()
   const allTokenData = useAllTokenData()
-
-  console.log(allTokens)
-  console.log(allTokenData)
 
   let allPairs = useAllPairsInUniswap()
   const allPairData = useAllPairData()
@@ -425,6 +426,7 @@ export const Search = ({ small = false }) => {
   return (
     <Container small={small}>
       <Wrapper open={showMenu} shadow={true} small={small}>
+        {!showMenu ? <SearchIconLarge /> : <CloseIcon color={'#fff'} onClick={() => toggleMenu(false)} />}
         <Input
           large={!small}
           type={'text'}
@@ -450,7 +452,6 @@ export const Search = ({ small = false }) => {
             }
           }}
         />
-        {!showMenu ? <SearchIconLarge /> : <CloseIcon onClick={() => toggleMenu(false)} />}
       </Wrapper>
       <Menu hide={!showMenu} ref={menuRef}>
         <Heading>

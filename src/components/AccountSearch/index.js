@@ -2,15 +2,13 @@ import React, { useState } from 'react'
 import 'feather-icons'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import { ButtonLight, ButtonFaded } from '../ButtonStyled'
-import { AutoRow, RowBetween } from '../Row'
-import { isAddress } from '../../utils'
-import { useSavedAccounts } from '../../contexts/LocalStorage'
-import { AutoColumn } from '../Column'
-import { TYPE } from '../../Theme'
-import { Hover, StyledIcon } from '..'
-import Panel from 'components/Panel'
-import { Divider } from '..'
+import { ButtonLight, ButtonFaded } from 'components/ButtonStyled'
+import { AutoRow, RowBetween } from 'components/Row'
+import { isAddress } from 'utils'
+import { useSavedAccounts } from 'contexts/LocalStorage'
+import { AutoColumn } from 'components/Column'
+import { TYPE } from 'Theme'
+import { Hover, StyledIcon } from 'components'
 import { Flex } from 'rebass'
 
 import { X } from 'react-feather'
@@ -73,6 +71,17 @@ const DashGrid = styled.div`
   }
 `
 
+export const HeaderWrapper = styled(DashGrid)`
+  background: ${({ theme }) => theme.headerBackground};
+  border-radius: 8px;
+  padding-top: 7px !important;
+  padding-bottom: 7px !important;
+  padding: 0px 1.125rem 1rem;
+  color: ${({ theme }) => theme.primaryText2};
+  text-transform: uppercase;
+  font-size: 11px;
+`
+
 function AccountSearch({ history, small }) {
   const [accountValue, setAccountValue] = useState()
   const [savedAccounts, addAccount, removeAccount] = useSavedAccounts()
@@ -104,17 +113,16 @@ function AccountSearch({ history, small }) {
         </>
       )}
 
-      <AutoColumn gap={'12px'}>
+      <AutoColumn>
         {!small && (
-          <Panel>
-            <DashGrid center={true} style={{ height: 'fit-content', padding: '0 0 1rem 0' }}>
-              <TYPE.main area="account">Saved Accounts</TYPE.main>
-            </DashGrid>
-            <Divider />
+          <>
+            <HeaderWrapper center={true} style={{ height: 'fit-content', marginTop: '2rem' }}>
+              Saved Accounts
+            </HeaderWrapper>
             {savedAccounts?.length > 0 ? (
               savedAccounts.map((account) => {
                 return (
-                  <DashGrid key={account} center={true} style={{ height: 'fit-content', padding: '1rem 0 0 0' }}>
+                  <DashGrid key={account} center={true} style={{ height: 'fit-content', padding: '0.5rem 1.125rem' }}>
                     <Flex
                       area="account"
                       justifyContent="space-between"
@@ -138,12 +146,12 @@ function AccountSearch({ history, small }) {
             ) : (
               <TYPE.light style={{ marginTop: '1rem' }}>No saved accounts</TYPE.light>
             )}
-          </Panel>
+          </>
         )}
 
         {small && (
           <>
-            <TYPE.main>{'Accounts'}</TYPE.main>
+            <TYPE.main marginBottom="1rem">{'Accounts'}</TYPE.main>
             {savedAccounts?.length > 0 ? (
               savedAccounts.map((account) => {
                 return (

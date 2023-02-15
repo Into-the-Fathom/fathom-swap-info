@@ -18,7 +18,7 @@ import AccountLookup from 'pages/AccountLookup'
 import LocalLoader from 'components/LocalLoader'
 import { useLatestBlocks } from 'contexts/Application'
 import GoogleAnalyticsReporter from 'components/analytics/GoogleAnalyticsReporter'
-import { PAIR_BLACKLIST, TOKEN_BLACKLIST } from './constants'
+import { PAIR_BLACKLIST, TOKEN_BLACKLIST } from 'constants/index'
 
 const AppWrapper = styled.div`
   position: relative;
@@ -58,7 +58,8 @@ const Center = styled.div`
   height: 100%;
   z-index: 9999;
   transition: width 0.25s ease;
-  background-color: ${({ theme }) => theme.bg1};
+  background: linear-gradient(180deg, #000817 7.88%, #0d1725 113.25%);
+  overflow: hidden;
 `
 
 const WarningWrapper = styled.div`

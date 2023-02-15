@@ -24,6 +24,14 @@ const FathomIcon = styled(Link)`
   :hover {
     transform: rotate(-5deg);
   }
+  img {
+    width: 140px;
+  }
+  @media (max-width: 600px) {
+    img {
+      width: 90px;
+    }
+  }
 `
 
 const Option = styled.div<{ activeText: boolean }>`
@@ -47,7 +55,7 @@ export default function Title() {
       <Flex alignItems="center" style={{ justifyContent: 'space-between' }}>
         <RowFixed>
           <FathomIcon id="link" onClick={() => history.push('/')}>
-            <img width={'140px'} src={Logo} alt="logo" />
+            <img src={Logo} alt="logo" />
           </FathomIcon>
         </RowFixed>
         {below1080 && (

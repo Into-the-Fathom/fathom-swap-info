@@ -25,15 +25,16 @@ import { useDataForList } from 'contexts/PairData'
 import { useEffect } from 'react'
 import Warning from 'components/Warning'
 import { usePathDismissed, useSavedTokens } from 'contexts/LocalStorage'
-import { Hover, PageWrapper, ContentWrapper, StyledIcon, BlockedWrapper, BlockedMessageWrapper } from '../components'
+import { Hover, PageWrapper, ContentWrapper, StyledIcon, BlockedWrapper, BlockedMessageWrapper } from 'components'
 import { PlusCircle, Bookmark, AlertCircle } from 'react-feather'
-import FormattedName from '../components/FormattedName'
-import { useListedTokens } from '../contexts/Application'
-import HoverText from '../components/HoverText'
-import { UNTRACKED_COPY, TOKEN_BLACKLIST, BLOCKED_WARNINGS } from '../constants'
-import QuestionHelper from '../components/QuestionHelper'
-import Checkbox from '../components/Checkbox'
-import { shortenAddress } from '../utils'
+import FormattedName from 'components/FormattedName'
+import { useListedTokens } from 'contexts/Application'
+import HoverText from 'components/HoverText'
+import { UNTRACKED_COPY, TOKEN_BLACKLIST, BLOCKED_WARNINGS } from 'constants/index'
+import QuestionHelper from 'components/QuestionHelper'
+import Checkbox from 'components/Checkbox'
+import { shortenAddress } from 'utils'
+import { TableHeaderBox } from 'components/Row'
 
 const DashboardWrapper = styled.div`
   width: 100%;
@@ -63,10 +64,11 @@ const PanelWrapper = styled.div`
 
 const TokenDetailsLayout = styled.div`
   display: inline-grid;
-  width: 100%;
+  width: calc(100% - 1.25rem);
   grid-template-columns: auto auto auto 1fr;
-  column-gap: 30px;
+  gap: 75px;
   align-items: start;
+  padding-left: 1.25rem;
 
   &:last-child {
     align-items: center;
@@ -97,6 +99,13 @@ const WarningIcon = styled(AlertCircle)`
 const WarningGrouping = styled.div`
   opacity: ${({ disabled }) => disabled && '0.4'};
   pointer-events: ${({ disabled }) => disabled && 'none'};
+`
+
+const HeaderWrapper = styled.div`
+  background: ${({ theme }) => theme.headerBackground};
+  border-radius: 8px;
+  padding-top: 7px !important;
+  padding-bottom: 7px !important;
 `
 
 function TokenPage({ address, history }) {
@@ -350,12 +359,13 @@ function TokenPage({ address, history }) {
                     gridRow: below1080 ? '' : '1/4',
                   }}
                 >
-                  <TokenChart address={address} base={priceUSD} color={'#4f8fea'} />
+                  <TokenChart address={address} base={priceUSD} color={'#003CFF'} />
+
                 </Panel>
               </PanelWrapper>
             </>
 
-            <RowBetween style={{ marginTop: '3rem' }}>
+            <RowBetween style={{ marginTop: '3rem', marginBottom: '2rem' }}>
               <TYPE.main fontSize={'1.125rem'}>Top Pairs</TYPE.main>
               <AutoRow gap="4px" style={{ width: 'fit-content' }}>
                 <Checkbox
@@ -366,67 +376,47 @@ function TokenPage({ address, history }) {
                 <QuestionHelper text="USD amounts may be inaccurate in low liquiidty pairs or pairs without ETH or stablecoins." />
               </AutoRow>
             </RowBetween>
-            <Panel
-              rounded
-              style={{
-                marginTop: '1.5rem',
-                padding: '1.125rem 0 ',
-              }}
-            >
-              {address && fetchedPairsList ? (
-                <PairList address={address} pairs={fetchedPairsList} useTracked={useTracked} />
-              ) : (
-                <Loader />
-              )}
-            </Panel>
-            <RowBetween mt={40} mb={'1rem'}>
+            {address && fetchedPairsList ? (
+              <PairList address={address} pairs={fetchedPairsList} useTracked={useTracked} />
+            ) : (
+              <Loader />
+            )}
+            <RowBetween mt={40} mb={'2rem'}>
               <TYPE.main fontSize={'1.125rem'}>Transactions</TYPE.main> <div />
             </RowBetween>
-            <Panel rounded>{transactions ? <TxnList transactions={transactions} /> : <Loader />}</Panel>
+            {transactions ? <TxnList transactions={transactions} /> : <Loader />}
             <>
-              <RowBetween style={{ marginTop: '3rem' }}>
-                <TYPE.main fontSize={'1.125rem'}>Token Information</TYPE.main>{' '}
-              </RowBetween>
-              <Panel
-                rounded
-                style={{
-                  marginTop: '1.5rem',
-                }}
-                p={20}
-              >
-                <TokenDetailsLayout>
-                  <Column>
-                    <TYPE.main>Symbol</TYPE.main>
-                    <Text style={{ marginTop: '.5rem' }} fontSize={24} fontWeight="500">
-                      <FormattedName text={symbol} maxCharacters={12} />
-                    </Text>
-                  </Column>
-                  <Column>
-                    <TYPE.main>Name</TYPE.main>
-                    <TYPE.main style={{ marginTop: '.5rem' }} fontSize={24} fontWeight="500">
-                      <FormattedName text={name} maxCharacters={16} />
+              <HeaderWrapper style={{ marginTop: '3rem', marginBottom: '2rem', padding: '0px 1.125rem' }}>
+                <TableHeaderBox>Token Information</TableHeaderBox>{' '}
+              </HeaderWrapper>
+              <TokenDetailsLayout>
+                <Column>
+                  <TYPE.main>Symbol</TYPE.main>
+                  <TYPE.main style={{ marginTop: '.5rem' }} fontWeight="500">
+                    <FormattedName text={symbol} maxCharacters={12} />
+                  </TYPE.main>
+                </Column>
+                <Column>
+                  <TYPE.main>Name</TYPE.main>
+                  <TYPE.main style={{ marginTop: '.5rem' }} fontWeight="500">
+                    <FormattedName text={name} maxCharacters={16} />
+                  </TYPE.main>
+                </Column>
+                <Column>
+                  <TYPE.main>Address</TYPE.main>
+                  <AutoRow align="flex-end">
+                    <TYPE.main style={{ marginTop: '.5rem' }} fontWeight="500">
+                      {address.slice(0, 8) + '...' + address.slice(36, 42)}
                     </TYPE.main>
-                  </Column>
-                  <Column>
-                    <TYPE.main>Address</TYPE.main>
-                    <AutoRow align="flex-end">
-                      <TYPE.main style={{ marginTop: '.5rem' }} fontSize={24} fontWeight="500">
-                        {address.slice(0, 8) + '...' + address.slice(36, 42)}
-                      </TYPE.main>
-                      <CopyHelper toCopy={address} />
-                    </AutoRow>
-                  </Column>
-                  <ButtonLight color={backgroundColor}>
-                    <Link
-                      color={backgroundColor}
-                      external
-                      href={'https://apothem.blocksscan.io/address/' + address.replace(/^.{2}/g, 'xdc')}
-                    >
-                      View on BlocksScan ↗
-                    </Link>
-                  </ButtonLight>
-                </TokenDetailsLayout>
-              </Panel>
+                    <CopyHelper toCopy={address} />
+                  </AutoRow>
+                </Column>
+                <ButtonLight>
+                  <Link external href={'https://apothem.blocksscan.io/address/' + address.replace(/^.{2}/g, 'xdc')}>
+                    View on BlocksScan ↗
+                  </Link>
+                </ButtonLight>
+              </TokenDetailsLayout>
             </>
           </DashboardWrapper>
         </WarningGrouping>

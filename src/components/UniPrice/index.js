@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
-import Panel from '../Panel'
-import { AutoColumn } from '../Column'
-import { RowFixed } from '../Row'
-import { TYPE } from '../../Theme'
-import { usePairData } from '../../contexts/PairData'
-import { formattedNum } from '../../utils'
+import Panel from 'components/Panel'
+import { AutoColumn } from 'components/Column'
+import { RowFixed } from 'components/Row'
+import { TYPE } from 'Theme'
+import { usePairData } from 'contexts/PairData'
+import { formattedNum } from 'utils'
 
 const PriceCard = styled(Panel)`
   position: absolute;
@@ -26,7 +26,7 @@ function formatPercent(rawPercent) {
 export default function UniPrice() {
   // const daiPair = usePairData('0xa478c2975ab1ea89e8196811f51a7b7ade33eb11')
   // const usdcPair = usePairData('0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc')
-  const usdtPair = usePairData('0x1fa11a81a09f89df7ae2a8f0e846b3a3a2706bc9')
+  const usdtPair = usePairData('0x2e12c16413150d64e380c14cb6021c1ca38b25b6')
 
   const totalLiquidity = useMemo(() => {
     return usdtPair

@@ -12,8 +12,8 @@ import { useTokenChartData, useTokenPriceData } from 'contexts/TokenData'
 import DropdownSelect from 'components/DropdownSelect'
 import CandleStickChart from 'components/CandleChart'
 import LocalLoader from 'components/LocalLoader'
-import { AutoColumn } from 'components/Column'
 import { Activity } from 'react-feather'
+
 
 const ChartWrapper = styled.div`
   height: 100%;
@@ -144,7 +144,7 @@ const TokenChart = ({ address, color, base }) => {
           }
           align="flex-start"
         >
-          <AutoColumn gap="8px">
+          <div>
             <RowFixed>
               <OptionButton
                 active={chartFilter === CHART_VIEW.LIQUIDITY}
@@ -194,7 +194,7 @@ const TokenChart = ({ address, color, base }) => {
                 </PriceOption>
               </AutoRow>
             )}
-          </AutoColumn>
+          </div>
           <AutoRow justify="flex-end" gap="6px" align="flex-start">
             <OptionButton
               active={timeWindow === timeframeOptions.WEEK}
