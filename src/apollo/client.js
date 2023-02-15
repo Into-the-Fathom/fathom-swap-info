@@ -4,7 +4,7 @@ import { HttpLink } from 'apollo-link-http'
 
 export const client = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://graph.composer.live/subgraphs/name/fathom/fathomswap',
+    uri: 'https://dev.composer.live/subgraphs/name/dex-subgraph',
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
@@ -12,7 +12,7 @@ export const client = new ApolloClient({
 
 export const healthClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://graph.composer.live/graphql',
+    uri: 'https://dev.composer.live/graphql',
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
