@@ -13,7 +13,7 @@ export const timeframeOptions = {
 
 // token list urls to fetch tokens from - use for warnings on tokens and pairs
 export const SUPPORTED_LIST_URLS__NO_ENS = [
-  'https://raw.githubusercontent.com/Into-the-Fathom/fathom-swap-default-token-list/dev/src/tokenlists/apothem.json',
+  'https://raw.githubusercontent.com/Into-the-Fathom/fathom-swap-default-token-list/demo/src/tokenlists/apothem.json',
 ]
 
 // hide from overview list
