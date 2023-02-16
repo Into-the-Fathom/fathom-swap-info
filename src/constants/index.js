@@ -1,4 +1,4 @@
-export const FACTORY_ADDRESS = '0xe350508951929D3e19222824F41790621fb18A15'
+export const FACTORY_ADDRESS = '0xB98e9AD3eBf24BFD35fD7a8e52242FDA116FAd01'
 
 export const BUNDLE_ID = '1'
 
@@ -13,7 +13,7 @@ export const timeframeOptions = {
 
 // token list urls to fetch tokens from - use for warnings on tokens and pairs
 export const SUPPORTED_LIST_URLS__NO_ENS = [
-  'https://raw.githubusercontent.com/Into-the-Fathom/fathom-swap-default-token-list/dev/src/tokenlists/apothem.json',
+  'https://raw.githubusercontent.com/Into-the-Fathom/fathom-swap-default-token-list/demo/src/tokenlists/apothem.json',
 ]
 
 // hide from overview list
