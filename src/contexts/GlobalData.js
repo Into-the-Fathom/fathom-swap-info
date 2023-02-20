@@ -9,7 +9,7 @@ import {
   getBlocksFromTimestamps,
   get2DayPercentChange,
   getTimeframe,
-} from '../utils'
+} from 'utils'
 import {
   GLOBAL_DATA,
   GLOBAL_TXNS,
@@ -23,7 +23,7 @@ import weekOfYear from 'dayjs/plugin/weekOfYear'
 import { useAllPairData } from 'contexts/PairData'
 import { useTokenChartDataCombined } from 'contexts/TokenData'
 
-import { FXD_US_PLUS_PAIR_ID, FTHM_US_PLUS_PAIR_ID } from 'constants/index'
+import { US_PLUS_WXDC_PAIR_ID, FXD_WXDC_PAIR_ID, FTHM_FXD_PAIR_ID } from 'constants/index'
 
 const UPDATE = 'UPDATE'
 const UPDATE_TXNS = 'UPDATE_TXNS'
@@ -747,17 +747,25 @@ export function useTopLps() {
 }
 
 export function useFxdPrice() {
-  const [fxdPrice, setFxdPrice] = useState(0)
   const allPairs = useAllPairData()
 
-  useEffect(() => {
+  const fxdPrice = useMemo(() => {
     if (Object.keys(allPairs).length) {
-      const findPair = Object.values(allPairs).find((pairItem) => {
-        return pairItem.id === FXD_US_PLUS_PAIR_ID
+      const usPlusWXDCPair = Object.values(allPairs).find((pairItem) => {
+        return pairItem.id === US_PLUS_WXDC_PAIR_ID
       })
-      setFxdPrice(findPair.token0.symbol === 'FXD' ? findPair.token1Price : findPair.token0Price)
+      const fxdWXDCPair = Object.values(allPairs).find((pairItem) => {
+        return pairItem.id === FXD_WXDC_PAIR_ID
+      })
+      const wxdcPriceInUsPlus =
+        usPlusWXDCPair.token0.symbol === 'US+' ? usPlusWXDCPair.token0Price : usPlusWXDCPair.token1Price
+      const wxdcPriceInFxd = fxdWXDCPair.token0.symbol === 'FXD' ? fxdWXDCPair.token0Price : fxdWXDCPair.token1Price
+
+      return wxdcPriceInUsPlus / wxdcPriceInFxd
+    } else {
+      return 0
     }
-  }, [allPairs, setFxdPrice])
+  }, [allPairs])
 
   return {
     fxdPrice,
@@ -765,17 +773,20 @@ export function useFxdPrice() {
 }
 
 export function useFTHMPrice() {
-  const [fthmPrice, setFthmPrice] = useState(0)
   const allPairs = useAllPairData()
+  const fxdPriceData = useFxdPrice()
 
-  useEffect(() => {
+  const fthmPrice = useMemo(() => {
     if (Object.keys(allPairs).length) {
       const findPair = Object.values(allPairs).find((pairItem) => {
-        return pairItem.id === FTHM_US_PLUS_PAIR_ID
+        return pairItem.id === FTHM_FXD_PAIR_ID
       })
-      setFthmPrice(findPair.token0.symbol === 'FTHM' ? findPair.token1Price : findPair.token0Price)
+      const price = findPair.token0.symbol === 'FTHM' ? findPair.token1Price : findPair.token0Price
+      return price * fxdPriceData.fxdPrice
+    } else {
+      return 0
     }
-  }, [allPairs, setFthmPrice])
+  }, [allPairs, fxdPriceData])
 
   return {
     fthmPrice,
