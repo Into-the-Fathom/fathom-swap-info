@@ -87,5 +87,6 @@ export const TRACKED_OVERRIDES_PAIRS = [
 // all pairs that include token will be tracked
 export const TRACKED_OVERRIDES_TOKENS = ['0x956f47f50a910163d8bf957cf5846d573e7f87ca']
 
-export const FXD_US_PLUS_PAIR_ID = '0x2cc177599cbbae5300107e77a12320afc3d5d64f'
-export const FTHM_US_PLUS_PAIR_ID = '0xa34e7cc33b4b77673cd0b0f6bfd1b0bdd96ed05f'
+export const US_PLUS_WXDC_PAIR_ID = '0xd7d674d73a1ca81031e80e0aacb41853a4c55713'
+export const FXD_WXDC_PAIR_ID = '0xec4f49e024e6fad41dddc0639f8fb83359bd7736'
+export const FTHM_FXD_PAIR_ID = '0x5803d8e332b05d1c64600102a0cef8b8c4708d5b'
