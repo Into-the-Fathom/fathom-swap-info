@@ -32,6 +32,9 @@ export const TOKEN_BLACKLIST = [
   '0x322742814990bf0b075fc2b33186ca63122ffb08',
   '0xbde88af3e99f29acb9dba853416024a44bfc7f8b',
   '0x2db58e5850f4f9ba63ff4306cf1f6426c7a6b9b7',
+  '0xc9035ffdf3db3a450f9336ab57bd92ede2d936ef',
+  '0x08b5860dad9947677f2a9d7de563cbec9980e44c',
+  '0xce156cacb8a3c84ef08b1528296fde20782fd82c',
 
   // rebass tokens
   '0x9ea3b5b4ec044b70375236a281986106457b20ef',
@@ -66,11 +69,15 @@ export const PAIR_BLACKLIST = [
   '0xadcac6ed359cbf8d74f559e61bf7efced79a2309',
   '0xab2ab1a0d6051d0606ce6cb52b48536f3ca099e8',
   '0x4bb4630415c465d961ce95813374d4f638a45b84',
-  '0x1fb52c9b72a976ed810683b2d718b8461696bc79',
   '0x0bb18786ff6507add798077c192e34d855eb0a2f',
   '0x6d2b3d95f1e4e46dc7b7dbb75a282832fdf61703',
   '0xb92971b9d74f1067aa5610fd16fd0dbbc2f1c025',
   '0xa34e7cc33b4b77673cd0b0f6bfd1b0bdd96ed05f',
+  '0x725946db6ad6828a683ef8238237d7f3a75658e3',
+  '0xcf31878d1105e6e6f59399efd9010c432d9d3736',
+  '0xc904b45232fab7a2c934103899ec6a8cf97e81d2',
+  '0x1fb52c9b72a976ed810683b2d718b8461696bc79',
+  '0x9b9c6a75888778448a8d17ed5ea928b2069482e4',
 ]
 
 // warnings to display if page contains info about blocked token
@@ -84,7 +91,7 @@ export const BLOCKED_WARNINGS = {
  */
 export const FEE_WARNING_TOKENS = ['0xd46ba6d942050d489dbd938a2c909a5d5039a161']
 
-export const UNTRACKED_COPY = 'Derived USD values may be inaccurate without liquid stablecoin or ETH pairings.'
+export const UNTRACKED_COPY = 'Derived USD values may be inaccurate without liquid stablecoin or XDC pairings.'
 
 // pairs that should be tracked but arent due to lag in subgraph
 export const TRACKED_OVERRIDES_PAIRS = [
@@ -100,5 +107,5 @@ export const TRACKED_OVERRIDES_PAIRS = [
 // all pairs that include token will be tracked
 export const TRACKED_OVERRIDES_TOKENS = ['0x956f47f50a910163d8bf957cf5846d573e7f87ca']
 
-export const FXD_US_PLUS_PAIR_ID = '0x9b9c6a75888778448a8d17ed5ea928b2069482e4'
-export const FTHM_US_PLUS_PAIR_ID = '0x1fb52c9b72a976ed810683b2d718b8461696bc79'
+export const FXD_US_PLUS_PAIR_ID = '0x88ce3e980fc2038980567dbd1477dee945608183'
+export const FTHM_US_PLUS_PAIR_ID = '0x88ce3e980fc2038980567dbd1477dee945608183'
