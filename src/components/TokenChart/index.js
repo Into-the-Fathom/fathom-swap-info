@@ -14,7 +14,6 @@ import CandleStickChart from 'components/CandleChart'
 import LocalLoader from 'components/LocalLoader'
 import { Activity } from 'react-feather'
 
-
 const ChartWrapper = styled.div`
   height: 100%;
   min-height: 300px;
@@ -68,7 +67,6 @@ const TokenChart = ({ address, color, base }) => {
   const dailyWeek = useTokenPriceData(address, timeframeOptions.WEEK, 86400)
   const dailyMonth = useTokenPriceData(address, timeframeOptions.MONTH, 86400)
   const dailyAll = useTokenPriceData(address, timeframeOptions.ALL_TIME, 86400)
-
   const priceData =
     timeWindow === timeframeOptions.MONTH
       ? // monthly selected
