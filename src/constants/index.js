@@ -1,4 +1,4 @@
-export const FACTORY_ADDRESS = '0xe350508951929D3e19222824F41790621fb18A15'
+export const FACTORY_ADDRESS = '0xa7bf3E5eDbC8d37584218778cd6A1EDe91Bf201D'
 
 export const BUNDLE_ID = '1'
 
@@ -18,67 +18,12 @@ export const SUPPORTED_LIST_URLS__NO_ENS = [
 
 // hide from overview list
 export const TOKEN_BLACKLIST = [
-  '0x7f423a0b9d189081a09cede3ec27fab247f458a8',
-  '0x9e50e77b499b3ded6ff9155dbdfd3ae0b4c93f62',
-  '0x95bfc555ef6c66cf2ecb142afbef15da9cf016b1',
-  '0x5789da6760aa46e9b8d63876b14ddbec55c0d40c',
-  '0x6e7acf1d6a89130fe8894e818ff57858d9c1a405',
-  '0x8789fe3afe51865494a727cb8bc73439492a04b2',
-  '0xd9f047aed43c77fbcc618bcaa9f166d4f9307066',
-  '0xc039850f937c623024da66d6df370022e6f16e30',
-  '0xfc2cf100a301f1b8fdc0fa00272537e88900a9e2',
-  '0x8789fe3afe51865494a727cb8bc73439492a04b2',
-  '0xaf23e77566298ee5442cdf10a66f32efc00fb44b',
-  '0x322742814990bf0b075fc2b33186ca63122ffb08',
-  '0xbde88af3e99f29acb9dba853416024a44bfc7f8b',
-  '0x2db58e5850f4f9ba63ff4306cf1f6426c7a6b9b7',
-  '0xc9035ffdf3db3a450f9336ab57bd92ede2d936ef',
-  '0x08b5860dad9947677f2a9d7de563cbec9980e44c',
-  '0xce156cacb8a3c84ef08b1528296fde20782fd82c',
-
   // rebass tokens
-  '0x9ea3b5b4ec044b70375236a281986106457b20ef',
-  '0x05934eba98486693aaec2d00b0e9ce918e37dc3f',
-  '0x3d7e683fc9c86b4d653c9e47ca12517440fad14e',
-  '0xfae9c647ad7d89e738aba720acf09af93dc535f7',
-  '0x7296368fe9bcb25d3ecc19af13655b907818cc09',
-  '0x9624167f18d3989304f793f40266ae0b005e663f',
+  '0x0000000000000000000000000000000000000000',
 ]
 
 // pair blacklist
-export const PAIR_BLACKLIST = [
-  '0x3be9992b136e8750736305f6bf281e08dcf48f42',
-  '0x1ddccfcc3b55f7397ad839815b5ded451fd445c2',
-  '0x7f14490bf1fd40972962017b3102e7018d878221',
-  '0x55b0f13daffdea62d9889db558bd6fce8d30669e',
-  '0x887a9f4e7ddfb8a37619a9ad382408e66a74f370',
-  '0xbf9bd4ad831ef5d41d25f6826ac5bc8d5dcf76db',
-  '0x2cc177599cbbae5300107e77a12320afc3d5d64f',
-  '0x887ef5ee4c4432f52d45eef7885654b9b2590e62',
-  '0x48d82ab1a0709914b9f1cf919df8cb6686af3042',
-  '0xd6ac7b39a169fd767726f87a62a1c11aa6e8a512',
-  '0x8017c21e5f6ff1de52fb492e9f20080e3fb5cc7d',
-  '0x1980476bb14ded1123dc0b8d2d64e048480b1666',
-  '0xf7666aa1b3a566fc60d5162064ebc241ad05a8ab',
-  '0x49b5ae345ed49a3b4f3c8934c3eca99007b2c27b',
-  '0xa871fc07ba3a550bc928c63c2dcf51e35eaee58c',
-  '0x4b99153c0505f043968cbb06313f687def936891',
-  '0x6ec488f038c05e168779a04d2d349d8667d094d1',
-  '0x48abbc071ce864282418fa0bc080beb3c0cf7323',
-  '0xfe9e733522aa3dde9a5e22ccc53bf2901ab932d6',
-  '0xadcac6ed359cbf8d74f559e61bf7efced79a2309',
-  '0xab2ab1a0d6051d0606ce6cb52b48536f3ca099e8',
-  '0x4bb4630415c465d961ce95813374d4f638a45b84',
-  '0x0bb18786ff6507add798077c192e34d855eb0a2f',
-  '0x6d2b3d95f1e4e46dc7b7dbb75a282832fdf61703',
-  '0xb92971b9d74f1067aa5610fd16fd0dbbc2f1c025',
-  '0xa34e7cc33b4b77673cd0b0f6bfd1b0bdd96ed05f',
-  '0x725946db6ad6828a683ef8238237d7f3a75658e3',
-  '0xcf31878d1105e6e6f59399efd9010c432d9d3736',
-  '0xc904b45232fab7a2c934103899ec6a8cf97e81d2',
-  '0x1fb52c9b72a976ed810683b2d718b8461696bc79',
-  '0x9b9c6a75888778448a8d17ed5ea928b2069482e4',
-]
+export const PAIR_BLACKLIST = ['0x0000000000000000000000000000000000000000']
 
 // warnings to display if page contains info about blocked token
 export const BLOCKED_WARNINGS = {
@@ -89,23 +34,16 @@ export const BLOCKED_WARNINGS = {
 /**
  * For tokens that cause erros on fee calculations
  */
-export const FEE_WARNING_TOKENS = ['0xd46ba6d942050d489dbd938a2c909a5d5039a161']
+export const FEE_WARNING_TOKENS = ['0x0000000000000000000000000000000000000000']
 
 export const UNTRACKED_COPY = 'Derived USD values may be inaccurate without liquid stablecoin or XDC pairings.'
 
 // pairs that should be tracked but arent due to lag in subgraph
-export const TRACKED_OVERRIDES_PAIRS = [
-  '0x9928e4046d7c6513326ccea028cd3e7a91c7590a',
-  '0x87da823b6fc8eb8575a235a824690fda94674c88',
-  '0xcd7989894bc033581532d2cd88da5db0a4b12859',
-  '0xe1573b9d29e2183b1af0e743dc2754979a40d237',
-  '0x45804880de22913dafe09f4980848ece6ecbaf78',
-  '0x709f7b10f22eb62b05913b59b92ddd372d4e2152',
-]
+export const TRACKED_OVERRIDES_PAIRS = ['0x0000000000000000000000000000000000000000']
 
 // tokens that should be tracked but arent due to lag in subgraph
 // all pairs that include token will be tracked
-export const TRACKED_OVERRIDES_TOKENS = ['0x956f47f50a910163d8bf957cf5846d573e7f87ca']
+export const TRACKED_OVERRIDES_TOKENS = ['0x0000000000000000000000000000000000000000']
 
-export const FXD_US_PLUS_PAIR_ID = '0x88ce3e980fc2038980567dbd1477dee945608183'
-export const FTHM_US_PLUS_PAIR_ID = '0x88ce3e980fc2038980567dbd1477dee945608183'
+export const FXD_US_PLUS_PAIR_ID = '0x63da6b37ac3893390c0dc4d227d7d42e98e4205b'
+export const FTHM_US_PLUS_PAIR_ID = '0xa73a803562c80727a76514fb0a51427cc9917cd7'
