@@ -562,8 +562,6 @@ export function useGlobalData() {
 
   const data = state?.globalData
 
-  console.log(571)
-
   useEffect(() => {
     async function fetchData() {
       let globalData = await getGlobalData(ethPrice, oldEthPrice)
@@ -579,9 +577,6 @@ export function useGlobalData() {
     if (!data && ethPrice && oldEthPrice) {
       fetchData()
     }
-    console.log(data)
-    console.log(ethPrice)
-    console.log(oldEthPrice)
   }, [ethPrice, oldEthPrice, update, data, updateAllPairsInUniswap, updateAllTokensInUniswap])
 
   return data || {}
