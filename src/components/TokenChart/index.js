@@ -13,6 +13,7 @@ import DropdownSelect from 'components/DropdownSelect'
 import CandleStickChart from 'components/CandleChart'
 import LocalLoader from 'components/LocalLoader'
 import { Activity } from 'react-feather'
+import { useDarkModeManager } from 'contexts/LocalStorage'
 
 const ChartWrapper = styled.div`
   height: 100%;
