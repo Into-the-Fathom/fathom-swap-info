@@ -12,7 +12,7 @@ export const client = new ApolloClient({
 
 export const healthClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://graph.fathom-labs.app/graphql',
+    uri: 'https://dev.fathom-labs.app/graphql',
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
