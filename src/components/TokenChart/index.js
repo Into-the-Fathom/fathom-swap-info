@@ -15,6 +15,7 @@ import LocalLoader from 'components/LocalLoader'
 import { Activity } from 'react-feather'
 import { useDarkModeManager } from 'contexts/LocalStorage'
 
+
 const ChartWrapper = styled.div`
   height: 100%;
   min-height: 300px;
