@@ -18,7 +18,7 @@ export const SUPPORTED_LIST_URLS__NO_ENS = [
 
 // hide from overview list
 export const TOKEN_BLACKLIST = [
-// rebass tokens
+  // rebass tokens
   '0x0000000000000000000000000000000000000000',
 ]
 
@@ -41,8 +41,11 @@ export const UNTRACKED_COPY = 'Derived USD values may be inaccurate without liqu
 // pairs that should be tracked but arent due to lag in subgraph
 export const TRACKED_OVERRIDES_PAIRS = ['0x0000000000000000000000000000000000000000']
 
+// tokens that should be tracked but arent due to lag in subgraph
+// all pairs that include token will be tracked
+export const TRACKED_OVERRIDES_TOKENS = ['0x0000000000000000000000000000000000000000']
+
 export const FXD_US_PLUS_PAIR_ID = '0x524748fad5efea7d2299005b9667b44059770eec'
 export const FTHM_FXD_PAIR_ID = '0xa1a53afa6a3c861d56f170425dcf062178d73eb9'
 export const US_PLUS_WXDC_PAIR_ID = '0xbbd97e188a81e9e85c4fb34c4d44bd108ac22748'
 export const FXD_WXDC_PAIR_ID = '0xd6f55386238c3c320690b743a1c1a9c65357d20b'
-
