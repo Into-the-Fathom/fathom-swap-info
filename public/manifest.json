@@ -1,6 +1,6 @@
 {
-  "short_name": "Fathomswap Info",
-  "name": "View statistics for Fathomswap exchanges.",
+  "short_name": "Fathom DEX Info",
+  "name": "View statistics for Fathom DEX exchanges.",
   "icons": [
     {
       "src": "favicon.ico",

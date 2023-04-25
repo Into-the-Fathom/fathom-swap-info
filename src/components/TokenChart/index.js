@@ -13,6 +13,7 @@ import DropdownSelect from 'components/DropdownSelect'
 import CandleStickChart from 'components/CandleChart'
 import LocalLoader from 'components/LocalLoader'
 import { Activity } from 'react-feather'
+import { useDarkModeManager } from 'contexts/LocalStorage'
 
 
 const ChartWrapper = styled.div`
@@ -46,7 +47,8 @@ const TokenChart = ({ address, color, base }) => {
   const [chartFilter, setChartFilter] = useState(CHART_VIEW.PRICE)
   const [frequency, setFrequency] = useState(DATA_FREQUENCY.HOUR)
 
-  const textColor = 'white'
+  const [darkMode] = useDarkModeManager()
+  const textColor = darkMode ? 'white' : 'black'
 
   // reset view on new address
   const addressPrev = usePrevious(address)
@@ -68,7 +70,6 @@ const TokenChart = ({ address, color, base }) => {
   const dailyWeek = useTokenPriceData(address, timeframeOptions.WEEK, 86400)
   const dailyMonth = useTokenPriceData(address, timeframeOptions.MONTH, 86400)
   const dailyAll = useTokenPriceData(address, timeframeOptions.ALL_TIME, 86400)
-
   const priceData =
     timeWindow === timeframeOptions.MONTH
       ? // monthly selected

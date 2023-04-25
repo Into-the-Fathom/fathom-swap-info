@@ -437,10 +437,10 @@ export const Search = ({ small = false }) => {
               : below410
               ? 'Search...'
               : below470
-              ? 'Search Fathomswap...'
+              ? 'Search Fathom DEX...'
               : below700
               ? 'Search pairs and tokens...'
-              : 'Search Fathomswap pairs and tokens...'
+              : 'Search Fathom DEX pairs and tokens...'
           }
           value={value}
           onChange={(e) => {
