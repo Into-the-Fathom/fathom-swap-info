@@ -97,7 +97,7 @@ export default function GlobalStats() {
       <RowBetween style={{ marginTop: '1rem', marginBottom: '2rem' }}>
         <GridStats>
           <>
-            <GridStatsItem>
+            {/* <GridStatsItem>
               <ImgWrapper>
                 <img src={getTokenLogoURL('FTHM')} alt="fthm" width={24} />
               </ImgWrapper>
@@ -105,10 +105,10 @@ export default function GlobalStats() {
                 <Title>FTHM Price</Title>
                 <Value>{formattedFthmPrice}</Value>
               </TextWrapper>
-            </GridStatsItem>
+            </GridStatsItem> */}
             <GridStatsItem>
               <ImgWrapper>
-                <img src={getTokenLogoURL('WXDC')} alt="xdc" width={24} />
+                <img src={getTokenLogoURL('WXDC')} alt="xdc" width={34} />
               </ImgWrapper>
               <TextWrapper>
                 <Title>XDC Price</Title>
@@ -117,7 +117,7 @@ export default function GlobalStats() {
             </GridStatsItem>
             <GridStatsItem>
               <ImgWrapper>
-                <img src={getTokenLogoURL('FXD')} alt="fxd" width={24} />
+                <img src={getTokenLogoURL('FXD')} alt="fxd" width={34} />
               </ImgWrapper>
               <TextWrapper>
                 <Title>FXD Price</Title>
