@@ -1,4 +1,4 @@
-export const FACTORY_ADDRESS = '0x6FfcE1bb8fB4841B42C8ee5e91398068723ba80D'
+export const FACTORY_ADDRESS = '0x9fAb572F75008A42c6aF80b36Ab20C76a38ABc4B'
 
 export const BUNDLE_ID = '1'
 
@@ -23,7 +23,10 @@ export const TOKEN_BLACKLIST = [
 ]
 
 // pair blacklist
-export const PAIR_BLACKLIST = ['0x0000000000000000000000000000000000000000']
+export const PAIR_BLACKLIST = [
+  '0x7ce2cacc5ad4fe57453bdf0073e1a1c3e587c7c1', // WXDC-TEST
+  '0x17da34c87c20846bd66baad60cccfb438989b744', // TEST-WXDC
+]
 
 // warnings to display if page contains info about blocked token
 export const BLOCKED_WARNINGS = {
@@ -45,7 +48,7 @@ export const TRACKED_OVERRIDES_PAIRS = ['0x0000000000000000000000000000000000000
 // all pairs that include token will be tracked
 export const TRACKED_OVERRIDES_TOKENS = ['0x0000000000000000000000000000000000000000']
 
-export const FXD_US_PLUS_PAIR_ID = '0x524748fad5efea7d2299005b9667b44059770eec'
-export const FTHM_FXD_PAIR_ID = '0xa1a53afa6a3c861d56f170425dcf062178d73eb9'
-export const US_PLUS_WXDC_PAIR_ID = '0xbbd97e188a81e9e85c4fb34c4d44bd108ac22748'
-export const FXD_WXDC_PAIR_ID = '0xd6f55386238c3c320690b743a1c1a9c65357d20b'
+export const FXD_US_PLUS_PAIR_ID = '0x4821cdc4b01bfee77c6ab8abc9348c4351600e26'
+export const FTHM_FXD_PAIR_ID = '0x4821cdc4b01bfee77c6ab8abc9348c4351600e26'
+export const US_PLUS_WXDC_PAIR_ID = '0xfcabba53dac7b6b19714c7d741a46f6dad260107'
+export const FXD_WXDC_PAIR_ID = '0x183477253b3773d0ca1d798c83e7e7572c68375b'

@@ -35,7 +35,7 @@ export default function TokenLogo({ address, header = false, size = '24px', ...r
     )
   }
 
-  const path = `https://raw.githubusercontent.com/Into-the-Fathom/assets/demo/blockchains/apothem/assets/${isAddress(
+  const path = `https://raw.githubusercontent.com/Into-the-Fathom/assets/demo/blockchains/xinfin/${isAddress(
     address
   )}/logo.png`
 
