@@ -203,7 +203,7 @@ function AccountPage({ account }) {
             <BasicLink to="/accounts">{'Accounts '}</BasicLink>→{' '}
             <Link
               lineHeight={'145.23%'}
-              href={'https://apothem.blocksscan.io/address/' + account.replace(/^.{2}/g, 'xdc')}
+              href={'https://xdc.blocksscan.io/address/' + account.replace(/^.{2}/g, 'xdc')}
               target="_blank"
             >
               {' '}
@@ -218,7 +218,7 @@ function AccountPage({ account }) {
               <TYPE.header fontSize={24}>{account?.slice(0, 6) + '...' + account?.slice(38, 42)}</TYPE.header>
               <Link
                 lineHeight={'145.23%'}
-                href={'https://apothem.blocksscan.io/address/' + account.replace(/^.{2}/g, 'xdc')}
+                href={'https://xdc.blocksscan.io/address/' + account.replace(/^.{2}/g, 'xdc')}
                 target="_blank"
               >
                 <TYPE.main fontSize={14}>View on BlocksScan</TYPE.main>

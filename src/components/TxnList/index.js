@@ -315,7 +315,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
             <Link
               color={color}
               external
-              href={'https://apothem.blocksscan.io/address/' + item.account.replace(/^.{2}/g, 'xdc')}
+              href={'https://xdc.blocksscan.io/address/' + item.account.replace(/^.{2}/g, 'xdc')}
             >
               {item.account && item.account.slice(0, 6) + '...' + item.account.slice(38, 42)}
             </Link>
