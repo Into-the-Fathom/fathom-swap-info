@@ -204,7 +204,7 @@ function PairPage({ pairAddress, history }) {
             </TYPE.light>
             <Link
               external={true}
-              href={'https://apothem.blocksscan.io/address/' + pairAddress.replace(/^.{2}/g, 'xdc')}
+              href={'https://xdc.blocksscan.io/address/' + pairAddress.replace(/^.{2}/g, 'xdc')}
             >{`More about ${shortenAddress(pairAddress)}`}</Link>
           </AutoColumn>
         </BlockedMessageWrapper>
@@ -486,7 +486,7 @@ function PairPage({ pairAddress, history }) {
                   </AutoRow>
                 </Column>
                 <ButtonLight>
-                  <Link external href={'https://apothem.blocksscan.io/address/' + pairAddress.replace(/^.{2}/g, 'xdc')}>
+                  <Link external href={'https://xdc.blocksscan.io/address/' + pairAddress.replace(/^.{2}/g, 'xdc')}>
                     View on BlocksScan ↗
                   </Link>
                 </ButtonLight>

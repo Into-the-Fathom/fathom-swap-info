@@ -189,7 +189,7 @@ function TokenPage({ address, history }) {
             </TYPE.light>
             <Link
               external={true}
-              href={'https://apothem.blocksscan.io/address/' + address.replace(/^.{2}/g, 'xdc')}
+              href={'https://xdc.blocksscan.io/address/' + address.replace(/^.{2}/g, 'xdc')}
             >{`More about ${shortenAddress(address)}`}</Link>
           </AutoColumn>
         </BlockedMessageWrapper>
@@ -215,7 +215,7 @@ function TokenPage({ address, history }) {
               style={{ width: 'fit-content' }}
               color={backgroundColor}
               external
-              href={'https://apothem.blocksscan.io/address/' + address.replace(/^.{2}/g, 'xdc')}
+              href={'https://xdc.blocksscan.io/address/' + address.replace(/^.{2}/g, 'xdc')}
             >
               <Text style={{ marginLeft: '.15rem' }} fontSize={'14px'} fontWeight={400}>
                 ({address.slice(0, 8) + '...' + address.slice(36, 42)})
@@ -360,7 +360,6 @@ function TokenPage({ address, history }) {
                   }}
                 >
                   <TokenChart address={address} base={priceUSD} color={'#003CFF'} />
-
                 </Panel>
               </PanelWrapper>
             </>
@@ -412,7 +411,7 @@ function TokenPage({ address, history }) {
                   </AutoRow>
                 </Column>
                 <ButtonLight>
-                  <Link external href={'https://apothem.blocksscan.io/address/' + address.replace(/^.{2}/g, 'xdc')}>
+                  <Link external href={'https://xdc.blocksscan.io/address/' + address.replace(/^.{2}/g, 'xdc')}>
                     View on BlocksScan ↗
                   </Link>
                 </ButtonLight>
