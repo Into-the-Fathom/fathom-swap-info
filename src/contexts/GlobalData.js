@@ -9,7 +9,7 @@ import {
   getBlocksFromTimestamps,
   get2DayPercentChange,
   getTimeframe,
-} from '../utils'
+} from 'utils'
 import {
   GLOBAL_DATA,
   GLOBAL_TXNS,
@@ -23,7 +23,7 @@ import weekOfYear from 'dayjs/plugin/weekOfYear'
 import { useAllPairData } from 'contexts/PairData'
 import { useTokenChartDataCombined } from 'contexts/TokenData'
 
-import { FXD_US_PLUS_PAIR_ID, FTHM_US_PLUS_PAIR_ID } from 'constants/index'
+import { US_PLUS_WXDC_PAIR_ID, FXD_WXDC_PAIR_ID, FTHM_FXD_PAIR_ID } from 'constants/index'
 
 const UPDATE = 'UPDATE'
 const UPDATE_TXNS = 'UPDATE_TXNS'
@@ -34,13 +34,7 @@ const UPDATE_ALL_PAIRS_IN_UNISWAP = 'UPDAUPDATE_ALL_PAIRS_IN_UNISWAPTE_TOP_PAIRS
 const UPDATE_ALL_TOKENS_IN_UNISWAP = 'UPDATE_ALL_TOKENS_IN_UNISWAP'
 const UPDATE_TOP_LPS = 'UPDATE_TOP_LPS'
 
-const offsetVolumes = [
-  '0x9ea3b5b4ec044b70375236a281986106457b20ef',
-  '0x05934eba98486693aaec2d00b0e9ce918e37dc3f',
-  '0x3d7e683fc9c86b4d653c9e47ca12517440fad14e',
-  '0xfae9c647ad7d89e738aba720acf09af93dc535f7',
-  '0x7296368fe9bcb25d3ecc19af13655b907818cc09',
-]
+const offsetVolumes = ['0x0000000000000000000000000000000000000000']
 
 // format dayjs with the libraries that we need
 dayjs.extend(utc)
@@ -747,17 +741,25 @@ export function useTopLps() {
 }
 
 export function useFxdPrice() {
-  const [fxdPrice, setFxdPrice] = useState(0)
   const allPairs = useAllPairData()
 
-  useEffect(() => {
+  const fxdPrice = useMemo(() => {
     if (Object.keys(allPairs).length) {
-      const findPair = Object.values(allPairs).find((pairItem) => {
-        return pairItem.id === FXD_US_PLUS_PAIR_ID
+      const usPlusWXDCPair = Object.values(allPairs).find((pairItem) => {
+        return pairItem.id === US_PLUS_WXDC_PAIR_ID
       })
-      setFxdPrice(findPair.token0.symbol === 'FXD' ? findPair.token1Price : findPair.token0Price)
+      const fxdWXDCPair = Object.values(allPairs).find((pairItem) => {
+        return pairItem.id === FXD_WXDC_PAIR_ID
+      })
+      const wxdcPriceInUsPlus =
+        usPlusWXDCPair.token0.symbol === 'US+' ? usPlusWXDCPair.token0Price : usPlusWXDCPair.token1Price
+      const wxdcPriceInFxd = fxdWXDCPair.token0.symbol === 'FXD' ? fxdWXDCPair.token0Price : fxdWXDCPair.token1Price
+
+      return wxdcPriceInUsPlus / wxdcPriceInFxd
+    } else {
+      return 0
     }
-  }, [allPairs, setFxdPrice])
+  }, [allPairs])
 
   return {
     fxdPrice,
@@ -765,17 +767,20 @@ export function useFxdPrice() {
 }
 
 export function useFTHMPrice() {
-  const [fthmPrice, setFthmPrice] = useState(0)
   const allPairs = useAllPairData()
+  const fxdPriceData = useFxdPrice()
 
-  useEffect(() => {
+  const fthmPrice = useMemo(() => {
     if (Object.keys(allPairs).length) {
       const findPair = Object.values(allPairs).find((pairItem) => {
-        return pairItem.id === FTHM_US_PLUS_PAIR_ID
+        return pairItem.id === FTHM_FXD_PAIR_ID
       })
-      setFthmPrice(findPair.token0.symbol === 'FTHM' ? findPair.token1Price : findPair.token0Price)
+      const price = findPair.token0.symbol === 'FTHM' ? findPair.token1Price : findPair.token0Price
+      return price * fxdPriceData.fxdPrice
+    } else {
+      return 0
     }
-  }, [allPairs, setFthmPrice])
+  }, [allPairs, fxdPriceData])
 
   return {
     fthmPrice,
