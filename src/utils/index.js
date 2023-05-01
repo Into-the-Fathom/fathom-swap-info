@@ -40,13 +40,13 @@ export function getTimeframe(timeWindow) {
 export function getPoolLink(token0Address, token1Address = null, remove = false) {
   if (!token1Address) {
     return (
-      `https://swap.fathom-labs/#/` +
+      `https://swap.fathom-labs.app/#/` +
       (remove ? `remove` : `add`) +
       `/${token0Address === '0x951857744785e80e2de051c32ee7b25f9c458c42' ? 'XDC' : token0Address}/${'XDC'}`
     )
   } else {
     return (
-      `https://swap.fathom-labs/#/` +
+      `https://swap.fathom-labs.app/#/` +
       (remove ? `remove` : `add`) +
       `/${token0Address === '0x951857744785e80e2de051c32ee7b25f9c458c42' ? 'XDC' : token0Address}/${
         token1Address === '0x951857744785e80e2de051c32ee7b25f9c458c42' ? 'XDC' : token1Address
@@ -57,9 +57,9 @@ export function getPoolLink(token0Address, token1Address = null, remove = false)
 
 export function getSwapLink(token0Address, token1Address = null) {
   if (!token1Address) {
-    return `https://swap.fathom-labs/#/swap?inputCurrency=${token0Address}`
+    return `https://swap.fathom-labs.app/#/swap?inputCurrency=${token0Address}`
   } else {
-    return `https://swap.fathom-labs/#/swap?inputCurrency=${
+    return `https://swap.fathom-labs.app/#/swap?inputCurrency=${
       token0Address === '0x951857744785e80e2de051c32ee7b25f9c458c42' ? 'XDC' : token0Address
     }&outputCurrency=${token1Address === '0x951857744785e80e2de051c32ee7b25f9c458c42' ? 'XDC' : token1Address}`
   }
