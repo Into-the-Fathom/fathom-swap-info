@@ -4,7 +4,7 @@ import { HttpLink } from 'apollo-link-http'
 
 export const client = new ApolloClient({
   link: new HttpLink({
-    uri: 'http://xinfin-graph.fathom-labs.app/subgraphs/name/dex-subgraph',
+    uri: 'https://xinfin-graph.fathom-labs.app/subgraphs/name/dex-subgraph',
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
