@@ -203,6 +203,16 @@ function SideNav({ history }) {
                 Twitter
               </Link>
             </HeaderText>
+            <HeaderText>
+              <Link href="https://gist.github.com/BaldyAsh/47a33c5e8005c05315cc8dfc9baa4c0e" target="_blank">
+                Privacy Policy
+              </Link>
+            </HeaderText>
+            <HeaderText>
+              <Link href="https://gist.github.com/BaldyAsh/9e1efbfd87fa87fd67091b5d45c481b3" target="_blank">
+                Terms of Service
+              </Link>
+            </HeaderText>
             {/*<Toggle isActive={isDark} toggle={toggleDarkMode} />*/}
           </AutoColumn>
           {!below1180 && (
