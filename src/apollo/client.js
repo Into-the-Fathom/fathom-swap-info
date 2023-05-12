@@ -36,7 +36,7 @@ export const stakingClient = new ApolloClient({
 
 export const blockClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://graph.fathom-labs.app/subgraphs/name/blocklytics/ethereum-blocks',
+    uri: 'https://dev.fathom-labs.app/subgraphs/name/blocklytics/ethereum-blocks',
   }),
   cache: new InMemoryCache(),
 })
