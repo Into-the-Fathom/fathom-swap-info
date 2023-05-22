@@ -4,7 +4,7 @@ import { HttpLink } from 'apollo-link-http'
 
 export const client = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://dev.fathom.fi/subgraphs/name/dex-subgraph',
+    uri: 'http://localhost:8000/subgraphs/name/dex-subgraph',
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
