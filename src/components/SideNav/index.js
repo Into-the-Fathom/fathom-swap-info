@@ -179,7 +179,7 @@ function SideNav({ history }) {
           </AutoColumn>
           <AutoColumn gap="0.5rem" style={{ marginLeft: '.75rem', marginBottom: '4rem' }}>
             <HeaderText>
-              <Link href="https://fathom-labs.app/" target="_blank">
+              <Link href="https://fathom.fi/" target="_blank">
                 Fathom.fi
               </Link>
             </HeaderText>
