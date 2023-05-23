@@ -50,10 +50,6 @@ export default function Title() {
   const history = useHistory()
   const below1080 = useMedia('(max-width: 1080px)')
 
-  const onClickHandler = () => {
-    history.push('/')
-  }
-
   return (
     <TitleWrapper>
       <Flex alignItems="center" style={{ justifyContent: 'space-between' }}>
