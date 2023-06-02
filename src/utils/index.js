@@ -42,14 +42,14 @@ export function getPoolLink(token0Address, token1Address = null, remove = false)
     return (
       `https://swap.fathom.fi/#/` +
       (remove ? `remove` : `add`) +
-      `/${token0Address === '0xE99500AB4A413164DA49Af83B9824749059b46ce' ? 'XDC' : token0Address}/${'XDC'}`
+      `/${token0Address === '0x951857744785e80e2de051c32ee7b25f9c458c42' ? 'XDC' : token0Address}/${'XDC'}`
     )
   } else {
     return (
       `https://swap.fathom.fi/#/` +
       (remove ? `remove` : `add`) +
-      `/${token0Address === '0xE99500AB4A413164DA49Af83B9824749059b46ce' ? 'XDC' : token0Address}/${
-        token1Address === '0xE99500AB4A413164DA49Af83B9824749059b46ce' ? 'XDC' : token1Address
+      `/${token0Address === '0x951857744785e80e2de051c32ee7b25f9c458c42' ? 'XDC' : token0Address}/${
+        token1Address === '0x951857744785e80e2de051c32ee7b25f9c458c42' ? 'XDC' : token1Address
       }`
     )
   }
@@ -60,8 +60,8 @@ export function getSwapLink(token0Address, token1Address = null) {
     return `https://swap.fathom.fi/#/swap?inputCurrency=${token0Address}`
   } else {
     return `https://swap.fathom.fi/#/swap?inputCurrency=${
-      token0Address === '0xE99500AB4A413164DA49Af83B9824749059b46ce' ? 'XDC' : token0Address
-    }&outputCurrency=${token1Address === '0xE99500AB4A413164DA49Af83B9824749059b46ce' ? 'XDC' : token1Address}`
+      token0Address === '0x951857744785e80e2de051c32ee7b25f9c458c42' ? 'XDC' : token0Address
+    }&outputCurrency=${token1Address === '0x951857744785e80e2de051c32ee7b25f9c458c42' ? 'XDC' : token1Address}`
   }
 }
 
