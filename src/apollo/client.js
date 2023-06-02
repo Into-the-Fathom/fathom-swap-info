@@ -4,7 +4,7 @@ import { HttpLink } from 'apollo-link-http'
 
 export const client = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://dev.fathom.fi/subgraphs/name/dex-subgraph',
+    uri: 'https://xinfin-graph.fathom.fi/subgraphs/name/dex-subgraph',
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
@@ -12,7 +12,7 @@ export const client = new ApolloClient({
 
 export const healthClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://dev.fathom.fi/graphql',
+    uri: 'https://xinfin-graph.fathom.fi/graphql',
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
@@ -36,7 +36,7 @@ export const stakingClient = new ApolloClient({
 
 export const blockClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://dev.fathom.fi/subgraphs/name/blocklytics/ethereum-blocks',
+    uri: 'https://xinfin-graph.fathom.fi/subgraphs/name/blocklytics/ethereum-blocks',
   }),
   cache: new InMemoryCache(),
 })
