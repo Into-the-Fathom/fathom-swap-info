@@ -90,6 +90,6 @@
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "fathom-swap-standard-token-list": "^1.6.0"
+    "fathom-swap-standard-token-list": "1.7.0"
   }
 }
