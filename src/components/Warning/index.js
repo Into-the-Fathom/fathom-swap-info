@@ -72,7 +72,7 @@ export default function Warning({ type, show, setShow, address }) {
                 fontWeight={500}
                 lineHeight={'145.23%'}
                 color={'#2172E5'}
-                href={'https://apothem.blocksscan.io/address/' + address.replace(/^.{2}/g, 'xdc')}
+                href={'https://xdc.blocksscan.io/address/' + address.replace(/^.{2}/g, 'xdc')}
                 target="_blank"
               >
                 View {type === 'token' ? 'token' : 'pair'} contract on BlocksScan
@@ -92,7 +92,7 @@ export default function Warning({ type, show, setShow, address }) {
                 fontWeight={500}
                 lineHeight={'145.23%'}
                 color={'#2172E5'}
-                href={'https://apothem.blocksscan.io/address/' + address.replace(/^.{2}/g, 'xdc')}
+                href={'https://xdc.blocksscan.io/address/' + address.replace(/^.{2}/g, 'xdc')}
                 target="_blank"
               >
                 View {type === 'token' ? 'token' : 'pair'} contract on BlocksScan

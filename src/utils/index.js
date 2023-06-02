@@ -303,10 +303,10 @@ export const setThemeColor = (theme) => document.documentElement.style.setProper
 export const Big = (number) => new BigNumber(number)
 
 export const urls = {
-  showTransaction: (tx) => `https://apothem.blocksscan.io/txs/${tx}/`,
-  showAddress: (address) => `https://apothem.blocksscan.io/address/${address.replace(/^.{2}/g, 'xdc')}/`,
-  showToken: (address) => `https://apothem.blocksscan.io/tokens/${address.replace(/^.{2}/g, 'xdc')}/`,
-  showBlock: (block) => `https://apothem.blocksscan.io/blocks/${block}/`,
+  showTransaction: (tx) => `https://xdc.blocksscan.io/txs/${tx}/`,
+  showAddress: (address) => `https://xdc.blocksscan.io/address/${address.replace(/^.{2}/g, 'xdc')}/`,
+  showToken: (address) => `https://xdc.blocksscan.io/tokens/${address.replace(/^.{2}/g, 'xdc')}/`,
+  showBlock: (block) => `https://xdc.blocksscan.io/blocks/${block}/`,
 }
 
 export const formatTime = (unix) => {
@@ -335,7 +335,7 @@ export const formatNumber = (num) => {
 
 // using a currency library here in case we want to add more in future
 export const formatDollarAmount = (num, digits) => {
-  const formatter = new Intl.NumberFormat("en-US", {
+  const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
     minimumFractionDigits: digits,
