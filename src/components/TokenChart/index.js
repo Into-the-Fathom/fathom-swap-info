@@ -13,6 +13,7 @@ import DropdownSelect from 'components/DropdownSelect'
 import CandleStickChart from 'components/CandleChart'
 import LocalLoader from 'components/LocalLoader'
 import { Activity } from 'react-feather'
+import { useDarkModeManager } from 'contexts/LocalStorage'
 
 const ChartWrapper = styled.div`
   height: 100%;
@@ -45,7 +46,8 @@ const TokenChart = ({ address, color, base }) => {
   const [chartFilter, setChartFilter] = useState(CHART_VIEW.PRICE)
   const [frequency, setFrequency] = useState(DATA_FREQUENCY.HOUR)
 
-  const textColor = 'white'
+  const [darkMode] = useDarkModeManager()
+  const textColor = darkMode ? 'white' : 'black'
 
   // reset view on new address
   const addressPrev = usePrevious(address)

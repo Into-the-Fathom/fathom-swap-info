@@ -108,7 +108,7 @@ export default function GlobalStats() {
             </GridStatsItem> */}
             <GridStatsItem>
               <ImgWrapper>
-                <img src={getTokenLogoURL('WXDC')} alt="xdc" width={24} />
+                <img src={getTokenLogoURL('WXDC')} alt="xdc" width={34} />
               </ImgWrapper>
               <TextWrapper>
                 <Title>XDC Price</Title>
@@ -117,7 +117,7 @@ export default function GlobalStats() {
             </GridStatsItem>
             <GridStatsItem>
               <ImgWrapper>
-                <img src={getTokenLogoURL('FXD')} alt="fxd" width={24} />
+                <img src={getTokenLogoURL('FXD')} alt="fxd" width={34} />
               </ImgWrapper>
               <TextWrapper>
                 <Title>FXD Price</Title>
