@@ -34,7 +34,7 @@ const UPDATE_ALL_PAIRS_IN_UNISWAP = 'UPDAUPDATE_ALL_PAIRS_IN_UNISWAPTE_TOP_PAIRS
 const UPDATE_ALL_TOKENS_IN_UNISWAP = 'UPDATE_ALL_TOKENS_IN_UNISWAP'
 const UPDATE_TOP_LPS = 'UPDATE_TOP_LPS'
 
-const offsetVolumes = ['0x0000000000000000000000000000000000000000']
+const offsetVolumes = []
 
 // format dayjs with the libraries that we need
 dayjs.extend(utc)
