@@ -379,7 +379,7 @@ export const formattedNum = (number, usd = false, acceptNegatives = false) => {
     if (num < 0.1) {
       return formatDollarAmount(num, 4)
     } else {
-      return formatDollarAmount(num, 2)
+      return formatDollarAmount(num, 4)
     }
   }
 
