@@ -189,7 +189,7 @@ function SideNav({ history }) {
               </Link>
             </HeaderText> */}
             <HeaderText>
-              <Link href="https://hackmd.io/@fathomlite/BkIabl5fs" target="_blank">
+              <Link href="https://gist.github.com/BaldyAsh/3676a18b003758057f634c9af2cfe49a" target="_blank">
                 Docs
               </Link>
             </HeaderText>
