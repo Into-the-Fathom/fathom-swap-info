@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { RowBetween } from 'components/Row'
 import { useMedia } from 'react-use'
-import { useGlobalData, useEthPrice, useFxdPrice, useFTHMPrice } from 'contexts/GlobalData'
+import { useGlobalData, useEthPrice, useFxdPrice } from 'contexts/GlobalData'
 import { formattedNum } from 'utils'
 import { Box } from 'rebass/styled-components'
 
@@ -84,11 +84,11 @@ export default function GlobalStats() {
   const { oneDayVolumeUSD, oneDayTxns } = useGlobalData()
   const [ethPrice] = useEthPrice()
   const { fxdPrice } = useFxdPrice()
-  const { fthmPrice } = useFTHMPrice()
+  // const { fthmPrice } = useFTHMPrice()
 
   const formattedEthPrice = ethPrice ? formattedNum(ethPrice, true) : '-'
   const formattedFxdPrice = fxdPrice ? formattedNum(fxdPrice, true) : '-'
-  const formattedFthmPrice = fthmPrice ? formattedNum(fthmPrice, true) : '-'
+  // const formattedFthmPrice = fthmPrice ? formattedNum(fthmPrice, true) : '-'
 
   const oneDayFees = oneDayVolumeUSD ? formattedNum(oneDayVolumeUSD * 0.003, true) : ''
 
