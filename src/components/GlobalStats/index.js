@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { RowBetween } from 'components/Row'
 import { useMedia } from 'react-use'
-import { useGlobalData, useEthPrice, useFxdPrice, useFTHMPrice } from 'contexts/GlobalData'
+import { useGlobalData, useEthPrice, useFxdPrice } from 'contexts/GlobalData'
 import { formattedNum } from 'utils'
 import { Box } from 'rebass/styled-components'
 

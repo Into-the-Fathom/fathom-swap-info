@@ -23,7 +23,7 @@ import weekOfYear from 'dayjs/plugin/weekOfYear'
 import { useAllPairData } from 'contexts/PairData'
 import { useTokenChartDataCombined } from 'contexts/TokenData'
 
-import { US_PLUS_WXDC_PAIR_ID, FXD_WXDC_PAIR_ID, FTHM_FXD_PAIR_ID, FXD_US_PLUS_PAIR_ID } from 'constants/index'
+import { FTHM_FXD_PAIR_ID, FXD_US_PLUS_PAIR_ID } from 'constants/index'
 
 const UPDATE = 'UPDATE'
 const UPDATE_TXNS = 'UPDATE_TXNS'
