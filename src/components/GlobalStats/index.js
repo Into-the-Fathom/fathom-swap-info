@@ -84,11 +84,11 @@ export default function GlobalStats() {
   const { oneDayVolumeUSD, oneDayTxns } = useGlobalData()
   const [ethPrice] = useEthPrice()
   const { fxdPrice } = useFxdPrice()
-  const { fthmPrice } = useFTHMPrice()
+  // const { fthmPrice } = useFTHMPrice()
 
   const formattedEthPrice = ethPrice ? formattedNum(ethPrice, true) : '-'
   const formattedFxdPrice = fxdPrice ? formattedNum(fxdPrice, true) : '-'
-  const formattedFthmPrice = fthmPrice ? formattedNum(fthmPrice, true) : '-'
+  // const formattedFthmPrice = fthmPrice ? formattedNum(fthmPrice, true) : '-'
 
   const oneDayFees = oneDayVolumeUSD ? formattedNum(oneDayVolumeUSD * 0.003, true) : ''
 

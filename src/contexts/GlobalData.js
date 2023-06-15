@@ -23,7 +23,7 @@ import weekOfYear from 'dayjs/plugin/weekOfYear'
 import { useAllPairData } from 'contexts/PairData'
 import { useTokenChartDataCombined } from 'contexts/TokenData'
 
-import { US_PLUS_WXDC_PAIR_ID, FXD_WXDC_PAIR_ID, FTHM_FXD_PAIR_ID } from 'constants/index'
+import { US_PLUS_WXDC_PAIR_ID, FXD_WXDC_PAIR_ID, FTHM_FXD_PAIR_ID, FXD_US_PLUS_PAIR_ID } from 'constants/index'
 
 const UPDATE = 'UPDATE'
 const UPDATE_TXNS = 'UPDATE_TXNS'
@@ -35,7 +35,6 @@ const UPDATE_ALL_TOKENS_IN_UNISWAP = 'UPDATE_ALL_TOKENS_IN_UNISWAP'
 const UPDATE_TOP_LPS = 'UPDATE_TOP_LPS'
 
 const offsetVolumes = []
-
 
 // format dayjs with the libraries that we need
 dayjs.extend(utc)
@@ -575,6 +574,7 @@ export function useGlobalData() {
       let allTokens = await getAllTokensOnUniswap()
       updateAllTokensInUniswap(allTokens)
     }
+
     if (!data && ethPrice && oldEthPrice) {
       fetchData()
     }
@@ -618,6 +618,7 @@ export function useGlobalChartData() {
       let [newChartData, newWeeklyData] = await getChartData(oldestDateFetch, combinedData)
       updateChart(newChartData, newWeeklyData)
     }
+
     if (oldestDateFetch && !(chartDataDaily && chartDataWeekly) && combinedData) {
       fetchData()
     }
@@ -636,6 +637,7 @@ export function useGlobalTransactions() {
         updateTransactions(txns)
       }
     }
+
     fetchData()
   }, [updateTransactions, transactions])
   return transactions
@@ -652,6 +654,7 @@ export function useEthPrice() {
         updateEthPrice(newPrice, oneDayPrice, priceChange)
       }
     }
+
     checkForEthPrice()
   }, [ethPrice, updateEthPrice])
 
@@ -746,17 +749,10 @@ export function useFxdPrice() {
 
   const fxdPrice = useMemo(() => {
     if (Object.keys(allPairs).length) {
-      const usPlusWXDCPair = Object.values(allPairs).find((pairItem) => {
-        return pairItem.id === US_PLUS_WXDC_PAIR_ID
+      const findPair = Object.values(allPairs).find((pairItem) => {
+        return pairItem.id === FXD_US_PLUS_PAIR_ID
       })
-      const fxdWXDCPair = Object.values(allPairs).find((pairItem) => {
-        return pairItem.id === FXD_WXDC_PAIR_ID
-      })
-      const wxdcPriceInUsPlus =
-        usPlusWXDCPair.token0.symbol === 'US+' ? usPlusWXDCPair.token0Price : usPlusWXDCPair.token1Price
-      const wxdcPriceInFxd = fxdWXDCPair.token0.symbol === 'FXD' ? fxdWXDCPair.token0Price : fxdWXDCPair.token1Price
-
-      return wxdcPriceInUsPlus / wxdcPriceInFxd
+      return findPair.token0.symbol === 'FXD' ? findPair.token1Price : findPair.token0Price
     } else {
       return 0
     }
@@ -776,6 +772,7 @@ export function useFTHMPrice() {
       const findPair = Object.values(allPairs).find((pairItem) => {
         return pairItem.id === FTHM_FXD_PAIR_ID
       })
+
       const price = findPair.token0.symbol === 'FTHM' ? findPair.token1Price : findPair.token0Price
       return price * fxdPriceData.fxdPrice
     } else {
