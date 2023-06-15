@@ -70,6 +70,7 @@ const TokenDetailsLayout = styled.div`
     align-items: center;
     justify-items: end;
   }
+
   @media screen and (max-width: 1024px) {
     grid-template-columns: 1fr 1fr;
     align-items: stretch;
@@ -134,6 +135,8 @@ function PairPage({ pairAddress, history }) {
     oneDayVolumeUntracked,
     volumeChangeUntracked,
     liquidityChangeUSD,
+    token0Price,
+    token1Price,
   } = usePairData(pairAddress)
 
   useEffect(() => {
@@ -163,11 +166,20 @@ function PairPage({ pairAddress, history }) {
 
   // token data for usd
   const [ethPrice] = useEthPrice()
-  const token0USD =
+  let token0USD =
     token0?.derivedETH && ethPrice ? formattedNum(parseFloat(token0.derivedETH) * parseFloat(ethPrice), true) : ''
 
-  const token1USD =
+  let token1USD =
     token1?.derivedETH && ethPrice ? formattedNum(parseFloat(token1.derivedETH) * parseFloat(ethPrice), true) : ''
+
+  const symbols = ['FXD', 'xUSDT', 'USDTx']
+  if (symbols.includes(token0.symbol) && symbols.includes(token1.symbol)) {
+    if (token0.symbol === 'FXD') {
+      token0USD = formattedNum(token1Price, true)
+    } else if (token1.symbol === 'FXD') {
+      token1USD = formattedNum(token0Price, true)
+    }
+  }
 
   // rates
   const token0Rate = reserve0 && reserve1 ? formattedNum(reserve1 / reserve0) : '-'
