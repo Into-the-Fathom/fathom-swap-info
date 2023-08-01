@@ -20,12 +20,18 @@ export const SUPPORTED_LIST_URLS__NO_ENS = [
 export const TOKEN_BLACKLIST = [
   // rebass tokens
   '0x0000000000000000000000000000000000000000',
+  '0x11f4b2ae467020fb7bce8631bac27f62b869d49a', // Blue Phoenix Investments Token (BIC)
+  '0xd9c714a2d98df7b3eabc3627b124ffb2d811098d', // ShibaInuXDC (ShibaX)
+  '0x9ca227280599d31845dd21449b5a6acfb285b1fc', // PEPE
 ]
 
 // pair blacklist
 export const PAIR_BLACKLIST = [
   '0x7ce2cacc5ad4fe57453bdf0073e1a1c3e587c7c1', // WXDC-TEST
   '0x17da34c87c20846bd66baad60cccfb438989b744', // TEST-WXDC
+  '0x31c9ed13088feffe9ed620d9374d63cd2a7678d8', // WXDC-PEPE
+  '0xc5bdbc61e1888869cdd1433df266e0f2f31ef29e', // WXDC-ShibaX
+  '0xa2e347a049ddc9d56b52b510f433ad769fcf21c9', // BIC-WXDC
 ]
 
 // warnings to display if page contains info about blocked token
