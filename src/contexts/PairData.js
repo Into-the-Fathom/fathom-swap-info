@@ -25,7 +25,7 @@ import {
   splitQuery,
 } from 'utils'
 import { timeframeOptions, TRACKED_OVERRIDES_PAIRS, TRACKED_OVERRIDES_TOKENS } from 'constants/index'
-import { useLatestBlocks } from 'contexts/Application'
+import { useLatestBlocks, useListedTokens } from 'contexts/Application'
 import { updateNameData } from 'utils/data'
 
 const UPDATE = 'UPDATE'
@@ -182,7 +182,7 @@ export default function Provider({ children }) {
   )
 }
 
-async function getBulkPairData(pairList, ethPrice) {
+async function getBulkPairData(pairList, ethPrice, listedTokens) {
   const [t1, t2, tWeek] = getTimestampsForChanges()
   let [{ number: b1 }, { number: b2 }, { number: bWeek }] = await getBlocksFromTimestamps([t1, t2, tWeek])
 
@@ -193,6 +193,10 @@ async function getBulkPairData(pairList, ethPrice) {
         allPairs: pairList,
       },
       fetchPolicy: 'cache-first',
+    })
+
+    const filteredPairs = current.data.pairs.filter((pair) => {
+      return listedTokens.includes(pair.token0.id) && listedTokens.includes(pair.token1.id)
     })
 
     let [oneDayResult, twoDayResult, oneWeekResult] = await Promise.all(
@@ -219,7 +223,7 @@ async function getBulkPairData(pairList, ethPrice) {
 
     let pairData = await Promise.all(
       current &&
-        current.data.pairs.map(async (pair) => {
+        filteredPairs.map(async (pair) => {
           let data = pair
           let oneDayHistory = oneDayData?.[pair.id]
           if (!oneDayHistory) {
@@ -479,6 +483,8 @@ const getHourlyRateData = async (pairAddress, startTime, latestBlock) => {
 export function Updater() {
   const [, { updateTopPairs }] = usePairDataContext()
   const [ethPrice] = useEthPrice()
+  const listedTokens = useListedTokens()
+
   useEffect(() => {
     async function getData() {
       // get top pairs by reserves
@@ -495,11 +501,11 @@ export function Updater() {
       })
 
       // get data for every pair in list
-      let topPairs = await getBulkPairData(formattedPairs, ethPrice)
+      let topPairs = await getBulkPairData(formattedPairs, ethPrice, listedTokens)
       topPairs && updateTopPairs(topPairs)
     }
     ethPrice && getData()
-  }, [ethPrice, updateTopPairs])
+  }, [ethPrice, updateTopPairs, listedTokens])
   return null
 }
 
@@ -536,6 +542,7 @@ export function useDataForList(pairList) {
 
   const [stale, setStale] = useState(false)
   const [fetched, setFetched] = useState([])
+  const listedTokens = useListedTokens()
 
   // reset
   useEffect(() => {
@@ -563,7 +570,8 @@ export function useDataForList(pairList) {
         unfetched.map((pair) => {
           return pair
         }),
-        ethPrice
+        ethPrice,
+        listedTokens
       )
       setFetched(newFetched.concat(newPairData))
     }
@@ -571,7 +579,7 @@ export function useDataForList(pairList) {
       setStale(true)
       fetchNewPairData()
     }
-  }, [ethPrice, state, pairList, stale, fetched])
+  }, [ethPrice, state, pairList, stale, fetched, listedTokens])
 
   let formattedFetch =
     fetched &&
@@ -589,18 +597,19 @@ export function usePairData(pairAddress) {
   const [state, { update }] = usePairDataContext()
   const [ethPrice] = useEthPrice()
   const pairData = state?.[pairAddress]
+  const listedTokens = useListedTokens()
 
   useEffect(() => {
     async function fetchData() {
       if (!pairData && pairAddress) {
-        let data = await getBulkPairData([pairAddress], ethPrice)
+        let data = await getBulkPairData([pairAddress], ethPrice, listedTokens)
         data && update(pairAddress, data[0])
       }
     }
     if (!pairData && pairAddress && ethPrice && isAddress(pairAddress)) {
       fetchData()
     }
-  }, [pairAddress, pairData, update, ethPrice])
+  }, [pairAddress, pairData, update, ethPrice, listedTokens])
 
   return pairData || {}
 }

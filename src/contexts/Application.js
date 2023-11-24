@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, useMemo, useCallback, useState, useEffect } from 'react'
-import { timeframeOptions, SUPPORTED_LIST_URLS__NO_ENS } from 'constants/index'
+import { timeframeOptions, SUPPORTED_LIST_URLS } from 'constants/index'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import getTokenList from 'utils/tokenLists'
@@ -269,7 +269,7 @@ export function useListedTokens() {
 
   useEffect(() => {
     async function fetchList() {
-      const allFetched = await SUPPORTED_LIST_URLS__NO_ENS.reduce(async (fetchedTokens, url) => {
+      const allFetched = await SUPPORTED_LIST_URLS.reduce(async (fetchedTokens, url) => {
         const tokensSoFar = await fetchedTokens
         const newTokens = await getTokenList(url)
         if (newTokens?.tokens) {

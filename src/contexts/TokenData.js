@@ -258,12 +258,6 @@ const getTopTokens = async (ethPrice, ethPriceOld) => {
       fetchPolicy: 'cache-first',
     })
 
-    console.log({
-      current,
-      oneDayResult,
-      twoDayResult,
-    })
-
     let oneDayData = oneDayResult?.data?.tokens.reduce((obj, cur, i) => {
       return { ...obj, [cur.id]: cur }
     }, {})
