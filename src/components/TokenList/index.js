@@ -109,6 +109,10 @@ const DataText = styled(Flex)`
   @media screen and (max-width: 600px) {
     font-size: 12px;
   }
+
+  &.right {
+    justify-content: right;
+  }
 `
 
 const HeaderWrapper = styled(DashGrid)`
@@ -200,7 +204,9 @@ function TopTokenList({ formattedTokens, itemMax = 10, useTracked = false }) {
           </DataText>
         )}
         <DataText area="liq">{formattedNum(item.totalLiquidityUSD, true)}</DataText>
-        <DataText area="vol">{formattedNum(item.oneDayVolumeUSD, true)}</DataText>
+        <DataText area="vol" className={below680 ? 'right' : ''}>
+          {formattedNum(item.oneDayVolumeUSD, true)}
+        </DataText>
         {!below1080 && (
           <DataText area="price" color="text" fontWeight="500">
             {formattedNum(item.priceUSD, true)}
@@ -214,9 +220,11 @@ function TopTokenList({ formattedTokens, itemMax = 10, useTracked = false }) {
   return (
     <ListWrapper>
       <HeaderWrapper center={true} style={{ height: 'fit-content', padding: '0 1.125rem 1rem 1.125rem' }}>
-        <Flex alignItems="center" justifyContent="flex-start">
-          <TableHeaderBox>ID</TableHeaderBox>
-        </Flex>
+        {!below680 && (
+          <Flex alignItems="center" justifyContent="flex-start">
+            <TableHeaderBox>ID</TableHeaderBox>
+          </Flex>
+        )}
         <Flex alignItems="center" justifyContent="flex-start">
           <ClickableText
             color="text"

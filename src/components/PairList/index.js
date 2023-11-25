@@ -111,6 +111,10 @@ const DataText = styled(Flex)`
   @media screen and (max-width: 600px) {
     font-size: 12px;
   }
+
+  &.right {
+    justify-content: end;
+  }
 `
 
 const SORT_FIELD = {
@@ -231,7 +235,9 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10, useTracked = fals
             </CustomLink>
           </DataText>
           <DataText area="liq">{formatDataText(liquidity, pairData.trackedReserveUSD)}</DataText>
-          <DataText area="vol">{formatDataText(volume, pairData.oneDayVolumeUSD)}</DataText>
+          <DataText area="vol" className={below600 ? 'right' : ''}>
+            {formatDataText(volume, pairData.oneDayVolumeUSD)}
+          </DataText>
           {!below1080 && <DataText area="volWeek">{formatDataText(weekVolume, pairData.oneWeekVolumeUSD)}</DataText>}
           {!below1080 && <DataText area="fees">{formatDataText(fees, pairData.oneDayVolumeUSD)}</DataText>}
           {!below1080 && (
@@ -301,7 +307,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10, useTracked = fals
             </TableHeaderBox>
           </ClickableText>
         </Flex>
-        <Flex alignItems="center" justifyContent="flex-start">
+        <Flex alignItems="center" justifyContent={below600 ? 'end' : 'flex-start'}>
           <ClickableText
             area="vol"
             onClick={(e) => {
