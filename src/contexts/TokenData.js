@@ -11,7 +11,7 @@ import {
   TOKENS_HISTORICAL_BULK,
 } from 'apollo/queries'
 
-import { useEthPrice } from 'contexts/GlobalData'
+import { useEthPrice, useFxdPrice } from 'contexts/GlobalData'
 
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
@@ -220,7 +220,7 @@ export default function Provider({ children }) {
   )
 }
 
-const getTopTokens = async (ethPrice, ethPriceOld) => {
+const getTopTokens = async (ethPrice, ethPriceOld, fxdPrice) => {
   const utcCurrentTime = dayjs()
   const utcOneDayBack = utcCurrentTime.subtract(1, 'day').unix()
   const utcTwoDaysBack = utcCurrentTime.subtract(2, 'day').unix()
@@ -314,8 +314,10 @@ const getTopTokens = async (ethPrice, ethPriceOld) => {
             oneDayHistory?.derivedETH ? oneDayHistory?.derivedETH * ethPriceOld : 0
           )
 
+          console.log(data)
+
           // set data
-          data.priceUSD = data?.derivedETH * ethPrice
+          data.priceUSD = data.symbol === 'FXD' ? fxdPrice : data?.derivedETH * ethPrice
           data.totalLiquidityUSD = currentLiquidityUSD
           data.oneDayVolumeUSD = parseFloat(oneDayVolumeUSD)
           data.volumeChangeUSD = volumeChangeUSD
@@ -672,14 +674,15 @@ const getTokenChartData = async (tokenAddress) => {
 export function Updater() {
   const [, { updateTopTokens }] = useTokenDataContext()
   const [ethPrice, ethPriceOld] = useEthPrice()
+  const { fxdPrice } = useFxdPrice()
   useEffect(() => {
     async function getData() {
       // get top pairs for overview list
-      let topTokens = await getTopTokens(ethPrice, ethPriceOld)
+      let topTokens = await getTopTokens(ethPrice, ethPriceOld, fxdPrice)
       topTokens && updateTopTokens(topTokens)
     }
     ethPrice && ethPriceOld && getData()
-  }, [ethPrice, ethPriceOld, updateTopTokens])
+  }, [ethPrice, ethPriceOld, updateTopTokens, fxdPrice])
   return null
 }
 
