@@ -18,6 +18,7 @@ import { PAIR_SEARCH, TOKEN_SEARCH } from 'apollo/queries'
 import FormattedName from 'components/FormattedName'
 import { TYPE } from 'Theme'
 import { updateNameData } from 'utils/data'
+import { useListedTokens } from '../../contexts/Application'
 
 const Container = styled.div`
   height: 48px;
@@ -161,6 +162,7 @@ export const Search = ({ small = false }) => {
 
   let allPairs = useAllPairsInUniswap()
   const allPairData = useAllPairData()
+  const listedTokens = useListedTokens()
 
   const [showMenu, toggleMenu] = useState(false)
   const [value, setValue] = useState('')
@@ -296,6 +298,9 @@ export const Search = ({ small = false }) => {
             if (TOKEN_BLACKLIST.includes(token.id)) {
               return false
             }
+            if (!listedTokens.includes(token.id)) {
+              return false
+            }
             const regexMatches = Object.keys(token).map((tokenEntryKey) => {
               const isAddress = value.slice(0, 2) === '0x'
               if (tokenEntryKey === 'id' && isAddress) {
@@ -312,7 +317,7 @@ export const Search = ({ small = false }) => {
             return regexMatches.some((m) => m)
           })
       : []
-  }, [allTokenData, uniqueTokens, value])
+  }, [allTokenData, uniqueTokens, value, listedTokens])
 
   const filteredPairList = useMemo(() => {
     return uniquePairs
@@ -333,6 +338,9 @@ export const Search = ({ small = false }) => {
           })
           .filter((pair) => {
             if (PAIR_BLACKLIST.includes(pair.id)) {
+              return false
+            }
+            if (!(listedTokens.includes(pair.token0.id) && listedTokens.includes(pair.token1.id))) {
               return false
             }
             if (value && value.includes(' ')) {
@@ -373,7 +381,7 @@ export const Search = ({ small = false }) => {
             return regexMatches.some((m) => m)
           })
       : []
-  }, [allPairData, uniquePairs, value])
+  }, [allPairData, uniquePairs, value, listedTokens])
 
   useEffect(() => {
     if (Object.keys(filteredTokenList).length > 2) {
