@@ -18,7 +18,7 @@ import { PAIR_SEARCH, TOKEN_SEARCH } from 'apollo/queries'
 import FormattedName from 'components/FormattedName'
 import { TYPE } from 'Theme'
 import { updateNameData } from 'utils/data'
-import { useListedTokens } from '../../contexts/Application'
+import { useListedTokens } from 'contexts/Application'
 
 const Container = styled.div`
   height: 48px;
