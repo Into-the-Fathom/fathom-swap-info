@@ -310,11 +310,9 @@ const getTopTokens = async (ethPrice, ethPriceOld, fxdPrice) => {
 
           // percent changes
           const priceChangeUSD = getPercentChange(
-            data?.derivedETH * ethPrice,
+            data.symbol === 'FXD' ? fxdPrice : data?.derivedETH * ethPrice,
             oneDayHistory?.derivedETH ? oneDayHistory?.derivedETH * ethPriceOld : 0
           )
-
-          console.log(data)
 
           // set data
           data.priceUSD = data.symbol === 'FXD' ? fxdPrice : data?.derivedETH * ethPrice
