@@ -314,8 +314,6 @@ const getTopTokens = async (ethPrice, ethPriceOld, fxdPrice) => {
             oneDayHistory?.derivedETH ? oneDayHistory?.derivedETH * ethPriceOld : 0
           )
 
-          console.log(data)
-
           // set data
           data.priceUSD = data.symbol === 'FXD' ? fxdPrice : data?.derivedETH * ethPrice
           data.totalLiquidityUSD = currentLiquidityUSD
@@ -332,6 +330,8 @@ const getTopTokens = async (ethPrice, ethPriceOld, fxdPrice) => {
             data.oneDayVolumeETH = data.tradeVolume * data.derivedETH
             data.oneDayTxns = data.txCount
           }
+
+          console.log(data)
 
           // update name data for
           updateNameData({
