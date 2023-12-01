@@ -2,7 +2,7 @@
 
 ![Lint](https://github.com/Uniswap/uniswap-info/workflows/Lint/badge.svg)
 ![Deploy](https://github.com/Uniswap/uniswap-info/workflows/Deploy/badge.svg)
-![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)(https://github.com/prettier/prettier)
+![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)
 
 Analytics site for the [Fathom DEX](https://swap.fathom.fi/).
 

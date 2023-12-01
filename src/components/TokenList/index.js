@@ -203,16 +203,22 @@ function TopTokenList({ formattedTokens, itemMax = 10, useTracked = false }) {
             <FormattedName text={item.symbol} maxCharacters={5} />
           </DataText>
         )}
-        <DataText area="liq">{formattedNum(item.totalLiquidityUSD, true)}</DataText>
-        <DataText area="vol" className={below680 ? 'right' : ''}>
-          {formattedNum(item.oneDayVolumeUSD, true)}
+        <DataText area="liq" justifyContent="center">
+          {formattedNum(item.totalLiquidityUSD, true)}
+        </DataText>
+        <DataText area="vol" justifyContent="center">
+          {formattedNum(Math.abs(item.oneDayVolumeUSD), true)}
         </DataText>
         {!below1080 && (
-          <DataText area="price" color="text" fontWeight="500">
+          <DataText area="price" color="text" fontWeight="500" justifyContent="center">
             {formattedNum(item.priceUSD, true)}
           </DataText>
         )}
-        {!below1080 && <DataText area="change">{formattedPercent(item.priceChangeUSD)}</DataText>}
+        {!below1080 && (
+          <DataText area="change" justifyContent="center">
+            {formattedPercent(item.priceChangeUSD)}
+          </DataText>
+        )}
       </DashGrid>
     )
   }
@@ -256,7 +262,7 @@ function TopTokenList({ formattedTokens, itemMax = 10, useTracked = false }) {
           </Flex>
         )}
 
-        <Flex alignItems="center" justifyContent="flex-start">
+        <Flex alignItems="center" justifyContent="center">
           <ClickableText
             area="liq"
             onClick={(e) => {
@@ -269,7 +275,7 @@ function TopTokenList({ formattedTokens, itemMax = 10, useTracked = false }) {
             </TableHeaderBox>
           </ClickableText>
         </Flex>
-        <Flex alignItems="center" justifyContent="flex-start">
+        <Flex alignItems="center" justifyContent="center">
           <ClickableText
             area="vol"
             onClick={() => {
@@ -286,7 +292,7 @@ function TopTokenList({ formattedTokens, itemMax = 10, useTracked = false }) {
           </ClickableText>
         </Flex>
         {!below1080 && (
-          <Flex alignItems="center" justifyContent="flex-start">
+          <Flex alignItems="center" justifyContent="center">
             <ClickableText
               area="price"
               onClick={(e) => {
@@ -301,7 +307,7 @@ function TopTokenList({ formattedTokens, itemMax = 10, useTracked = false }) {
           </Flex>
         )}
         {!below1080 && (
-          <Flex alignItems="center" justifyContent="flex-start">
+          <Flex alignItems="center" justifyContent="center">
             <ClickableText
               area="change"
               onClick={(e) => {

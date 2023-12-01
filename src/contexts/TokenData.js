@@ -25,7 +25,7 @@ import {
   splitQuery,
 } from 'utils'
 import { timeframeOptions } from 'constants/index'
-import { useLatestBlocks } from 'contexts/Application'
+import { useLatestBlocks, useListedTokens } from 'contexts/Application'
 import { updateNameData } from 'utils/data'
 
 const UPDATE = 'UPDATE'
@@ -220,7 +220,7 @@ export default function Provider({ children }) {
   )
 }
 
-const getTopTokens = async (ethPrice, ethPriceOld, fxdPrice) => {
+const getTopTokens = async (ethPrice, ethPriceOld, fxdPrice, listedTokens) => {
   const utcCurrentTime = dayjs()
   const utcOneDayBack = utcCurrentTime.subtract(1, 'day').unix()
   const utcTwoDaysBack = utcCurrentTime.subtract(2, 'day').unix()
@@ -238,10 +238,12 @@ const getTopTokens = async (ethPrice, ethPriceOld, fxdPrice) => {
       variables: { date: currentDate },
     })
 
-    const ids = tokenids?.data?.tokenDayDatas?.reduce((accum, entry) => {
-      accum.push(entry.id.slice(0, 42))
-      return accum
-    }, [])
+    const ids = tokenids?.data.tokenDayDatas
+      ?.filter((tokenid) => listedTokens.includes(tokenid.id.slice(0, 42)))
+      ?.reduce((accum, entry) => {
+        accum.push(entry.id.slice(0, 42))
+        return accum
+      }, [])
 
     let current = await client.query({
       query: TOKENS_HISTORICAL_BULK(ids),
@@ -673,14 +675,15 @@ export function Updater() {
   const [, { updateTopTokens }] = useTokenDataContext()
   const [ethPrice, ethPriceOld] = useEthPrice()
   const { fxdPrice } = useFxdPrice()
+  const listedTokens = useListedTokens()
   useEffect(() => {
     async function getData() {
       // get top pairs for overview list
-      let topTokens = await getTopTokens(ethPrice, ethPriceOld, fxdPrice)
+      let topTokens = await getTopTokens(ethPrice, ethPriceOld, fxdPrice, listedTokens)
       topTokens && updateTopTokens(topTokens)
     }
-    ethPrice && ethPriceOld && getData()
-  }, [ethPrice, ethPriceOld, updateTopTokens, fxdPrice])
+    listedTokens?.length && ethPrice && fxdPrice && ethPriceOld && getData()
+  }, [ethPrice, ethPriceOld, updateTopTokens, fxdPrice, listedTokens])
   return null
 }
 

@@ -45,7 +45,7 @@ const List = styled(Box)`
 const DashGrid = styled.div`
   display: grid;
   grid-gap: 1em;
-  grid-template-columns: 100px 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas: 'name liq vol';
   padding: 0 1.125rem;
 
@@ -61,10 +61,10 @@ const DashGrid = styled.div`
     }
   }
 
-  @media screen and (min-width: 740px) {
+  @media screen and (min-width: 600px) {
     padding: 0 1.125rem;
-    grid-template-columns: 0.25fr1.5fr 1fr 1fr};
-    grid-template-areas: 'id name liq vol pool ';
+    grid-template-columns: 0.25fr 1.5fr 1fr 1fr;
+    grid-template-areas: 'id name liq vol pool';
   }
 
   @media screen and (min-width: 1080px) {
@@ -234,14 +234,24 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10, useTracked = fals
               />
             </CustomLink>
           </DataText>
-          <DataText area="liq">{formatDataText(liquidity, pairData.trackedReserveUSD)}</DataText>
-          <DataText area="vol" className={below600 ? 'right' : ''}>
+          <DataText area="liq" justifyContent="center">
+            {formatDataText(liquidity, pairData.trackedReserveUSD)}
+          </DataText>
+          <DataText area="vol" justifyContent="center">
             {formatDataText(volume, pairData.oneDayVolumeUSD)}
           </DataText>
-          {!below1080 && <DataText area="volWeek">{formatDataText(weekVolume, pairData.oneWeekVolumeUSD)}</DataText>}
-          {!below1080 && <DataText area="fees">{formatDataText(fees, pairData.oneDayVolumeUSD)}</DataText>}
           {!below1080 && (
-            <DataText area="apy">
+            <DataText area="volWeek" justifyContent="center">
+              {formatDataText(weekVolume, pairData.oneWeekVolumeUSD)}
+            </DataText>
+          )}
+          {!below1080 && (
+            <DataText area="fees" justifyContent="center">
+              {formatDataText(fees, pairData.oneDayVolumeUSD)}
+            </DataText>
+          )}
+          {!below1080 && (
+            <DataText area="apy" justifyContent="center">
               {formatDataText(apy, pairData.oneDayVolumeUSD, pairData.oneDayVolumeUSD === 0)}
             </DataText>
           )}
@@ -294,7 +304,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10, useTracked = fals
         <Flex alignItems="center" justifyContent="flex-start">
           <TableHeaderBox area="name">Name</TableHeaderBox>
         </Flex>
-        <Flex alignItems="center" justifyContent="flex-start">
+        <Flex alignItems="center" justifyContent="center">
           <ClickableText
             area="liq"
             onClick={(e) => {
@@ -307,7 +317,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10, useTracked = fals
             </TableHeaderBox>
           </ClickableText>
         </Flex>
-        <Flex alignItems="center" justifyContent={below600 ? 'end' : 'flex-start'}>
+        <Flex alignItems="center" justifyContent="center">
           <ClickableText
             area="vol"
             onClick={(e) => {
@@ -322,7 +332,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10, useTracked = fals
           </ClickableText>
         </Flex>
         {!below1080 && (
-          <Flex alignItems="center" justifyContent="flex-start">
+          <Flex alignItems="center" justifyContent="center">
             <ClickableText
               area="volWeek"
               onClick={(e) => {
@@ -337,7 +347,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10, useTracked = fals
           </Flex>
         )}
         {!below1080 && (
-          <Flex alignItems="center" justifyContent="flex-start">
+          <Flex alignItems="center" justifyContent="center">
             <ClickableText
               area="fees"
               onClick={(e) => {
@@ -352,7 +362,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10, useTracked = fals
           </Flex>
         )}
         {!below1080 && (
-          <Flex alignItems="center" justifyContent="flex-start">
+          <Flex alignItems="center" justifyContent="center">
             <ClickableText
               area="apy"
               onClick={(e) => {
