@@ -23,7 +23,7 @@ import weekOfYear from 'dayjs/plugin/weekOfYear'
 import { useAllPairData } from 'contexts/PairData'
 import { useTokenChartDataCombined } from 'contexts/TokenData'
 
-import { FTHM_FXD_PAIR_ID, WXDC_FXD_PAIR_ID, WXDC_USDT_PAIR_ID } from 'constants/index'
+import { FTHM_WXDC_PAIR_ID, WXDC_FXD_PAIR_ID, WXDC_USDT_PAIR_ID } from 'constants/index'
 import { BigNumber } from 'bignumber.js'
 
 const UPDATE = 'UPDATE'
@@ -769,20 +769,20 @@ export function useFxdPrice() {
 
 export function useFTHMPrice() {
   const allPairs = useAllPairData()
-  const fxdPriceData = useFxdPrice()
+  const [ethPrice] = useEthPrice()
 
   const fthmPrice = useMemo(() => {
     if (Object.keys(allPairs).length) {
       const findPair = Object.values(allPairs).find((pairItem) => {
-        return pairItem.id === FTHM_FXD_PAIR_ID
+        return pairItem.id === FTHM_WXDC_PAIR_ID
       })
 
       const price = findPair.token0.symbol === 'FTHM' ? findPair.token1Price : findPair.token0Price
-      return price * fxdPriceData.fxdPrice
+      return price * ethPrice
     } else {
       return 0
     }
-  }, [allPairs, fxdPriceData])
+  }, [allPairs, ethPrice])
 
   return {
     fthmPrice,

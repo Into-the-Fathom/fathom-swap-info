@@ -57,4 +57,4 @@ export const TRACKED_OVERRIDES_TOKENS = ['0x000000000000000000000000000000000000
 
 export const WXDC_FXD_PAIR_ID = '0x183477253b3773d0ca1d798c83e7e7572c68375b'
 export const WXDC_USDT_PAIR_ID = '0xfcabba53dac7b6b19714c7d741a46f6dad260107'
-export const FTHM_FXD_PAIR_ID = '0x4821cdc4b01bfee77c6ab8abc9348c4351600e26' // TODO: update after FTHM-FXD pair is created
+export const FTHM_WXDC_PAIR_ID = '0xc923bc7eef90c9236ba356d53cd48db3de8b92c3' // TODO: update after FTHM-FXD pair is created
