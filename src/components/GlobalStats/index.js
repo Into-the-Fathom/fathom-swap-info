@@ -63,6 +63,7 @@ const ImgWrapper = styled(Box)`
   padding: 4px;
   display: flex;
   justify-content: center;
+  align-items: center;
 `
 
 const Title = styled.div`
@@ -108,7 +109,7 @@ export default function GlobalStats() {
             </GridStatsItem> */}
             <GridStatsItem>
               <ImgWrapper>
-                <img src={getTokenLogoURL('WXDC')} alt="xdc" width={32} />
+                <img src={getTokenLogoURL('WXDC')} alt="xdc" width={26} height={26} />
               </ImgWrapper>
               <TextWrapper>
                 <Title>XDC Price</Title>
@@ -117,7 +118,7 @@ export default function GlobalStats() {
             </GridStatsItem>
             <GridStatsItem>
               <ImgWrapper>
-                <img src={getTokenLogoURL('FXD')} alt="fxd" width={32} />
+                <img src={getTokenLogoURL('FXD')} alt="fxd" width={26} height={26} />
               </ImgWrapper>
               <TextWrapper>
                 <Title>FXD Price</Title>
