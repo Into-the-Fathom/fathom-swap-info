@@ -31,6 +31,7 @@ import { useListedTokens } from 'contexts/Application'
 import HoverText from 'components/HoverText'
 import { UNTRACKED_COPY, PAIR_BLACKLIST, BLOCKED_WARNINGS } from 'constants/index'
 import { TableHeaderBox } from 'components/Row'
+import LocalLoader from 'components/LocalLoader'
 
 const DashboardWrapper = styled.div`
   width: 100%;
@@ -143,7 +144,24 @@ function PairPage({ pairAddress, history }) {
     document.querySelector('body').scrollTo(0, 0)
   }, [])
 
+  const [dismissed, markAsDismissed] = usePathDismissed(history.location.pathname)
+
+  useEffect(() => {
+    window.scrollTo({
+      behavior: 'smooth',
+      top: 0,
+    })
+  }, [])
+
+  const [savedPairs, addPair] = useSavedPairs()
+
+  const listedTokens = useListedTokens()
+
   const transactions = usePairTransactions(pairAddress)
+
+  const below1080 = useMedia('(max-width: 1080px)')
+  const below900 = useMedia('(max-width: 900px)')
+  const below600 = useMedia('(max-width: 600px)')
 
   const formattedLiquidity = reserveUSD ? formattedNum(reserveUSD, true) : formattedNum(trackedReserveUSD, true)
   const usingUntrackedLiquidity = !trackedReserveUSD && !!reserveUSD
@@ -172,11 +190,18 @@ function PairPage({ pairAddress, history }) {
   let token1USD =
     token1?.derivedETH && ethPrice ? formattedNum(parseFloat(token1.derivedETH) * parseFloat(ethPrice), true) : ''
 
+  /**
+   * If data still not fetched.
+   */
+  if (!token0 || !token1) {
+    return <LocalLoader fill="true" />
+  }
+
   const symbols = ['FXD', 'xUSDT', 'USDTx']
-  if (symbols.includes(token0.symbol) && symbols.includes(token1.symbol)) {
-    if (token0.symbol === 'FXD') {
+  if (symbols.includes(token0?.symbol) && symbols.includes(token1?.symbol)) {
+    if (token0?.symbol === 'FXD') {
       token0USD = formattedNum(token1Price, true)
-    } else if (token1.symbol === 'FXD') {
+    } else if (token1?.symbol === 'FXD') {
       token1USD = formattedNum(token0Price, true)
     }
   }
@@ -188,23 +213,6 @@ function PairPage({ pairAddress, history }) {
   // formatted symbols for overflow
   const formattedSymbol0 = token0?.symbol.length > 6 ? token0?.symbol.slice(0, 5) + '...' : token0?.symbol
   const formattedSymbol1 = token1?.symbol.length > 6 ? token1?.symbol.slice(0, 5) + '...' : token1?.symbol
-
-  const below1080 = useMedia('(max-width: 1080px)')
-  const below900 = useMedia('(max-width: 900px)')
-  const below600 = useMedia('(max-width: 600px)')
-
-  const [dismissed, markAsDismissed] = usePathDismissed(history.location.pathname)
-
-  useEffect(() => {
-    window.scrollTo({
-      behavior: 'smooth',
-      top: 0,
-    })
-  }, [])
-
-  const [savedPairs, addPair] = useSavedPairs()
-
-  const listedTokens = useListedTokens()
 
   if (PAIR_BLACKLIST.includes(pairAddress)) {
     return (

@@ -756,7 +756,7 @@ export function useFxdPrice() {
       const wxdcUsdtPair = Object.values(allPairs).find((pairItem) => {
         return pairItem.id === WXDC_USDT_PAIR_ID
       })
-      return BigNumber(wxdcFxdPair.token0Price).dividedBy(wxdcUsdtPair.token1Price).toNumber()
+      return wxdcFxdPair ? BigNumber(wxdcFxdPair.token0Price).dividedBy(wxdcUsdtPair.token1Price).toNumber() : 0
     } else {
       return 0
     }
